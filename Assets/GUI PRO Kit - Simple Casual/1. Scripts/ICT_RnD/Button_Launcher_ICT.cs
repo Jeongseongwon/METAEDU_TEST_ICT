@@ -14,15 +14,12 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     private GameObject Launcher;
     public int Mode = -1;
     public int Contents = -1;
-    public bool Back = false;
+    public int Back = -1;
     public bool Setting = false;
     public bool Close = false;
-    public bool Home_student = false;
-    public bool Home_teacher = false;
+    public bool Home = false;
     public int Teacher_UI = -1;
-    public int Student_UI = -1;
-    public bool BackToTeacher = false;
-    public bool BackToStudent = false;
+    public bool START = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,16 +28,14 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-       
-        if (Mode != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Modes(Mode);
+       //여기 전체 기능 다시 한 번 다듬기
         
         if (Contents != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Contents(Contents);
 
-
-        if (Back)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToMode();
+        //Back 기능 수정 필요
+        if (Back != -1)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToHome();
 
         if (Setting)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
@@ -48,23 +43,15 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (Close)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Close();
 
-        if (Home_student)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Home_Student();
+        if (Home)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
 
-        if (Home_teacher)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Home_Teacher();
+        if (START)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
 
         if (Teacher_UI != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Teacher_UI(Teacher_UI);
 
-        if (Student_UI != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Student_UI(Student_UI);
-
-        if (BackToTeacher)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToTeacher();
-
-        if (BackToStudent)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToStudent();
         //우선은 추후에 개발될 UI들도 여기서 공통적으로 구현하는걸로
     }
 

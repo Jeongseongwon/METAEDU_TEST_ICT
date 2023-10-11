@@ -7,14 +7,12 @@ using UnityEngine.SceneManagement;
 public class GameLauncher_ICT : MonoBehaviour
 {
     public GameObject Loading;
-    public GameObject Mode;
-    public GameObject Lobby_teacher;
-    public GameObject Lobby_student;
+    public GameObject Home;
     public GameObject Setting;
     public GameObject Tool;
-    public GameObject Monitoring;
     public GameObject Result;
-    public GameObject Contents_Student_normal;
+    public GameObject Monitoring_C1;
+    public GameObject Monitoring_C2;
 
     // Start is called before the first frame update
     [SerializeField]
@@ -99,55 +97,32 @@ public class GameLauncher_ICT : MonoBehaviour
 
                 Loading.SetActive(false);
                 //Mode.SetActive(true);
-                Lobby_teacher.SetActive(true);
+                Home.SetActive(true);
             }
         }
     }
 
     public void Button_Gamestart()
     {
-        //Main.SetActive(false);
-        //Menu.SetActive(true);
-    }
-    public void Button_Modes(int contentindex)
-    {
-
-        Debug.Log("MODE Check"+ contentindex);
-        Mode.SetActive(false);
-        if (contentindex == 0)
-        {
-            Lobby_teacher.SetActive(true);
-        }
-        else if(contentindex == 1)
-        {
-            Lobby_student.SetActive(true);
-        }
+        //이전 화면 비활성화
+        Monitoring_C1.SetActive(true);
     }
     public void Button_Contents(int contentname)
     {
         SceneManager.LoadSceneAsync(1);
     }
 
-    public void Button_Back_ToMode()
+    public void Button_Back_ToHome()
     {
-        Lobby_teacher.SetActive(false);
-        Lobby_student.SetActive(false);
-        Mode.SetActive(true);
+        //이전 화면 비활성화
+        Home.SetActive(true);
     }
 
-    public void Button_Back_ToTeacher()
+    public void Button_Back_ToTool()
     {
-        Lobby_teacher.SetActive(true);
-        Tool.SetActive(false);
-        Monitoring.SetActive(false);
-        Result.SetActive(false);
+        //이전 화면 비활성화
+        Tool.SetActive(true);
     }
-    public void Button_Back_ToStudent()
-    {
-        Lobby_student.SetActive(true);
-        Contents_Student_normal.SetActive(false);
-    }
-
     public void Button_Setting()
     {
         Setting.SetActive(true);
@@ -160,18 +135,17 @@ public class GameLauncher_ICT : MonoBehaviour
         //일시정지 해제 기능 추가
     }
 
-    public void Button_Home_Teacher()
+    public void Button_Home()
     {
-        Lobby_teacher.SetActive(true);
-        Tool.SetActive(false);
-        Monitoring.SetActive(false);
-        Result.SetActive(false);
-        //지금 UI 비활성화 하는 기능 추가 필요
+        //이전 화면 비활성화
+        Home.SetActive(true);
+    }
+    public void Button_START()
+    {
+        //게임시작
     }
     public void Button_Home_Student()
     {
-        Lobby_student.SetActive(true);
-        Contents_Student_normal.SetActive(false);
         //이전 꺼 비활성화하는 기능 추가 필요
 
         //지금 활성화 되어있는 오브젝트를 찾고
@@ -179,31 +153,18 @@ public class GameLauncher_ICT : MonoBehaviour
     }
     public void Button_Teacher_UI(int UIindex)
     {
-        Lobby_teacher.SetActive(false);
+        Home.SetActive(false);
         if (UIindex == 0)
         {
             Tool.SetActive(true);
         }
         else if (UIindex == 1)
         {
-            Monitoring.SetActive(true);
+            Monitoring_C1.SetActive(true);
         }
         else if (UIindex == 2)
         {
             Result.SetActive(true);
-        }
-    }
-    public void Button_Student_UI(int UIindex)
-    {
-        Debug.Log("Check");
-        Lobby_student.SetActive(false);
-        if (UIindex == 0)
-        {
-            Contents_Student_normal.SetActive(true);
-        }
-        else if (UIindex == 1)
-        {
-            Monitoring.SetActive(true);
         }
     }
 }
