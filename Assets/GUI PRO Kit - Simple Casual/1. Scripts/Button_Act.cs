@@ -33,8 +33,8 @@ public class Button_Act : MonoBehaviour, IPointerClickHandler
         if (Close)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Close();
 
-        if (Back)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToMode();
+        //if (Back)
+            //Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToMode();
 
         //함수 실행
     }

@@ -34,8 +34,16 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Button_Contents(Contents);
 
         //Back 기능 수정 필요
-        if (Back != -1)
+        //1일 때 홈
+        //2일 때 저작도구
+        if (Back == 1)
+        {
             Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToHome();
+        }
+        else if (Back == 2)
+        {
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToTool();
+        }
 
         if (Setting)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
@@ -47,7 +55,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
 
         if (START)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
+            Launcher.GetComponent<GameLauncher_ICT>().Button_START();
 
         if (Teacher_UI != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Teacher_UI(Teacher_UI);

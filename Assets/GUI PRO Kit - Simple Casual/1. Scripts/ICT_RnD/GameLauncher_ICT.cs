@@ -115,12 +115,18 @@ public class GameLauncher_ICT : MonoBehaviour
     public void Button_Back_ToHome()
     {
         //이전 화면 비활성화
+        Tool.SetActive(false);
+        Result.SetActive(false);
+
         Home.SetActive(true);
     }
 
     public void Button_Back_ToTool()
     {
         //이전 화면 비활성화
+        Monitoring_C1.SetActive(false);
+        Monitoring_C2.SetActive(false);
+
         Tool.SetActive(true);
     }
     public void Button_Setting()
@@ -138,18 +144,20 @@ public class GameLauncher_ICT : MonoBehaviour
     public void Button_Home()
     {
         //이전 화면 비활성화
+        Tool.SetActive(false);
+        Result.SetActive(false);
+        Monitoring_C1.SetActive(false);
+        Monitoring_C2.SetActive(false);
+
         Home.SetActive(true);
     }
     public void Button_START()
     {
-        //게임시작
-    }
-    public void Button_Home_Student()
-    {
-        //이전 꺼 비활성화하는 기능 추가 필요
+        //이전 화면 비활성화
+        Tool.SetActive(false);
 
-        //지금 활성화 되어있는 오브젝트를 찾고
-        //그 오브젝트 비활성화 하면 되잖아
+        //게임시작
+        Monitoring_C1.SetActive(true);
     }
     public void Button_Teacher_UI(int UIindex)
     {
