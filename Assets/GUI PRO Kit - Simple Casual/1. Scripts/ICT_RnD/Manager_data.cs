@@ -9,6 +9,7 @@ using UnityEditor.SceneManagement;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 using static System.Net.Mime.MediaTypeNames;
 using static UnityEditor.Progress;
 using Application = UnityEngine.Application;
@@ -38,6 +39,8 @@ public class Manager_data : MonoBehaviour
 
     public GameObject Prefab_SD;
     public Transform Panel_Left_Content;
+    public Slider ProgressBar_OX;
+    public Slider ProgressBar_SW;
 
     public string File_name;    //해당 파일 불러오기
     public static List<DialogueData> itemList;
@@ -160,6 +163,10 @@ public class Manager_data : MonoBehaviour
         test_Time.text = Item.Date;
         text_Data_1.text = Item.Data_1;
         text_Data_2.text = Item.Data_2;
+
+        ProgressBar_OX.value = Int32.Parse(Item.Data_1) * 0.1f;
+        ProgressBar_SW.value = Int32.Parse(Item.Data_2) * 0.1f;
+        //슬라이더 값 변경
     }
     public void Setting_ButtonSD()
     {
