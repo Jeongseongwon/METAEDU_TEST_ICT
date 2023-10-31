@@ -1,34 +1,52 @@
-﻿using System.Collections;
+﻿
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
+using TMPro;
+using UnityEditor.SceneManagement;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
+using static System.Net.Mime.MediaTypeNames;
+using static UnityEditor.Progress;
+using Application = UnityEngine.Application;
+
+// 각 column에 해당하는 데이터 작성
+public class DialogueData
+{
+    [XmlAttribute]
+    public string ID;
+    [XmlAttribute]
+    public string Name;
+    [XmlAttribute]
+    public string Birth_date;
+    [XmlAttribute]
+    public string Date;
+    [XmlAttribute]
+    public string Session;
+    [XmlAttribute]
+    public string Data_1;
+    [XmlAttribute]
+    public string Data_2;
+}
 
 public class Manager_data : MonoBehaviour
 {
     public static Manager_data instance = null;
-    //어떤 데이터 저장하면 좋을지?
-    //데이터 저장 방법?
 
-    //데이터 갯수에 맞춰서 버튼 생성
-    //버튼 클릭하면 해당하는 데이터로 화면 변경
-    //순서, 정오반응 데이터, 강약반응 데이터
-
-
-    public Text text_1;           //스크립트 나타는 박스
-    public Text text_2;           //스크립트 나타는 박스
-    public Text text_3;           //스크립트 나타는 박스
+    public GameObject Prefab_SD;
+    public Transform Panel_Left_Content;
 
     public string File_name;    //해당 파일 불러오기
+    public static List<DialogueData> itemList;
 
-    public List<string> textList = new List<string>();
-
-
-    private int Max_num_script = 0;
-
-    private string Student_ID;    //학생 아이디
-    private string Data_1;    //정오반응
-    private string Data_2;    //강약반응
+    public UnityEngine.UI.Text test_Name;
+    public UnityEngine.UI.Text text_ID;
+    public UnityEngine.UI.Text test_Time;
+    public UnityEngine.UI.Text text_Data_1;
+    public UnityEngine.UI.Text text_Data_2;
 
     // Start is called before the first frame update
     private void Awake()
@@ -49,9 +67,112 @@ public class Manager_data : MonoBehaviour
     {
         if (File_name != null)
         {
-            Read_txt();
+            //Read_txt();
+
+            Debug.Log(Application.dataPath);
+            itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
+            for (int i = 0; i < itemList.Count; ++i)
+            {
+                DialogueData item = itemList[i];
+                Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
+                    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
+
+                GameObject myInstance = Instantiate(Prefab_SD, Panel_Left_Content);
+                myInstance.GetComponent<UI_button_SD>().Result_num = i;
+                myInstance.GetComponent<UI_button_SD>().Student = item.Name;
+            }
+            itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
+            Write(itemList,Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
+
+            itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
+            for (int i = 0; i < itemList.Count; ++i)
+            {
+                DialogueData item = itemList[i];
+                Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
+                    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
+            }
         }
     }
+    
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+
+    public void Write(List<DialogueData> DataList, string filePath)
+    {
+        XmlDocument Document = new XmlDocument();
+        XmlElement ItemListElement = Document.CreateElement("Test_data");
+        Document.AppendChild(ItemListElement);
+
+        foreach (DialogueData data in DataList)
+        {
+            XmlElement ItemElement = Document.CreateElement("Test_data");
+            ItemElement.SetAttribute("ID", data.ID);
+            ItemElement.SetAttribute("Name", data.Name);
+            ItemElement.SetAttribute("Birthdate", data.Birth_date);
+            ItemElement.SetAttribute("Date", data.Date);
+            ItemElement.SetAttribute("Session", data.Session);
+            ItemElement.SetAttribute("Data_1", data.Data_1);
+            ItemElement.SetAttribute("Data_2", data.Data_2);
+            ItemListElement.AppendChild(ItemElement);
+        }
+        Document.Save(filePath);
+    }
+
+    public List<DialogueData> Read(string filePath)
+    {
+        XmlDocument Document = new XmlDocument();
+        Document.Load(filePath);
+        XmlElement ItemListElement = Document["Test_data"];
+        List<DialogueData> ItemList = new List<DialogueData>();
+
+        foreach (XmlElement ItemElement in ItemListElement.ChildNodes)
+        {
+            DialogueData Item = new DialogueData();
+            Item.ID = ItemElement.GetAttribute("ID");
+            Item.Name = ItemElement.GetAttribute("Name");
+            Item.Birth_date = ItemElement.GetAttribute("Birthdate");
+            Item.Date = ItemElement.GetAttribute("Date");
+            Item.Session = ItemElement.GetAttribute("Session");
+            Item.Data_1 = ItemElement.GetAttribute("Data_1");
+            Item.Data_2 = ItemElement.GetAttribute("Data_2");
+
+
+
+            ItemList.Add(Item);
+
+
+            //인스턴시 에이트 해서 버튼 추가
+            //해당 버튼에 데이터 추가하기
+        }
+        return ItemList;
+    }
+
+    public void Change_result(int num)
+    {
+        DialogueData Item = itemList[num];
+
+        test_Name.text = Item.Name;
+        text_ID.text = Item.ID;
+        test_Time.text = Item.Date;
+        text_Data_1.text = Item.Data_1;
+        text_Data_2.text = Item.Data_2;
+    }
+    public void Setting_ButtonSD()
+    {
+
+    }
+
+    public DialogueData Get_Listdata(int num)
+    {
+        return itemList[num];
+    }
+
+    //텍스트 기반 데이터 동기화
+    /*
     void Read_txt()
     {
         //TextAsset Script_file = Resources.Load(Scene_number) as TextAsset;
@@ -78,11 +199,6 @@ public class Manager_data : MonoBehaviour
         }
         //Debug.Log(Max_num_script);
     }
-
-    //버튼을 클릭하면
-    //해당하는 리스트에 저장되어있는 스트링 꺼내서
-    //꺼내서 넣기
-
     public void Change_result(int num)
     {
         Split_txt(textList[num]);
@@ -104,10 +220,5 @@ public class Manager_data : MonoBehaviour
         //Debug.Log(Data_1);
         //Debug.Log(Data_2);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    */
 }
