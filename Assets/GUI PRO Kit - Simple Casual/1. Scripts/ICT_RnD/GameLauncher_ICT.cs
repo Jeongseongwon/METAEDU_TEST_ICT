@@ -15,6 +15,7 @@ public class GameLauncher_ICT : MonoBehaviour
     public GameObject Monitoring_C2;
 
     // Start is called before the first frame update
+    [Header("LOADING PAGE COMPONENT")]
     [SerializeField]
     public Slider progressBar;
     public Text loadingPercent;

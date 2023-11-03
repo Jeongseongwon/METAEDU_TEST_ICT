@@ -37,13 +37,14 @@ public class Manager_data : MonoBehaviour
 {
     public static Manager_data instance = null;
 
+    public string File_name;    //해당 파일 불러오기
+    public static List<DialogueData> itemList;
+
+    [Header ("DATA RESULT PAGE COPONENT")]
     public GameObject Prefab_SD;
     public Transform Panel_Left_Content;
     public Slider ProgressBar_OX;
     public Slider ProgressBar_SW;
-
-    public string File_name;    //해당 파일 불러오기
-    public static List<DialogueData> itemList;
 
     public UnityEngine.UI.Text test_Name;
     public UnityEngine.UI.Text text_ID;

@@ -3,10 +3,10 @@
   <Test_data ID="2" Name="김삼사" Birthdate="2023.10.32" Date="2023.01.02" Session="1" Data_1="50" Data_2="35" />
   <Test_data ID="3" Name="김오육" Birthdate="2023.10.33" Date="2023.01.03" Session="1" Data_1="20" Data_2="85" />
   <Test_data ID="4" Name="김칠팔" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="10" Data_2="55" />
-  <Test_data ID="5" Name="김구십" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="90" Data_2="90" />
+  <Test_data ID="1" Name="김일이" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="90" Data_2="90" />
   <Test_data ID="6" Name="최일이" Birthdate="2023.10.32" Date="2023.01.02" Session="1" Data_1="50" Data_2="35" />
-  <Test_data ID="7" Name="최삼사" Birthdate="2023.10.33" Date="2023.01.03" Session="1" Data_1="20" Data_2="85" />
-  <Test_data ID="8" Name="최오육" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="10" Data_2="55" />
+  <Test_data ID="1" Name="김일이" Birthdate="2023.10.33" Date="2023.01.03" Session="1" Data_1="20" Data_2="85" />
+  <Test_data ID="2" Name="김삼사" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="10" Data_2="55" />
   <Test_data ID="9" Name="최칠팔" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="90" Data_2="90" />
-  <Test_data ID="10" Name="최구십" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="90" Data_2="90" />
+  <Test_data ID="2" Name="김삼사" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="90" Data_2="90" />
 </Test_data>
