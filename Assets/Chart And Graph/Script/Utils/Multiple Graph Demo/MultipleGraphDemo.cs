@@ -3,12 +3,19 @@ using UnityEngine;
 using System.Collections;
 using ChartAndGraph;
 using System.Collections.Generic;
+using System;
 
 public class MultipleGraphDemo : MonoBehaviour
 {
     public GraphChart Graph;
-  //  public GraphAnimation Animation;
+    //  public GraphAnimation Animation;
     public int TotalPoints = 5;
+
+    private float x_1;
+    private float x_2;
+
+    private float y_1;
+    private float y_2;
 
     void Start()
     {
@@ -16,8 +23,8 @@ public class MultipleGraphDemo : MonoBehaviour
             return;
 
         List<DoubleVector2> animationPoints = new List<DoubleVector2>();
-        float x = 0f;
-        float y = 0f;
+        x_1 = 1;
+        x_2 = 1;
         Graph.HorizontalValueToStringMap.Add(10, "Ten");
         Graph.VerticalValueToStringMap.Add(100, "$$");
         Graph.DataSource.StartBatch(); // calling StartBatch allows changing the graph data without redrawing the graph for every change
@@ -56,10 +63,51 @@ public class MultipleGraphDemo : MonoBehaviour
         //}
 
         Graph.DataSource.EndBatch(); // finally we call EndBatch , this will cause the GraphChart to redraw itself
-        //if (Animation != null)
-        //{
-            //if (Graph.DataSource.HasCategory("Player 2"))
-            //    Animation.Animate("Player 2", animationPoints, 6f);
-        //}
+                                     //if (Animation != null)
+                                     //{
+                                     //if (Graph.DataSource.HasCategory("Player 2"))
+                                     //    Animation.Animate("Player 2", animationPoints, 6f);
+                                     //}
     }
+
+    //여기서 그래프가 과연 주기적으로 변할 수 있는지 체크가 필요함
+    public void Add_Data(Stack<string> result_1, Stack<string> result_2)
+    {
+        x_1 = 1;
+        x_2 = 1;
+        Graph.DataSource.StartBatch();
+        Graph.DataSource.ClearCategory("SW data");
+        Graph.DataSource.ClearCategory("OX data");
+
+
+        Debug.Log("Number of Each data" + result_1.Count + result_2.Count);
+        for (int i = 0; i < 3; i++)
+        {
+            y_1 = Convert.ToInt32(result_1.Pop());
+            y_2 = Convert.ToInt32(result_2.Pop());
+            //Debug.Log("Number of Each data" + y_1 + y_2);
+            Graph.DataSource.AddPointToCategory("OX data", x_1, y_1);
+            Graph.DataSource.AddPointToCategory("SW data", x_2, y_2);
+            x_1 += 4f;
+            x_2 += 4f;
+        }
+        Graph.DataSource.EndBatch();
+    }
+    //public void Add_Data_1()
+    //{
+    //    Graph.DataSource.StartBatch(); // calling StartBatch allows changing the graph data without redrawing the graph for every change
+    //    Graph.DataSource.ClearCategory("SW data"); // clear the "Player 2" category. this category is defined using the GraphChart inspector
+    //    Graph.DataSource.ClearCategory("OX data"); // clear the "Player 2" category. this category is defined using the GraphChart inspector
+
+    //    Graph.DataSource.AddPointToCategory("OX data", 1, 0); // each time we call AddPointToCategory 
+    //    Graph.DataSource.AddPointToCategory("SW data", 1, 50); // each time we call AddPointToCategory 
+
+    //    Graph.DataSource.AddPointToCategory("OX data", 4.5, 20); // each time we call AddPointToCategory 
+    //    Graph.DataSource.AddPointToCategory("SW data", 4.5, 10); // each time we call AddPointToCategory 
+
+    //    Graph.DataSource.AddPointToCategory("OX data", 9, 35); // each time we call AddPointToCategory 
+    //    Graph.DataSource.AddPointToCategory("SW data", 9, 100); // each time we call AddPointToCategory 
+
+    //    Graph.DataSource.EndBatch(); // finally we call EndBatch , this will cause the GraphChart to redraw itself
+    //}
 }

@@ -1,17 +1,11 @@
 ﻿
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
-using TMPro;
-using UnityEditor.SceneManagement;
-using UnityEditorInternal.Profiling.Memory.Experimental;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Windows;
-using static System.Net.Mime.MediaTypeNames;
-using static UnityEditor.Progress;
 using Application = UnityEngine.Application;
 
 // 각 column에 해당하는 데이터 작성
@@ -40,7 +34,8 @@ public class Manager_data : MonoBehaviour
     public string File_name;    //해당 파일 불러오기
     public static List<DialogueData> itemList;
 
-    [Header ("DATA RESULT PAGE COPONENT")]
+    [Header ("DATA RESULT PAGE COMPONENT")]
+    public GameObject Graph_chart;
     public GameObject Prefab_SD;
     public Transform Panel_Left_Content;
     public Slider ProgressBar_OX;
@@ -51,6 +46,17 @@ public class Manager_data : MonoBehaviour
     public UnityEngine.UI.Text test_Time;
     public UnityEngine.UI.Text text_Data_1;
     public UnityEngine.UI.Text text_Data_2;
+    public UnityEngine.UI.Text text_Date_0;
+    public UnityEngine.UI.Text text_Date_1;
+    public UnityEngine.UI.Text text_Date_2;
+    public GameObject text_None;
+
+    //
+    private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
+    private Stack<string> Recent_result_1 = new Stack<string>();
+    private Stack<string> Recent_result_2 = new Stack<string>();
+    private int Num_Recent_data;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -72,29 +78,29 @@ public class Manager_data : MonoBehaviour
         if (File_name != null)
         {
             //Read_txt();
-
+            Recent_data.Clear();
             Debug.Log(Application.dataPath);
             itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
             for (int i = 0; i < itemList.Count; ++i)
             {
                 DialogueData item = itemList[i];
-                Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-                    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
+                //Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
+                //    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
 
                 GameObject myInstance = Instantiate(Prefab_SD, Panel_Left_Content);
                 myInstance.GetComponent<UI_button_SD>().Result_num = i;
                 myInstance.GetComponent<UI_button_SD>().Student = item.Name;
             }
-            itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
-            Write(itemList,Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
+            //itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
+            //Write(itemList,Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
 
-            itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
-            for (int i = 0; i < itemList.Count; ++i)
-            {
-                DialogueData item = itemList[i];
-                Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-                    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
-            }
+            //itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
+            //for (int i = 0; i < itemList.Count; ++i)
+            //{
+            //    DialogueData item = itemList[i];
+            //    Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
+            //        i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
+            //}
         }
     }
     
@@ -126,6 +132,7 @@ public class Manager_data : MonoBehaviour
         Document.Save(filePath);
     }
 
+
     public List<DialogueData> Read(string filePath)
     {
         XmlDocument Document = new XmlDocument();
@@ -144,19 +151,17 @@ public class Manager_data : MonoBehaviour
             Item.Data_1 = ItemElement.GetAttribute("Data_1");
             Item.Data_2 = ItemElement.GetAttribute("Data_2");
 
-
-
             ItemList.Add(Item);
-
-
-            //인스턴시 에이트 해서 버튼 추가
-            //해당 버튼에 데이터 추가하기
         }
         return ItemList;
     }
 
     public void Change_result(int num)
     {
+        Recent_data.Clear();
+        Recent_result_1.Clear();
+        Recent_result_2.Clear();
+
         DialogueData Item = itemList[num];
 
         test_Name.text = Item.Name;
@@ -165,9 +170,60 @@ public class Manager_data : MonoBehaviour
         text_Data_1.text = Item.Data_1;
         text_Data_2.text = Item.Data_2;
 
+        //최근 플레이 데이터
         ProgressBar_OX.value = Int32.Parse(Item.Data_1) * 0.1f;
         ProgressBar_SW.value = Int32.Parse(Item.Data_2) * 0.1f;
-        //슬라이더 값 변경
+
+        //최근 3회차 데이터 추출
+        foreach (DialogueData data in itemList)
+        {
+            if (data.ID == Item.ID)
+            {
+                //결과 데이터 1,2, 시간 데이터 추출
+                Recent_data.Push(data);
+                //Debug.Log(data);
+                //Debug.Log(Recent_data);
+                //Debug.Log("Same data" + data.Date + data.Data_1 + data.Data_2);
+            }
+        }
+
+        //1,2 -> 데이터 없음
+        //3 -> 보여주기
+        if (Recent_data.Count > 2)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                //가장 최근 데이터 순
+                Item = Recent_data.Pop();
+                Recent_result_1.Push(Item.Data_1);
+                Recent_result_2.Push(Item.Data_2);
+                //각각 데이터1,2 새로운 스택에 저장 및 x축 변경
+                if (i == 0)
+                {
+                    text_Date_2.text = Item.Date;
+                }
+                else if (i == 1)
+                {
+                    text_Date_1.text = Item.Date;
+                }
+                else if (i == 2)
+                {
+                    //가장 오래된 데이터
+                    text_Date_0.text = Item.Date;
+                }
+            }
+
+            //Debug.Log("Number of Each data" + Recent_result_1.Count + Recent_result_2.Count);
+            //값 변경 함수 호출
+            Graph_chart.GetComponent<MultipleGraphDemo>().Add_Data(Recent_result_1, Recent_result_2);
+            text_None.SetActive(false);
+            Graph_chart.SetActive(true);
+        }
+        else
+        {
+            Graph_chart.SetActive(false);
+            text_None.SetActive(true);
+        }
     }
     public void Setting_ButtonSD()
     {
