@@ -12,14 +12,18 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
      **/
 
     private GameObject Launcher;
-    public int Mode = -1;
-    public int Contents = -1;
-    public int Back = -1;
+    public bool Message_Contents = false;
+    public bool Tool = false;
+    public bool Result = false;
+    public bool Back = false;
+    public bool Back_ToContent = false;
+    public bool Save = false;
     public bool Setting = false;
     public bool Close = false;
     public bool Home = false;
-    public int Teacher_UI = -1;
     public bool START = false;
+    public int Num_contents = -1;
+    //Teacher_UI 번호순서대로 콘텐츠 실행 
 
     // Start is called before the first frame update
     void Start()
@@ -28,22 +32,14 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-       //여기 전체 기능 다시 한 번 다듬기
-        
-        if (Contents != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Contents(Contents);
+        if (Message_Contents)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents();
 
-        //Back 기능 수정 필요
-        //1일 때 홈
-        //2일 때 저작도구
-        if (Back == 1)
-        {
+        if (Back)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToHome();
-        }
-        else if (Back == 2)
-        {
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToTool();
-        }
+
+        if (Back_ToContent)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToContent();
 
         if (Setting)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
@@ -57,9 +53,17 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (START)
             Launcher.GetComponent<GameLauncher_ICT>().Button_START();
 
-        if (Teacher_UI != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Teacher_UI(Teacher_UI);
+        if (Num_contents != -1)
+            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents(Num_contents);
 
+        if (Save)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Save();
+
+        if (Tool)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Tool();
+
+        if (Result)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Result();
         //우선은 추후에 개발될 UI들도 여기서 공통적으로 구현하는걸로
     }
 

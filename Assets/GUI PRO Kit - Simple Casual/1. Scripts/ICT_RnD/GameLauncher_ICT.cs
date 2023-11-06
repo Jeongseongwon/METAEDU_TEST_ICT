@@ -3,16 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameLauncher_ICT : MonoBehaviour
 {
-    public GameObject Loading;
-    public GameObject Home;
-    public GameObject Setting;
-    public GameObject Tool;
-    public GameObject Result;
-    public GameObject Monitoring_C1;
-    public GameObject Monitoring_C2;
+    public GameObject ICT_RnD_UI;
+    private GameObject Loading;
+    private GameObject Home;
+    private GameObject Setting;
+    private GameObject Tool;
+    private GameObject Result;
+    private GameObject Contents;
+    private GameObject Monitoring_C1;
+    private GameObject Monitoring_C2;
+    private GameObject Monitoring_C3;
+    private GameObject Monitoring_C4;
+    public GameObject Message_UI;
+    private GameObject Message_Tool;
+
+
+    //
+    private bool Is_saved = false;
+
 
     // Start is called before the first frame update
     [Header("LOADING PAGE COMPONENT")]
@@ -33,6 +45,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
         loadingCompleted = false;
         nextScene = 0;
+        Init_page();
     }
 
     IEnumerator LoadScene()
@@ -103,43 +116,42 @@ public class GameLauncher_ICT : MonoBehaviour
         }
     }
 
-    public void Button_Gamestart()
+    public void Button_Save()
     {
-        //이전 화면 비활성화
-        Monitoring_C1.SetActive(true);
-    }
-    public void Button_Contents(int contentname)
-    {
-        SceneManager.LoadSceneAsync(1);
-    }
 
+        //상태 저장
+        Is_saved = true;
+
+        Tool.SetActive(false);
+        Home.SetActive(true);
+    }
     public void Button_Back_ToHome()
     {
         //이전 화면 비활성화
         Tool.SetActive(false);
         Result.SetActive(false);
+        Contents.SetActive(false);
 
         Home.SetActive(true);
     }
-
-    public void Button_Back_ToTool()
+    public void Button_Back_ToContent()
     {
         //이전 화면 비활성화
         Monitoring_C1.SetActive(false);
         Monitoring_C2.SetActive(false);
+        Monitoring_C3.SetActive(false);
+        Monitoring_C4.SetActive(false);
 
-        Tool.SetActive(true);
+        Contents.SetActive(true);
     }
     public void Button_Setting()
     {
         Setting.SetActive(true);
-        //일시정지 기능
     }
 
     public void Button_Close()
     {
         Setting.SetActive(false);
-        //일시정지 해제 기능 추가
     }
 
     public void Button_Home()
@@ -147,10 +159,30 @@ public class GameLauncher_ICT : MonoBehaviour
         //이전 화면 비활성화
         Tool.SetActive(false);
         Result.SetActive(false);
+        Contents.SetActive(false);
+
+        //해당 콘텐츠 실행 종료 필요
         Monitoring_C1.SetActive(false);
         Monitoring_C2.SetActive(false);
+        Monitoring_C3.SetActive(false);
+        Monitoring_C4.SetActive(false);
 
         Home.SetActive(true);
+    }
+    public void Button_Tool()
+    {
+        Home.SetActive(false);
+        Tool.SetActive(true);
+    }
+    public void Button_Result()
+    {
+        Home.SetActive(false);
+        Result.SetActive(true);
+    }
+    public void Button_Contents()
+    {
+        Home.SetActive(false);
+        Contents.SetActive(true);
     }
     public void Button_START()
     {
@@ -160,20 +192,69 @@ public class GameLauncher_ICT : MonoBehaviour
         //게임시작
         Monitoring_C1.SetActive(true);
     }
-    public void Button_Teacher_UI(int UIindex)
+
+    public void Run_Contents(int contentname)
     {
-        Home.SetActive(false);
-        if (UIindex == 0)
-        {
-            Tool.SetActive(true);
-        }
-        else if (UIindex == 1)
+        //상태 반환
+        Is_saved = false;
+
+        Contents.SetActive(false);
+
+        //해당 콘텐츠 설정 기능 구현 필요
+        Dummy_setting_content();
+
+        if (contentname == 0)
         {
             Monitoring_C1.SetActive(true);
         }
-        else if (UIindex == 2)
+        else if (contentname == 1)
         {
-            Result.SetActive(true);
+            Monitoring_C2.SetActive(true);
         }
+        else if (contentname == 2)
+        {
+            Monitoring_C3.SetActive(true);
+        }
+        else if (contentname == 3)
+        {
+            Monitoring_C4.SetActive(true);
+        }
+
+        //SceneManager.LoadSceneAsync(1);
+    }
+
+    public void Button_Message_Contents()
+    {
+        if (Is_saved)
+        {
+            Button_Contents();
+        }
+        else
+        {
+            Message_Tool.SetActive(true);
+            //Message_Tool.GetComponent<Message_anim_controller>().Animation_On();
+        }
+
+    }
+
+    void Dummy_setting_content()
+    {
+        //콘텐츠 실행
+    }
+
+    void Init_page()
+    {
+        Loading = ICT_RnD_UI.transform.GetChild(0).gameObject;
+        Home = ICT_RnD_UI.transform.GetChild(1).gameObject;
+        Tool = ICT_RnD_UI.transform.GetChild(2).gameObject;
+        Result = ICT_RnD_UI.transform.GetChild(3).gameObject;
+        Contents = ICT_RnD_UI.transform.GetChild(4).gameObject;
+        Monitoring_C1 = ICT_RnD_UI.transform.GetChild(5).gameObject;
+        Monitoring_C2 = ICT_RnD_UI.transform.GetChild(6).gameObject;
+        Monitoring_C3 = ICT_RnD_UI.transform.GetChild(7).gameObject;
+        Monitoring_C4 = ICT_RnD_UI.transform.GetChild(8).gameObject;
+        Setting = ICT_RnD_UI.transform.GetChild(9).gameObject;
+
+        Message_Tool = Message_UI.transform.GetChild(0).gameObject;
     }
 }

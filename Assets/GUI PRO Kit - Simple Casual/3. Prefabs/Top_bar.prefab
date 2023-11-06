@@ -135,9 +135,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd9d090f618f09429b7b2756602d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mode: -1
-  Contents: -1
+  Contents: 0
+  Tool: 0
+  Result: 0
   Back: 0
+  Save: 0
   Setting: 1
   Close: 0
   Home: 0
@@ -743,9 +745,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd9d090f618f09429b7b2756602d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mode: -1
-  Contents: -1
-  Back: 0
+  Contents: 0
+  Tool: 0
+  Result: 0
+  Back: 1
+  Save: 0
   Setting: 0
   Close: 0
   Home: 0
@@ -966,12 +970,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd9d090f618f09429b7b2756602d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mode: -1
-  Contents: -1
+  Contents: 0
+  Tool: 0
+  Result: 0
   Back: 0
+  Save: 0
   Setting: 0
   Close: 0
-  Home: 0
+  Home: 1
   Teacher_UI: -1
   START: 0
 --- !u!1 &3003170803720793127
