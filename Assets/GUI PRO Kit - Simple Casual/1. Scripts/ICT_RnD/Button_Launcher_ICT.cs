@@ -23,6 +23,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool Home = false;
     public bool START = false;
     public int Num_contents = -1;
+    public int Num_contents_Func = -1;
     //Teacher_UI 번호순서대로 콘텐츠 실행 
 
     // Start is called before the first frame update
@@ -54,6 +55,9 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Button_START();
 
         if (Num_contents != -1)
+            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents(Num_contents);
+
+        if(Num_contents_Func != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Run_Contents(Num_contents);
 
         if (Save)

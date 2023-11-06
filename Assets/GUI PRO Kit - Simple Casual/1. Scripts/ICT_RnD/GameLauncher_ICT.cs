@@ -18,8 +18,11 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Monitoring_C2;
     private GameObject Monitoring_C3;
     private GameObject Monitoring_C4;
+
     public GameObject Message_UI;
     private GameObject Message_Tool;
+    private GameObject Message_Intro;
+    private Message_anim_controller MAC;
 
 
     //
@@ -200,26 +203,91 @@ public class GameLauncher_ICT : MonoBehaviour
 
         Contents.SetActive(false);
 
-        //해당 콘텐츠 설정 기능 구현 필요
+        //해당 콘텐츠 설정 관련 기능 더미
         Dummy_setting_content();
+
+        //Message_Intro setting
+        Message_Intro.SetActive(true);
 
         if (contentname == 0)
         {
             Monitoring_C1.SetActive(true);
+            MAC.Change_text("친구들 꽃벵이에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
         }
         else if (contentname == 1)
         {
             Monitoring_C2.SetActive(true);
+            MAC.Change_text("친구들 당근에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
         }
         else if (contentname == 2)
         {
             Monitoring_C3.SetActive(true);
+            MAC.Change_text("친구들 알로에에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
         }
         else if (contentname == 3)
         {
             Monitoring_C4.SetActive(true);
+            MAC.Change_text("친구들 옥수수에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
         }
+        //SceneManager.LoadSceneAsync(1);
+    }
+    public void Run_Contents_Func(int contentname)
+    {
+        //다른 콘텐츠 내부기능 실행 중인거 비활성화
 
+        //콘텐츠 내부 각 기능에 대한 더미
+        Dummy_setting_content_Func();
+
+
+        //현재 콘텐츠 내부기능관련 UI 실행
+        Message_Intro.SetActive(true);
+
+        if (contentname == 0)
+        {
+            Monitoring_C1.SetActive(true);
+            MAC.Change_text("생김새에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
+        else if (contentname == 1)
+        {
+            Monitoring_C2.SetActive(true);
+            MAC.Change_text("촉감을 느껴볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
+        else if (contentname == 2)
+        {
+            Monitoring_C3.SetActive(true);
+            MAC.Change_text("먹이에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
+        else if (contentname == 3)
+        {
+            Monitoring_C4.SetActive(true);
+            MAC.Change_text("친구들 옥수수에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
+        else if (contentname == 4)
+        {
+            Monitoring_C2.SetActive(true);
+            MAC.Change_text("친구들 당근에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
+        else if (contentname == 5)
+        {
+            Monitoring_C3.SetActive(true);
+            MAC.Change_text("친구들 알로에에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
+        else if (contentname == 6)
+        {
+            Monitoring_C4.SetActive(true);
+            MAC.Change_text("친구들 옥수수에 대해 알아볼까요?");
+            MAC.Animation_On_Off(); ;
+        }
         //SceneManager.LoadSceneAsync(1);
     }
 
@@ -232,7 +300,6 @@ public class GameLauncher_ICT : MonoBehaviour
         else
         {
             Message_Tool.SetActive(true);
-            //Message_Tool.GetComponent<Message_anim_controller>().Animation_On();
         }
 
     }
@@ -240,6 +307,10 @@ public class GameLauncher_ICT : MonoBehaviour
     void Dummy_setting_content()
     {
         //콘텐츠 실행
+    }
+    void Dummy_setting_content_Func()
+    {
+        //콘텐츠 내부 기능 실행
     }
 
     void Init_page()
@@ -256,5 +327,10 @@ public class GameLauncher_ICT : MonoBehaviour
         Setting = ICT_RnD_UI.transform.GetChild(9).gameObject;
 
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
+        Message_Intro = Message_UI.transform.GetChild(1).gameObject;
+
+        //Message_Intro setting, text단계에서 scale 0,0,0으로 변경
+        Message_Intro.SetActive(true);
+        MAC = Message_Intro.GetComponent<Message_anim_controller>();
     }
 }
