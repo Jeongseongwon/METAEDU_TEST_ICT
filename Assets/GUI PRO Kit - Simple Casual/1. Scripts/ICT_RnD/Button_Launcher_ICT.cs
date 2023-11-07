@@ -24,6 +24,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool START = false;
     public int Num_contents = -1;
     public int Num_contents_Func = -1;
+    public bool Content_End = false;
     //Teacher_UI 번호순서대로 콘텐츠 실행 
 
     // Start is called before the first frame update
@@ -58,7 +59,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Run_Contents(Num_contents);
 
         if(Num_contents_Func != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents(Num_contents);
+            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents_Func(Num_contents_Func);
 
         if (Save)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Save();
@@ -68,6 +69,9 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
 
         if (Result)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Result();
+
+        if (Content_End)
+            Launcher.GetComponent<GameLauncher_ICT>().Save_Data();
         //우선은 추후에 개발될 UI들도 여기서 공통적으로 구현하는걸로
     }
 

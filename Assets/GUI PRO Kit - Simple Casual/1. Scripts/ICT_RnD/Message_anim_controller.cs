@@ -11,17 +11,19 @@ public class Message_anim_controller : MonoBehaviour
     //0 : On, 1 : Off
 
     public bool Intro = false;
+    public bool Content_Func = false;
 
-    // Start is called before the first frame update
+    /*
+     * 
+     *  1. Message Tool , 클릭에 따라 애니메이션 재생
+     *  2. Message Intro , OnOff 애니메이션 재생
+     *  3. Message Content_func,  OnOff 애니메이션 재생
+     *  
+     */
     void Start()
     {
         Message_anim = this.GetComponent<Animation>();
         Init_Animation();
-
-        //if (Intro)
-        //{
-        //    StartCoroutine(Active_false_time(3f));
-        //}
     }
 
     public void Animation_On()

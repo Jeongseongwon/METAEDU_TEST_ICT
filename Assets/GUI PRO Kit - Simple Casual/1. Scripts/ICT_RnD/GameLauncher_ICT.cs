@@ -40,6 +40,19 @@ public class GameLauncher_ICT : MonoBehaviour
     private int nextScene;
 
 
+
+    // Start is called before the first frame update
+    [Header("LOGIN")]
+    [SerializeField]
+    public string ID;
+    public string Name;
+    public string Birthdate;
+    public string Date;
+    public string Session;
+    public string Data_1;
+    public string Data_2;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -181,6 +194,7 @@ public class GameLauncher_ICT : MonoBehaviour
     {
         Home.SetActive(false);
         Result.SetActive(true);
+        //데이터 리뉴얼
     }
     public void Button_Contents()
     {
@@ -212,81 +226,149 @@ public class GameLauncher_ICT : MonoBehaviour
         if (contentname == 0)
         {
             Monitoring_C1.SetActive(true);
-            MAC.Change_text("친구들 꽃벵이에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            MAC.Change_text("(테스트)친구들 꽃벵이에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 1)
         {
             Monitoring_C2.SetActive(true);
-            MAC.Change_text("친구들 당근에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            MAC.Change_text("(테스트)친구들 당근에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 2)
         {
             Monitoring_C3.SetActive(true);
-            MAC.Change_text("친구들 알로에에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            MAC.Change_text("(테스트)친구들 알로에에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 3)
         {
             Monitoring_C4.SetActive(true);
-            MAC.Change_text("친구들 옥수수에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            MAC.Change_text("(테스트)친구들 옥수수에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         //SceneManager.LoadSceneAsync(1);
     }
     public void Run_Contents_Func(int contentname)
     {
         //다른 콘텐츠 내부기능 실행 중인거 비활성화
+        //각 콘텐츠 별로 어떻게 실행시킬지
 
-        //콘텐츠 내부 각 기능에 대한 더미
-        Dummy_setting_content_Func();
-
-
-        //현재 콘텐츠 내부기능관련 UI 실행
         Message_Intro.SetActive(true);
-
+        //C1
         if (contentname == 0)
         {
-            Monitoring_C1.SetActive(true);
-            MAC.Change_text("생김새에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 생김새에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 1)
         {
-            Monitoring_C2.SetActive(true);
-            MAC.Change_text("촉감을 느껴볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 촉감을 느껴볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 2)
         {
-            Monitoring_C3.SetActive(true);
-            MAC.Change_text("먹이에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 먹이에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 3)
         {
-            Monitoring_C4.SetActive(true);
-            MAC.Change_text("친구들 옥수수에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 특징에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 4)
         {
-            Monitoring_C2.SetActive(true);
-            MAC.Change_text("친구들 당근에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 서식지에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 5)
         {
-            Monitoring_C3.SetActive(true);
-            MAC.Change_text("친구들 알로에에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 생활사에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
         }
         else if (contentname == 6)
         {
-            Monitoring_C4.SetActive(true);
-            MAC.Change_text("친구들 옥수수에 대해 알아볼까요?");
-            MAC.Animation_On_Off(); ;
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)꽃벵이 체험활동을 해볼까요?");
+            MAC.Animation_On_Off();
+        }//C2
+        else if (contentname == 10)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)당근 생김새에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 11)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)당근 촉감을 느껴볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 12)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)당근 특징에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 13)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)당근 체험활동을 해볼까요?");
+            MAC.Animation_On_Off();
+        }//C3
+        else if (contentname == 20)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)옥수수 생김새에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 21)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)옥수수 촉감을 느껴볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 22)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)옥수수 특징에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 23)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)옥수수 체험활동을 해볼까요?");
+            MAC.Animation_On_Off();
+        }//C4
+        else if (contentname == 30)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)알로에 생김새에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 31)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)알로에 촉감을 느껴볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 32)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)알로에 특징에 대해 알아볼까요?");
+            MAC.Animation_On_Off();
+        }
+        else if (contentname == 33)
+        {
+            //해당 콘텐츠 내부 기능 실행
+            MAC.Change_text("(테스트)알로에 체험활동을 해볼까요?");
+            MAC.Animation_On_Off();
         }
         //SceneManager.LoadSceneAsync(1);
     }
@@ -304,7 +386,28 @@ public class GameLauncher_ICT : MonoBehaviour
 
     }
 
-    void Dummy_setting_content()
+    public void Save_Data()
+    {
+        //받아와야하는 데이터
+        //해당 세션
+        //현재시간
+        //로그인화면에서 ID, Name, 생년월일
+        //콘텐츠 종료시 데이터
+        //Manager_data.instance.Write();
+
+        DialogueData Saved_data = new DialogueData();
+
+        Saved_data.ID =         ID;
+        Saved_data.Name =       Name;
+        Saved_data.Birth_date = Birthdate;;
+        Saved_data.Date =       Date;
+        Saved_data.Session =    Session;
+        Saved_data.Data_1 =     Data_1;
+        Saved_data.Data_2 =     Data_2;
+        Manager_data.instance.Add_data(Saved_data);
+        Manager_data.instance.Write();
+    }
+        void Dummy_setting_content()
     {
         //콘텐츠 실행
     }
@@ -332,5 +435,6 @@ public class GameLauncher_ICT : MonoBehaviour
         //Message_Intro setting, text단계에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
         MAC = Message_Intro.GetComponent<Message_anim_controller>();
+
     }
 }

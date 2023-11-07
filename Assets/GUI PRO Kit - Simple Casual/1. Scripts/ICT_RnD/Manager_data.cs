@@ -57,7 +57,10 @@ public class Manager_data : MonoBehaviour
     private Stack<string> Recent_result_2 = new Stack<string>();
     private int Num_Recent_data;
 
-
+    private string filePath;
+    private List<DialogueData> DataList;
+    private DialogueData Student_data;
+    public bool Is_datasaved=false;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -75,12 +78,15 @@ public class Manager_data : MonoBehaviour
 
     void Start()
     {
+        filePath = Application.dataPath + "/Resources/Data/Data_exceltoxml.xml";
+        DataList = Read();
+
         if (File_name != null)
         {
             //Read_txt();
             Recent_data.Clear();
             Debug.Log(Application.dataPath);
-            itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
+            itemList = Read();
             for (int i = 0; i < itemList.Count; ++i)
             {
                 DialogueData item = itemList[i];
@@ -92,7 +98,7 @@ public class Manager_data : MonoBehaviour
                 myInstance.GetComponent<UI_button_SD>().Student = item.Name;
             }
             //itemList = Read(Application.dataPath + "/Resources/Data/Data_exceltoxml.xml");
-            //Write(itemList,Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
+            Write();
 
             //itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
             //for (int i = 0; i < itemList.Count; ++i)
@@ -110,9 +116,17 @@ public class Manager_data : MonoBehaviour
 
     }
 
-
-    public void Write(List<DialogueData> DataList, string filePath)
+    //기존 데이터 아랫줄에 최신 데이터 추가한 뒤
+    //저장
+    public void Write()
     {
+        //저장된 DataList를 저장된 Filepath에 저장
+        if (Is_datasaved)
+        {
+            DataList.Add(Student_data);
+            Debug.Log("SAVED DATA WRITE");
+        }
+
         XmlDocument Document = new XmlDocument();
         XmlElement ItemListElement = Document.CreateElement("Test_data");
         Document.AppendChild(ItemListElement);
@@ -130,11 +144,13 @@ public class Manager_data : MonoBehaviour
             ItemListElement.AppendChild(ItemElement);
         }
         Document.Save(filePath);
+
+        Is_datasaved = false;
     }
 
-
-    public List<DialogueData> Read(string filePath)
+    public List<DialogueData> Read()
     {
+        //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
         Document.Load(filePath);
         XmlElement ItemListElement = Document["Test_data"];
@@ -156,6 +172,11 @@ public class Manager_data : MonoBehaviour
         return ItemList;
     }
 
+    public void Add_data(DialogueData data)
+    {
+        Is_datasaved = true;
+        Student_data = data;
+    }
     public void Change_result(int num)
     {
         Recent_data.Clear();

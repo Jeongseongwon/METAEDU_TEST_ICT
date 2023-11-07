@@ -80,7 +80,7 @@ public class MultipleGraphDemo : MonoBehaviour
         Graph.DataSource.ClearCategory("OX data");
 
 
-        Debug.Log("Number of Each data" + result_1.Count + result_2.Count);
+        //Debug.Log("Number of Each data" + result_1.Count + result_2.Count);
         for (int i = 0; i < 3; i++)
         {
             y_1 = Convert.ToInt32(result_1.Pop());
