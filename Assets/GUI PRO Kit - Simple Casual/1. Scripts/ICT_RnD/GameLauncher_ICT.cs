@@ -14,6 +14,7 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Tool;
     private GameObject Result;
     private GameObject Contents;
+    private GameObject Monitoring_Music;
     private GameObject Monitoring_C1;
     private GameObject Monitoring_C2;
     private GameObject Monitoring_C3;
@@ -25,12 +26,13 @@ public class GameLauncher_ICT : MonoBehaviour
     private Message_anim_controller MAC;
 
 
-    //
+    private GameObject Prev_page;
+    private GameObject Next_page;
     private bool Is_saved = false;
 
 
     // Start is called before the first frame update
-    [Header("LOADING PAGE COMPONENT")]
+    [Header("[LOADING PAGE COMPONENT]")]
     [SerializeField]
     public Slider progressBar;
     public Text loadingPercent;
@@ -39,16 +41,14 @@ public class GameLauncher_ICT : MonoBehaviour
     private bool loadingCompleted;
     private int nextScene;
 
-
-
     // Start is called before the first frame update
-    [Header("LOGIN")]
+    [Header("[LOGIN]")]
     [SerializeField]
     public string ID;
     public string Name;
     public string Birthdate;
     public string Date;
-    public string Session;
+    public int Session;
     public string Data_1;
     public string Data_2;
 
@@ -125,81 +125,84 @@ public class GameLauncher_ICT : MonoBehaviour
                 StopAllCoroutines();
                 //Debug.Log("100%");
 
-                Loading.SetActive(false);
-                //Mode.SetActive(true);
-                Home.SetActive(true);
+                Next_page = Home;
+                UI_change();
+
+                //Loading.SetActive(false);
+                ////Mode.SetActive(true);
+                //Home.SetActive(true);
             }
         }
     }
 
-    public void Button_Save()
-    {
+    //해당 UI로 변경은 Next 변경하고 Prev 찾아서 비활성화 해줌
+    //그럼 Back으로 가려면 기존에 가지고 있던 Next 페이지 비활성화, prev 활성화, 거기에서 또 prev하려면 Home으로 감, 근데 그걸 어떻게 구분을할까? 우선은 보류
 
-        //상태 저장
+    public void UI_change()
+    {
+        GameObject page;
+        for(int i =0;i< ICT_RnD_UI.transform.childCount; i++)
+        {
+            page = ICT_RnD_UI.transform.GetChild(i).gameObject;
+            if (page.gameObject.activeSelf)
+            {
+                Prev_page = page.gameObject;
+                Debug.Log(Prev_page);
+            }
+        }
+        Prev_page.SetActive(false);
+        Next_page.SetActive(true);
+    }
+    
+    public void Button_Save_Tool()
+    {
+        //저작도구 저장여부
         Is_saved = true;
 
-        Tool.SetActive(false);
-        Home.SetActive(true);
+        Next_page = Home;
+        UI_change();
     }
     public void Button_Back_ToHome()
     {
-        //이전 화면 비활성화
-        Tool.SetActive(false);
-        Result.SetActive(false);
-        Contents.SetActive(false);
-
-        Home.SetActive(true);
+        Next_page = Home;
+        UI_change();
     }
     public void Button_Back_ToContent()
     {
-        //이전 화면 비활성화
-        Monitoring_C1.SetActive(false);
-        Monitoring_C2.SetActive(false);
-        Monitoring_C3.SetActive(false);
-        Monitoring_C4.SetActive(false);
-
-        Contents.SetActive(true);
+        Next_page = Contents;
+        UI_change();
     }
     public void Button_Setting()
     {
         Setting.SetActive(true);
     }
 
-    public void Button_Close()
+    public void Button_Setting_Close()
     {
         Setting.SetActive(false);
     }
 
     public void Button_Home()
     {
-        //이전 화면 비활성화
-        Tool.SetActive(false);
-        Result.SetActive(false);
-        Contents.SetActive(false);
-
-        //해당 콘텐츠 실행 종료 필요
-        Monitoring_C1.SetActive(false);
-        Monitoring_C2.SetActive(false);
-        Monitoring_C3.SetActive(false);
-        Monitoring_C4.SetActive(false);
-
-        Home.SetActive(true);
+        //콘텐츠 실행 중일 경우 비활성화 기능 구현 필요
+        Next_page = Home;
+        UI_change();
     }
     public void Button_Tool()
     {
-        Home.SetActive(false);
-        Tool.SetActive(true);
+        Next_page = Tool;
+        UI_change();
     }
     public void Button_Result()
     {
-        Home.SetActive(false);
-        Result.SetActive(true);
-        //데이터 리뉴얼
+        Next_page = Result;
+        UI_change();
+        Manager_data.instance.Refresh_data();
     }
     public void Button_Contents()
     {
-        Home.SetActive(false);
-        Contents.SetActive(true);
+        Next_page = Contents;
+        UI_change();
     }
     public void Button_START()
     {
@@ -209,13 +212,39 @@ public class GameLauncher_ICT : MonoBehaviour
         //게임시작
         Monitoring_C1.SetActive(true);
     }
-
-    public void Run_Contents(int contentname)
+    public void Run_Music_Contents(int contentname)
     {
+        Contents.SetActive(false);
+        Monitoring_Music.SetActive(true);
+        Session = contentname;
+
+        //해당 음악 콘텐츠 설정 기능 구현 필요
+        if (contentname == 0)
+        {
+
+        }
+        else if (contentname == 1)
+        {
+            
+        }
+        else if (contentname == 2)
+        {
+            
+        }
+        else if (contentname == 3)
+        {
+           
+        }
+    }
+
+    public void Run_Contents()
+    {
+        //이전 화면 비활성화, 음악놀이 데이터 저장
+        Monitoring_Music.SetActive(false);
+        Save_Data();
+
         //상태 반환
         Is_saved = false;
-
-        Contents.SetActive(false);
 
         //해당 콘텐츠 설정 관련 기능 더미
         Dummy_setting_content();
@@ -223,25 +252,25 @@ public class GameLauncher_ICT : MonoBehaviour
         //Message_Intro setting
         Message_Intro.SetActive(true);
 
-        if (contentname == 0)
+        if (Session == 0)
         {
             Monitoring_C1.SetActive(true);
             MAC.Change_text("(테스트)친구들 꽃벵이에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 1)
+        else if (Session == 1)
         {
             Monitoring_C2.SetActive(true);
             MAC.Change_text("(테스트)친구들 당근에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 2)
+        else if (Session == 2)
         {
             Monitoring_C3.SetActive(true);
             MAC.Change_text("(테스트)친구들 알로에에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 3)
+        else if (Session == 3)
         {
             Monitoring_C4.SetActive(true);
             MAC.Change_text("(테스트)친구들 옥수수에 대해 알아볼까요?");
@@ -373,6 +402,7 @@ public class GameLauncher_ICT : MonoBehaviour
         //SceneManager.LoadSceneAsync(1);
     }
 
+    //저작 도구 데이터 확인
     public void Button_Message_Contents()
     {
         if (Is_saved)
@@ -387,27 +417,20 @@ public class GameLauncher_ICT : MonoBehaviour
     }
 
     public void Save_Data()
-    {
-        //받아와야하는 데이터
-        //해당 세션
-        //현재시간
-        //로그인화면에서 ID, Name, 생년월일
-        //콘텐츠 종료시 데이터
-        //Manager_data.instance.Write();
-
+    {       
         DialogueData Saved_data = new DialogueData();
 
-        Saved_data.ID =         ID;
-        Saved_data.Name =       Name;
-        Saved_data.Birth_date = Birthdate;;
-        Saved_data.Date =       Date;
-        Saved_data.Session =    Session;
-        Saved_data.Data_1 =     Data_1;
-        Saved_data.Data_2 =     Data_2;
+        Saved_data.ID = ID;
+        Saved_data.Name = Name;
+        Saved_data.Birth_date = Birthdate; ;
+        Saved_data.Date = Date;
+        Saved_data.Session = Session.ToString();
+        Saved_data.Data_1 = Data_1;
+        Saved_data.Data_2 = Data_2;
         Manager_data.instance.Add_data(Saved_data);
         Manager_data.instance.Write();
     }
-        void Dummy_setting_content()
+    void Dummy_setting_content()
     {
         //콘텐츠 실행
     }
@@ -423,18 +446,25 @@ public class GameLauncher_ICT : MonoBehaviour
         Tool = ICT_RnD_UI.transform.GetChild(2).gameObject;
         Result = ICT_RnD_UI.transform.GetChild(3).gameObject;
         Contents = ICT_RnD_UI.transform.GetChild(4).gameObject;
-        Monitoring_C1 = ICT_RnD_UI.transform.GetChild(5).gameObject;
-        Monitoring_C2 = ICT_RnD_UI.transform.GetChild(6).gameObject;
-        Monitoring_C3 = ICT_RnD_UI.transform.GetChild(7).gameObject;
-        Monitoring_C4 = ICT_RnD_UI.transform.GetChild(8).gameObject;
-        Setting = ICT_RnD_UI.transform.GetChild(9).gameObject;
+        Monitoring_Music = ICT_RnD_UI.transform.GetChild(5).gameObject;
+        Monitoring_C1 = ICT_RnD_UI.transform.GetChild(6).gameObject;
+        Monitoring_C2 = ICT_RnD_UI.transform.GetChild(7).gameObject;
+        Monitoring_C3 = ICT_RnD_UI.transform.GetChild(8).gameObject;
+        Monitoring_C4 = ICT_RnD_UI.transform.GetChild(9).gameObject;
+        Setting = ICT_RnD_UI.transform.GetChild(10).gameObject;
 
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
         Message_Intro = Message_UI.transform.GetChild(1).gameObject;
 
-        //Message_Intro setting, text단계에서 scale 0,0,0으로 변경
+        //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
         MAC = Message_Intro.GetComponent<Message_anim_controller>();
 
+    }
+
+    public void UI_Back()
+    {
+        Prev_page.SetActive(true);
+        Next_page.SetActive(false);
     }
 }

@@ -17,14 +17,14 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool Result = false;
     public bool Back = false;
     public bool Back_ToContent = false;
-    public bool Save = false;
+    public bool Save_Tool = false;
     public bool Setting = false;
     public bool Close = false;
     public bool Home = false;
     public bool START = false;
     public int Num_contents = -1;
     public int Num_contents_Func = -1;
-    public bool Content_End = false;
+    public bool Music_Content_End = false;
     //Teacher_UI 번호순서대로 콘텐츠 실행 
 
     // Start is called before the first frame update
@@ -47,7 +47,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
 
         if (Close)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Close();
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Setting_Close();
 
         if (Home)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
@@ -56,13 +56,13 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Button_START();
 
         if (Num_contents != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents(Num_contents);
+            Launcher.GetComponent<GameLauncher_ICT>().Run_Music_Contents(Num_contents);
 
         if(Num_contents_Func != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Run_Contents_Func(Num_contents_Func);
 
-        if (Save)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Save();
+        if (Save_Tool)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Save_Tool();
 
         if (Tool)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Tool();
@@ -70,10 +70,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (Result)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Result();
 
-        if (Content_End)
-            Launcher.GetComponent<GameLauncher_ICT>().Save_Data();
-        //우선은 추후에 개발될 UI들도 여기서 공통적으로 구현하는걸로
+        if (Music_Content_End)
+            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents();
     }
-
-    //뒤로 가기 버튼을 구현하려면 ON되어있는 씬을 추적해야할 필요가 있을듯
 }

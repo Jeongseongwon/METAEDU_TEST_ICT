@@ -17,4 +17,7 @@
   <Test_data ID="RnD_101" Name="최일이" Birthdate="2023.10.32" Date="2023.01.02" Session="1" Data_1="50" Data_2="35" />
   <Test_data ID="RnD_004" Name="김칠팔" Birthdate="2023.10.34" Date="2023.01.04" Session="1" Data_1="100" Data_2="95" />
   <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="테스트" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="이테스트" Birthdate="1999.12.31" Date="현재시각" Session="테스트" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
 </Test_data>

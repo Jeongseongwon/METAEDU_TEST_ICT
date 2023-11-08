@@ -31,7 +31,7 @@ public class Button_Act : MonoBehaviour, IPointerClickHandler
             Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
 
         if (Close)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Close();
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Setting_Close();
 
         //if (Back)
             //Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToMode();
