@@ -27,4 +27,8 @@
   <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
   <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
   <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="1" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="1" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
+  <Test_data ID="TEST1107" Name="김테스트" Birthdate="1999.12.31" Date="현재시각" Session="0" Data_1="50" Data_2="70" />
 </Test_data>

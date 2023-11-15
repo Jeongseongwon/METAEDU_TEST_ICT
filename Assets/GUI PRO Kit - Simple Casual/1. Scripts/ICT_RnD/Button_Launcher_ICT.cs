@@ -17,6 +17,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool Result = false;
     public bool Back = false;
     public bool Back_ToContent = false;
+    public bool Back_ToMode = false;
     public bool Save_Tool = false;
     public bool Setting = false;
     public bool Close = false;
@@ -24,6 +25,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool START = false;
     public int Num_contents = -1;
     public int Num_contents_Func = -1;
+    public int Mode = -1;
     public bool Music_Content_End = false;
     //Teacher_UI 번호순서대로 콘텐츠 실행 
 
@@ -43,6 +45,9 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (Back_ToContent)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToContent();
 
+        if (Back_ToMode)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToMode();
+
         if (Setting)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
 
@@ -52,13 +57,15 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (Home)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
 
-        if (START)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_START();
+        if (Mode != -1)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Mode(Mode);
 
         if (Num_contents != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Run_Music_Contents(Num_contents);
+            Launcher.GetComponent<GameLauncher_ICT>().Run_Mode(Num_contents);
+        //여기를 모드로 변경
+        //모드 화면에서는 저장된 Session과 해당하는 모드로 구분해서 실행 필요
 
-        if(Num_contents_Func != -1)
+        if (Num_contents_Func != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Run_Contents_Func(Num_contents_Func);
 
         if (Save_Tool)

@@ -14,6 +14,7 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Tool;
     private GameObject Result;
     private GameObject Contents;
+    private GameObject Mode;
     private GameObject Monitoring_Music;
     private GameObject Monitoring_C1;
     private GameObject Monitoring_C2;
@@ -137,6 +138,8 @@ public class GameLauncher_ICT : MonoBehaviour
 
     //해당 UI로 변경은 Next 변경하고 Prev 찾아서 비활성화 해줌
     //그럼 Back으로 가려면 기존에 가지고 있던 Next 페이지 비활성화, prev 활성화, 거기에서 또 prev하려면 Home으로 감, 근데 그걸 어떻게 구분을할까? 우선은 보류
+    //Back 버튼을 선택적으로 구현이 가능한가?
+    //Home, Contents, Mode로 크게 구분이 가능함
 
     public void UI_change()
     {
@@ -172,6 +175,11 @@ public class GameLauncher_ICT : MonoBehaviour
         Next_page = Contents;
         UI_change();
     }
+    public void Button_Back_ToMode()
+    {
+        Next_page = Mode;
+        UI_change();
+    }
     public void Button_Setting()
     {
         Setting.SetActive(true);
@@ -204,34 +212,47 @@ public class GameLauncher_ICT : MonoBehaviour
         Next_page = Contents;
         UI_change();
     }
-    public void Button_START()
+    public void Button_Mode(int num_mode)
     {
-        //이전 화면 비활성화
-        Tool.SetActive(false);
-
-        //게임시작
-        Monitoring_C1.SetActive(true);
+        //0 : Music, 1 : Contents
+        if (num_mode == 0)
+        {
+            Run_Music_Contents();
+        }
+        else if(num_mode == 1)
+        {
+            Run_Contents();
+        }
     }
-    public void Run_Music_Contents(int contentname)
+
+
+    public void Run_Mode(int contentname)
     {
-        Contents.SetActive(false);
-        Monitoring_Music.SetActive(true);
         Session = contentname;
 
+        Next_page = Mode;
+        UI_change();
+    }
+    public void Run_Music_Contents()
+    {
+
+        Next_page = Monitoring_Music;
+        UI_change();
+
         //해당 음악 콘텐츠 설정 기능 구현 필요
-        if (contentname == 0)
+        if (Session == 0)
         {
 
         }
-        else if (contentname == 1)
+        else if (Session == 1)
         {
             
         }
-        else if (contentname == 2)
+        else if (Session == 2)
         {
             
         }
-        else if (contentname == 3)
+        else if (Session == 3)
         {
            
         }
@@ -239,8 +260,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public void Run_Contents()
     {
-        //이전 화면 비활성화, 음악놀이 데이터 저장
-        Monitoring_Music.SetActive(false);
+        //음악놀이 데이터 저장
         Save_Data();
 
         //상태 반환
@@ -254,146 +274,148 @@ public class GameLauncher_ICT : MonoBehaviour
 
         if (Session == 0)
         {
-            Monitoring_C1.SetActive(true);
+
+            Next_page = Monitoring_C1;
             MAC.Change_text("(테스트)친구들 꽃벵이에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
         else if (Session == 1)
         {
-            Monitoring_C2.SetActive(true);
+            Next_page = Monitoring_C2;
             MAC.Change_text("(테스트)친구들 당근에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
         else if (Session == 2)
         {
-            Monitoring_C3.SetActive(true);
+            Next_page = Monitoring_C3;
             MAC.Change_text("(테스트)친구들 알로에에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
         else if (Session == 3)
         {
-            Monitoring_C4.SetActive(true);
+            Next_page = Monitoring_C4;
             MAC.Change_text("(테스트)친구들 옥수수에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
+        UI_change();
         //SceneManager.LoadSceneAsync(1);
     }
-    public void Run_Contents_Func(int contentname)
+    public void Run_Contents_Func(int content_func)
     {
         //다른 콘텐츠 내부기능 실행 중인거 비활성화
         //각 콘텐츠 별로 어떻게 실행시킬지
 
         Message_Intro.SetActive(true);
         //C1
-        if (contentname == 0)
+        if (content_func == 0)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 생김새에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 1)
+        else if (content_func == 1)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 촉감을 느껴볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 2)
+        else if (content_func == 2)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 먹이에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 3)
+        else if (content_func == 3)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 특징에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 4)
+        else if (content_func == 4)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 서식지에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 5)
+        else if (content_func == 5)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 생활사에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 6)
+        else if (content_func == 6)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)꽃벵이 체험활동을 해볼까요?");
             MAC.Animation_On_Off();
         }//C2
-        else if (contentname == 10)
+        else if (content_func == 10)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)당근 생김새에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 11)
+        else if (content_func == 11)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)당근 촉감을 느껴볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 12)
+        else if (content_func == 12)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)당근 특징에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 13)
+        else if (content_func == 13)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)당근 체험활동을 해볼까요?");
             MAC.Animation_On_Off();
         }//C3
-        else if (contentname == 20)
+        else if (content_func == 20)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)옥수수 생김새에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 21)
+        else if (content_func == 21)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)옥수수 촉감을 느껴볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 22)
+        else if (content_func == 22)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)옥수수 특징에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 23)
+        else if (content_func == 23)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)옥수수 체험활동을 해볼까요?");
             MAC.Animation_On_Off();
         }//C4
-        else if (contentname == 30)
+        else if (content_func == 30)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)알로에 생김새에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 31)
+        else if (content_func == 31)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)알로에 촉감을 느껴볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 32)
+        else if (content_func == 32)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)알로에 특징에 대해 알아볼까요?");
             MAC.Animation_On_Off();
         }
-        else if (contentname == 33)
+        else if (content_func == 33)
         {
             //해당 콘텐츠 내부 기능 실행
             MAC.Change_text("(테스트)알로에 체험활동을 해볼까요?");
@@ -446,12 +468,13 @@ public class GameLauncher_ICT : MonoBehaviour
         Tool = ICT_RnD_UI.transform.GetChild(2).gameObject;
         Result = ICT_RnD_UI.transform.GetChild(3).gameObject;
         Contents = ICT_RnD_UI.transform.GetChild(4).gameObject;
-        Monitoring_Music = ICT_RnD_UI.transform.GetChild(5).gameObject;
-        Monitoring_C1 = ICT_RnD_UI.transform.GetChild(6).gameObject;
-        Monitoring_C2 = ICT_RnD_UI.transform.GetChild(7).gameObject;
-        Monitoring_C3 = ICT_RnD_UI.transform.GetChild(8).gameObject;
-        Monitoring_C4 = ICT_RnD_UI.transform.GetChild(9).gameObject;
-        Setting = ICT_RnD_UI.transform.GetChild(10).gameObject;
+        Mode = ICT_RnD_UI.transform.GetChild(5).gameObject;
+        Monitoring_Music = ICT_RnD_UI.transform.GetChild(6).gameObject;
+        Monitoring_C1 = ICT_RnD_UI.transform.GetChild(7).gameObject;
+        Monitoring_C2 = ICT_RnD_UI.transform.GetChild(8).gameObject;
+        Monitoring_C3 = ICT_RnD_UI.transform.GetChild(9).gameObject;
+        Monitoring_C4 = ICT_RnD_UI.transform.GetChild(10).gameObject;
+        Setting = ICT_RnD_UI.transform.GetChild(11).gameObject;
 
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
         Message_Intro = Message_UI.transform.GetChild(1).gameObject;
