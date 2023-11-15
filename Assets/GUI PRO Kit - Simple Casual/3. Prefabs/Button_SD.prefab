@@ -95,6 +95,9 @@ GameObject:
   - component: {fileID: 3665603652083251371}
   - component: {fileID: 3665603652083251368}
   - component: {fileID: 6512131261242986123}
+  - component: {fileID: 455114592828768631}
+  - component: {fileID: 4249110007344263781}
+  - component: {fileID: 3025011438046877868}
   m_Layer: 0
   m_Name: Button_SD
   m_TagString: Untagged
@@ -256,6 +259,47 @@ MonoBehaviour:
   Student_Name: {fileID: 3665603651399106900}
   Student: 
   Result_num: -1
+--- !u!114 &455114592828768631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665603652083251374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0638906adce480438f6176aaeea706d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4249110007344263781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665603652083251374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d71262304effbb469ccb2c632f7ac2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &3025011438046877868
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665603652083251374}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: a8d0a00090c9cb9438c24267e70b194a, type: 2}
+  - {fileID: 7400000, guid: 23e6a3bdb36f1864b89faf29035edcf1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3665603652459575815
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 3003170802753541947}
   - component: {fileID: 3003170802753541946}
   - component: {fileID: 3003170802753541949}
+  - component: {fileID: 5166574382888835921}
+  - component: {fileID: 1809393289408255733}
+  - component: {fileID: 4430082729948248642}
   m_Layer: 0
   m_Name: Button_Setting
   m_TagString: Untagged
@@ -135,16 +138,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd9d090f618f09429b7b2756602d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Contents: 0
+  Message_Contents: 0
   Tool: 0
   Result: 0
   Back: 0
-  Save: 0
+  Back_ToContent: 0
+  Save_Tool: 0
   Setting: 1
   Close: 0
   Home: 0
-  Teacher_UI: -1
   START: 0
+  Num_contents: -1
+  Num_contents_Func: -1
+  Music_Content_End: 0
+--- !u!114 &5166574382888835921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170802753541944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0638906adce480438f6176aaeea706d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1809393289408255733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170802753541944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d71262304effbb469ccb2c632f7ac2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &4430082729948248642
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170802753541944}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: a8d0a00090c9cb9438c24267e70b194a, type: 2}
+  - {fileID: 7400000, guid: 23e6a3bdb36f1864b89faf29035edcf1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3003170802792978494
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,6 +654,9 @@ GameObject:
   - component: {fileID: 3003170803501227856}
   - component: {fileID: 3003170803501227871}
   - component: {fileID: 3003170803501227870}
+  - component: {fileID: 8695406847711055704}
+  - component: {fileID: 339324580251728579}
+  - component: {fileID: 1793911704746840767}
   m_Layer: 0
   m_Name: Button_Back
   m_TagString: Untagged
@@ -745,16 +795,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd9d090f618f09429b7b2756602d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Contents: 0
+  Message_Contents: 0
   Tool: 0
   Result: 0
   Back: 1
-  Save: 0
+  Back_ToContent: 0
+  Save_Tool: 0
   Setting: 0
   Close: 0
   Home: 0
-  Teacher_UI: -1
   START: 0
+  Num_contents: -1
+  Num_contents_Func: -1
+  Music_Content_End: 0
+--- !u!114 &8695406847711055704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170803501227868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0638906adce480438f6176aaeea706d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &339324580251728579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170803501227868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d71262304effbb469ccb2c632f7ac2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &1793911704746840767
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170803501227868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: a8d0a00090c9cb9438c24267e70b194a, type: 2}
+  - {fileID: 7400000, guid: 23e6a3bdb36f1864b89faf29035edcf1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3003170803507468771
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +942,9 @@ GameObject:
   - component: {fileID: 3003170803648825914}
   - component: {fileID: 3003170803648825913}
   - component: {fileID: 3003170803648825916}
+  - component: {fileID: 1719749921681256733}
+  - component: {fileID: 1915665488741600879}
+  - component: {fileID: 5113372516859721597}
   m_Layer: 0
   m_Name: Button_Home
   m_TagString: Untagged
@@ -970,16 +1067,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd9d090f618f09429b7b2756602d570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Contents: 0
+  Message_Contents: 0
   Tool: 0
   Result: 0
   Back: 0
-  Save: 0
+  Back_ToContent: 0
+  Save_Tool: 0
   Setting: 0
   Close: 0
   Home: 1
-  Teacher_UI: -1
   START: 0
+  Num_contents: -1
+  Num_contents_Func: -1
+  Music_Content_End: 0
+--- !u!114 &1719749921681256733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170803648825895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0638906adce480438f6176aaeea706d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1915665488741600879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170803648825895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d71262304effbb469ccb2c632f7ac2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &5113372516859721597
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3003170803648825895}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: a8d0a00090c9cb9438c24267e70b194a, type: 2}
+  - {fileID: 7400000, guid: 23e6a3bdb36f1864b89faf29035edcf1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &3003170803720793127
 GameObject:
   m_ObjectHideFlags: 0

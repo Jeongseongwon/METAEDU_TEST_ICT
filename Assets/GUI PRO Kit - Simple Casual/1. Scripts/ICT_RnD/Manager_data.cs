@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
@@ -46,16 +47,17 @@ public class Manager_data : MonoBehaviour
     public Slider ProgressBar_OX;
     public Slider ProgressBar_SW;
 
+    public GameObject DataText_group;
     //추후 public 삭제 필요
-    public UnityEngine.UI.Text test_Name;
-    public UnityEngine.UI.Text text_ID;
-    public UnityEngine.UI.Text test_Time;
-    public UnityEngine.UI.Text text_Data_1;
-    public UnityEngine.UI.Text text_Data_2;
-    public UnityEngine.UI.Text text_Date_0;
-    public UnityEngine.UI.Text text_Date_1;
-    public UnityEngine.UI.Text text_Date_2;
-    public GameObject text_None;
+    private UnityEngine.UI.Text test_Name;
+    private UnityEngine.UI.Text text_ID;
+    private UnityEngine.UI.Text test_Time;
+    private UnityEngine.UI.Text text_Data_1;
+    private UnityEngine.UI.Text text_Data_2;
+    private GameObject text_None;
+    private UnityEngine.UI.Text text_Date_0;
+    private UnityEngine.UI.Text text_Date_1;
+    private UnityEngine.UI.Text text_Date_2;
 
     //
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
@@ -80,6 +82,7 @@ public class Manager_data : MonoBehaviour
 
     void Start()
     {
+        Init_Text();
         filePath = Application.dataPath + "/Resources/Data/Data_exceltoxml.xml";
 
         if (filePath != null)
@@ -276,54 +279,16 @@ public class Manager_data : MonoBehaviour
         return OriginDataList[num];
     }
 
-    //텍스트 기반 데이터 동기화
-    /*
-    void Read_txt()
+    public void Init_Text()
     {
-        //TextAsset Script_file = Resources.Load(Scene_number) as TextAsset;
-        TextAsset Script_file = Resources.Load<TextAsset>(File_name);
-        StringReader sr = new StringReader(Script_file.text);
-        textList.Clear();
-
-        bool endOfFile = false;
-        while (!endOfFile)
-        {
-            string data_String = sr.ReadLine();
-            if (data_String == null)
-            {
-                endOfFile = true;
-                break;
-            }
-            var data_values = data_String.Split('\n');
-            for (int i = 0; i < data_values.Length; i++)
-            {
-                textList.Add(data_values[i]);
-                Max_num_script++;
-                //Debug.Log(textList[i]);
-            }
-        }
-        //Debug.Log(Max_num_script);
+        test_Name = DataText_group.transform.GetChild(0).gameObject.GetComponent<Text>();
+        text_ID = DataText_group.transform.GetChild(1).gameObject.GetComponent<Text>();
+        test_Time = DataText_group.transform.GetChild(2).gameObject.GetComponent<Text>();
+        text_Data_1 = DataText_group.transform.GetChild(3).gameObject.GetComponent<Text>();
+        text_Data_2 = DataText_group.transform.GetChild(4).gameObject.GetComponent<Text>();
+        text_None = DataText_group.transform.GetChild(5).gameObject;
+        text_Date_0 = DataText_group.transform.GetChild(6).gameObject.GetComponent<Text>();
+        text_Date_1 = DataText_group.transform.GetChild(7).gameObject.GetComponent<Text>();
+        text_Date_2 = DataText_group.transform.GetChild(8).gameObject.GetComponent<Text>();
     }
-    public void Change_result(int num)
-    {
-        Split_txt(textList[num]);
-    }
-
-    void Split_txt(string str)
-    {
-        string[] words = str.Split(',');
-        Student_ID = words[0];
-        Data_1 = words[1];
-        Data_2 = words[2];
-
-
-        text_1.text = Student_ID;
-        text_2.text = Data_1;
-        text_3.text = Data_2;
-
-        //Debug.Log(Student_ID);
-        //Debug.Log(Data_1);
-        //Debug.Log(Data_2);
-    }
-    */
 }
