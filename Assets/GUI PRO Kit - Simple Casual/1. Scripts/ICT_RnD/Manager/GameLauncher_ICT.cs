@@ -43,16 +43,7 @@ public class GameLauncher_ICT : MonoBehaviour
     private bool loadingCompleted;
     private int nextScene;
 
-    // Start is called before the first frame update
-    [Header("[LOGIN]")]
-    [SerializeField]
-    public string ID;
-    public string Name;
-    public string Birthdate;
-    public string Date;
     public int Session;
-    public string Data_1;
-    public string Data_2;
 
 
     // Start is called before the first frame update
@@ -455,13 +446,13 @@ public class GameLauncher_ICT : MonoBehaviour
     {       
         DialogueData Saved_data = new DialogueData();
 
-        Saved_data.ID = ID;
-        Saved_data.Name = Name;
-        Saved_data.Birth_date = Birthdate; ;
-        Saved_data.Date = Date;
-        Saved_data.Session = Session.ToString();
-        Saved_data.Data_1 = Data_1;
-        Saved_data.Data_2 = Data_2;
+        Saved_data.ID = Manager_login.instance.ID;
+        Saved_data.Name = Manager_login.instance.Name;
+        Saved_data.Birth_date = Manager_login.instance.Birthdate; ;
+        Saved_data.Date = Manager_login.instance.Date;
+        Saved_data.Session = Manager_login.instance.Session.ToString();
+        Saved_data.Data_1 = Manager_login.instance.Data_1;
+        Saved_data.Data_2 = Manager_login.instance.Data_2;
         Manager_data.instance.Add_data(Saved_data);
         Manager_data.instance.Write();
     }

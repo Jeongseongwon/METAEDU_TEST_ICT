@@ -29,32 +29,37 @@ public class Manager_login : MonoBehaviour
 
     private string filePath;
     private LoginData Student_data;
+    private LoginData Selected_Student_data;
+    private int Num_student;
     public bool Is_Logindatasaved = false;
 
 
-    [Header("LOGIN PAGE COMPONENT")]
+    [Header("[LOGIN PAGE COMPONENT]")]
     public GameObject Prefab_StudentInfo;
     public Transform Panel_Left_Content;
 
     public GameObject Student_Info;
 
-    public GameObject DataText_group;
-    //추후 public 삭제 필요
-    private UnityEngine.UI.Text test_Name;
-    private UnityEngine.UI.Text text_ID;
-    private UnityEngine.UI.Text test_Time;
-    private UnityEngine.UI.Text text_Data_1;
-    private UnityEngine.UI.Text text_Data_2;
-    private GameObject text_None;
-    private UnityEngine.UI.Text text_Date_0;
-    private UnityEngine.UI.Text text_Date_1;
-    private UnityEngine.UI.Text text_Date_2;
+    public GameObject Text_Icon_group;
+    private GameObject Picture_Off;
+    private GameObject Picture_On;
+    private Text Text_ID;
+    private Text Text_Name;
 
-    //
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
     private Stack<string> Recent_result_1 = new Stack<string>();
     private Stack<string> Recent_result_2 = new Stack<string>();
 
+
+    [Header("[LOGIN INFORMATION]")]
+    [SerializeField]
+    public string ID;
+    public string Name;
+    public string Birthdate;
+    public string Date;
+    public int Session;
+    public string Data_1;
+    public string Data_2;
 
     // Start is called before the first frame update
     private void Awake()
@@ -164,8 +169,10 @@ public class Manager_login : MonoBehaviour
 
     public void Add_data(LoginData data)
     {
+        //최종 선택을 할경우 true가 되도록 수정 필요
         Is_Logindatasaved = true;
         Student_data = data;
+        
     }
 
     public void Refresh_data()
@@ -202,16 +209,33 @@ public class Manager_login : MonoBehaviour
         return Is_Logindatasaved;
     }
 
+    //Centents 페이지 갈 때
+    //처음에 데이터 있는지 체크하고(정말 그렇게 구현될지 확인 필요함) 없으면 초기화
+    //최종 선택된 학생 데이터 받아와서 설정
+    public void Setting_StudentInfo(int num_student)
+    {
+        Selected_Student_data = NewDataList[num_student];
+
+        if (Is_Logindatasaved)
+        {
+            //클릭 된 학생 숫자 저장한 뒤 그거 가져오고
+            //선택된 학생 데이터로 변경
+        }
+        else
+        {
+            //초기화
+            Picture_Off.SetActive(true);
+            Picture_On.SetActive(false);
+            Text_ID.text = "미선택";
+            Text_Name.text = "ICT_RND_OOOO";
+        }
+    }
+
     public void Init_Text()
     {
-        test_Name = DataText_group.transform.GetChild(0).gameObject.GetComponent<Text>();
-        text_ID = DataText_group.transform.GetChild(1).gameObject.GetComponent<Text>();
-        test_Time = DataText_group.transform.GetChild(2).gameObject.GetComponent<Text>();
-        text_Data_1 = DataText_group.transform.GetChild(3).gameObject.GetComponent<Text>();
-        text_Data_2 = DataText_group.transform.GetChild(4).gameObject.GetComponent<Text>();
-        text_None = DataText_group.transform.GetChild(5).gameObject;
-        text_Date_0 = DataText_group.transform.GetChild(6).gameObject.GetComponent<Text>();
-        text_Date_1 = DataText_group.transform.GetChild(7).gameObject.GetComponent<Text>();
-        text_Date_2 = DataText_group.transform.GetChild(8).gameObject.GetComponent<Text>();
+        Picture_Off = Text_Icon_group.transform.GetChild(0).gameObject;
+        Picture_On = Text_Icon_group.transform.GetChild(1).gameObject;
+        Text_ID = Text_Icon_group.transform.GetChild(2).gameObject.GetComponent<Text>();
+        Text_Name = Text_Icon_group.transform.GetChild(3).gameObject.GetComponent<Text>();
     }
 }

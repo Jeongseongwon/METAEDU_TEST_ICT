@@ -40,7 +40,7 @@ public class Manager_data : MonoBehaviour
     public bool Is_datasaved = false;
 
 
-    [Header ("DATA RESULT PAGE COMPONENT")]
+    [Header ("[DATA RESULT PAGE COMPONENT]")]
     public GameObject Graph_chart;
     public GameObject Prefab_SD;
     public Transform Panel_Left_Content;
