@@ -29,14 +29,14 @@ public class Manager_login : MonoBehaviour
 
     private string filePath;
     private LoginData Student_data;
-    public bool Is_datasaved = false;
+    public bool Is_Logindatasaved = false;
 
 
     [Header("LOGIN PAGE COMPONENT")]
     public GameObject Prefab_StudentInfo;
     public Transform Panel_Left_Content;
-    public Slider ProgressBar_OX;
-    public Slider ProgressBar_SW;
+
+    public GameObject Student_Info;
 
     public GameObject DataText_group;
     //추후 public 삭제 필요
@@ -120,11 +120,11 @@ public class Manager_login : MonoBehaviour
     {
         //저장된 DataList를 저장된 Filepath에 저장
         //최종적으로 write 함수가 호출이 되지 않으면 저장이 되지 않음
-        if (Is_datasaved)
+        if (Is_Logindatasaved)
         {
             NewDataList.Add(Student_data);
             Debug.Log("SAVED DATA WRITE");
-            Is_datasaved = false;
+            Is_Logindatasaved = false;
         }
 
         XmlDocument Document = new XmlDocument();
@@ -164,7 +164,7 @@ public class Manager_login : MonoBehaviour
 
     public void Add_data(LoginData data)
     {
-        Is_datasaved = true;
+        Is_Logindatasaved = true;
         Student_data = data;
     }
 
@@ -195,6 +195,11 @@ public class Manager_login : MonoBehaviour
     public LoginData Get_Listdata(int num)
     {
         return OriginDataList[num];
+    }
+
+    public bool Get_Islogindatasaved()
+    {
+        return Is_Logindatasaved;
     }
 
     public void Init_Text()

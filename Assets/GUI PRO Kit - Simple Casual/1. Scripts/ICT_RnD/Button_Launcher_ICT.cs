@@ -13,6 +13,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
 
     private GameObject Launcher;
     public bool Message_Contents = false;
+    public bool Message_Contents_Login = false;
     public bool Tool = false;
     public bool Result = false;
     public bool Back = false;
@@ -36,9 +37,14 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     }
     public void OnPointerClick(PointerEventData eventData)
     {
+        //To_Message
         if (Message_Contents)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents();
 
+        if (Message_Contents_Login && Num_contents != -1)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents_Select(Num_contents);
+
+        //To_Page
         if (Back)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToHome();
 
@@ -59,11 +65,6 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
 
         if (Mode != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Mode(Mode);
-
-        if (Num_contents != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Run_Mode(Num_contents);
-        //여기를 모드로 변경
-        //모드 화면에서는 저장된 Session과 해당하는 모드로 구분해서 실행 필요
 
         if (Num_contents_Func != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Run_Contents_Func(Num_contents_Func);

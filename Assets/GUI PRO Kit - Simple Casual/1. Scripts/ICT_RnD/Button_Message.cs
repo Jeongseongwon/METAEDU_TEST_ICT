@@ -19,6 +19,6 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
     {
         if (Contents)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Contents();
-
+        
     }
 }

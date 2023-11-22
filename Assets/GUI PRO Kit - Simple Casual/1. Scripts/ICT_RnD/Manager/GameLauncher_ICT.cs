@@ -23,6 +23,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public GameObject Message_UI;
     private GameObject Message_Tool;
+    private GameObject Message_Login;
     private GameObject Message_Intro;
     private Message_anim_controller MAC;
 
@@ -435,7 +436,19 @@ public class GameLauncher_ICT : MonoBehaviour
         {
             Message_Tool.SetActive(true);
         }
+    }
+    public void Button_Message_Contents_Select(int Num_content)
+    {
+        bool Is_Logindatasaved = Manager_login.instance.Get_Islogindatasaved();
 
+        if (Is_Logindatasaved)
+        {
+            Run_Mode(Num_content);
+        }
+        else
+        {
+            Message_Login.SetActive(true);
+        }
     }
 
     public void Save_Data()
@@ -477,7 +490,8 @@ public class GameLauncher_ICT : MonoBehaviour
         Setting = ICT_RnD_UI.transform.GetChild(11).gameObject;
 
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
-        Message_Intro = Message_UI.transform.GetChild(1).gameObject;
+        Message_Login = Message_UI.transform.GetChild(1).gameObject;
+        Message_Intro = Message_UI.transform.GetChild(2).gameObject;
 
         //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
@@ -485,6 +499,8 @@ public class GameLauncher_ICT : MonoBehaviour
 
     }
 
+    //1122 나중에 저장된 데이터 초기화 하는 기능 필요함
+    //학생 정보 저장 여부, 저작도구 저장 여부
     public void UI_Back()
     {
         Prev_page.SetActive(true);
