@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,19 +33,24 @@ public class Manager_login : MonoBehaviour
     private LoginData Selected_Student_data;
     private int Num_student;
     public bool Is_Logindatasaved = false;
+    public bool Is_StudentDataSelected = false;
+    private int num_list = 0;
 
-
-    [Header("[LOGIN PAGE COMPONENT]")]
-    public GameObject Prefab_StudentInfo;
-    public Transform Panel_Left_Content;
-
-    public GameObject Student_Info;
-
+    [Header("[CONTENTS PAGE COMPONENT]")]
     public GameObject Text_Icon_group;
     private GameObject Picture_Off;
     private GameObject Picture_On;
     private Text Text_ID;
     private Text Text_Name;
+
+    [Header("[LOGIN PAGE COMPONENT]")]
+    public GameObject Prefab_StudentInfo;
+    public Transform Panel_Left_Content;
+
+    public GameObject InputField_group;
+    private GameObject InputField_Name;
+    private GameObject InputField_ID;
+    private GameObject InputField_BirthDate;
 
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
     private Stack<string> Recent_result_1 = new Stack<string>();
@@ -78,7 +84,9 @@ public class Manager_login : MonoBehaviour
 
     void Start()
     {
-        //Init_Text();
+        Num_student = -1;
+
+        Init_Text();
         filePath = Application.dataPath + "/Resources/Data/Info_ID.xml";
 
         if (filePath != null)
@@ -101,6 +109,7 @@ public class Manager_login : MonoBehaviour
                 myInstance.GetComponent<UI_button_StudentInfo>().Student_ID = item.ID;
                 myInstance.GetComponent<UI_button_StudentInfo>().Student_BirthDate = item.Birth_date;
             }
+            num_list = OriginDataList.Count;
             //Write();
 
             //itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
@@ -167,30 +176,47 @@ public class Manager_login : MonoBehaviour
         return ItemList;
     }
 
-    public void Add_data(LoginData data)
+    public void Add_Studentdata()
     {
-        //최종 선택을 할경우 true가 되도록 수정 필요
-        Is_Logindatasaved = true;
-        Student_data = data;
-        
+        //Debug.Log(InputField_ID.GetComponent<TMP_InputField>().text);
+        //Debug.Log(InputField_Name.GetComponent<TMP_InputField>().text);
+        //Debug.Log(InputField_BirthDate.GetComponent<TMP_InputField>().text);
+
+
+        //필드가 비었을 경우 예외처리, 다른 문자가 들어갔을 경우 예외처리
+
+        LoginData Item = new LoginData();
+        Item.ID = InputField_ID.GetComponent<TMP_InputField>().text;
+        Item.Name = InputField_Name.GetComponent<TMP_InputField>().text;
+        Item.Birth_date = InputField_BirthDate.GetComponent<TMP_InputField>().text;
+
+        NewDataList.Add(Item);
+
+        if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
+        {
+            Debug.Log("정상저장 확인!");
+        }
+
+        Refresh_data();
+        //그리고 나중에 정상종료가 되지 않을 경우에 미리미리 저장하지 않도록 예외처리 필요
     }
 
     public void Refresh_data()
     {
         if (NewDataList.Count != OriginDataList.Count)
         {
-            //초기 start에서 생성해낸 프리팹과 수가 맞지 않으면
-            //생성되지 않은 번호만큼 추가 생성 필요
-            for (int i = OriginDataList.Count; i < NewDataList.Count; ++i)
+            for (int i = num_list; i < NewDataList.Count; ++i)
             {
                 LoginData item = NewDataList[i];
-                //Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-                //    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
 
                 GameObject myInstance = Instantiate(Prefab_StudentInfo, Panel_Left_Content);
-                myInstance.GetComponent<UI_button_SD>().Result_num = i;
-                myInstance.GetComponent<UI_button_SD>().Student = item.Name;
+                myInstance.GetComponent<UI_button_StudentInfo>().Result_num = i;
+                myInstance.GetComponent<UI_button_StudentInfo>().Student_Name = item.Name;
+                myInstance.GetComponent<UI_button_StudentInfo>().Student_BirthDate = item.Birth_date;
+                myInstance.GetComponent<UI_button_StudentInfo>().Student_ID = item.ID;
             }
+
+            num_list = NewDataList.Count;
         }
     }
 
@@ -212,23 +238,43 @@ public class Manager_login : MonoBehaviour
     //Centents 페이지 갈 때
     //처음에 데이터 있는지 체크하고(정말 그렇게 구현될지 확인 필요함) 없으면 초기화
     //최종 선택된 학생 데이터 받아와서 설정
-    public void Setting_StudentInfo(int num_student)
+    public void Setting_StudentInfo()
     {
-        Selected_Student_data = NewDataList[num_student];
+        //처음에 고르지 않고 선택하면 여기서 에러 발생함
 
-        if (Is_Logindatasaved)
+        if (Is_StudentDataSelected)
         {
-            //클릭 된 학생 숫자 저장한 뒤 그거 가져오고
-            //선택된 학생 데이터로 변경
+            Selected_Student_data = NewDataList[Num_student];
+            //해당 학생 맞는지 다시 한 번 물어보고 아래 기능 옮길 필요
+
+            ID = Selected_Student_data.ID;
+            Name = Selected_Student_data.Name;
+            Birthdate = Selected_Student_data.Birth_date;
+            Date = DateTime.Now.ToString(("yyyy.mm.dd"));
+
+            Picture_On.SetActive(true);
+            Picture_Off.SetActive(false);
+            Text_ID.text = ID;
+            Text_Name.text = Name;
         }
         else
         {
+            //데이터가 아직 선택되지 않았다 메시지 호출
+            
+            this.gameObject.GetComponent<GameLauncher_ICT>().Button_Message_Login_StudentDataSaved();
+
             //초기화
             Picture_Off.SetActive(true);
             Picture_On.SetActive(false);
-            Text_ID.text = "미선택";
-            Text_Name.text = "ICT_RND_OOOO";
+            Text_Name.text = "미선택";
+            Text_ID.text = "ICT_RND_OOOO";
         }
+    }
+
+    public void Set_Selectednumber(int num)
+    {
+        Is_StudentDataSelected = true;
+        Num_student = num;
     }
 
     public void Init_Text()
@@ -237,5 +283,10 @@ public class Manager_login : MonoBehaviour
         Picture_On = Text_Icon_group.transform.GetChild(1).gameObject;
         Text_ID = Text_Icon_group.transform.GetChild(2).gameObject.GetComponent<Text>();
         Text_Name = Text_Icon_group.transform.GetChild(3).gameObject.GetComponent<Text>();
+
+        InputField_Name = InputField_group.transform.GetChild(0).gameObject;
+        InputField_ID = InputField_group.transform.GetChild(1).gameObject;
+        InputField_BirthDate = InputField_group.transform.GetChild(2).gameObject;
+
     }
 }

@@ -14,6 +14,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     private GameObject Launcher;
     public bool Message_Contents = false;
     public bool Message_Contents_Login = false;
+
     public bool Tool = false;
     public bool Result = false;
     public bool Back = false;
@@ -40,6 +41,9 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         //To_Message
         if (Message_Contents)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents();
+
+        if (Message_Contents_Login && Num_contents != -1)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents_Select(Num_contents);
 
         if (Message_Contents_Login && Num_contents != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents_Select(Num_contents);

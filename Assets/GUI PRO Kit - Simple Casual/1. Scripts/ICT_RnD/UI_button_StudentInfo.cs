@@ -19,8 +19,7 @@ public class UI_button_StudentInfo : MonoBehaviour, IPointerClickHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            //클릭할 경우 해당 데이터 로그인 정보로 저장
-            //최종 선택 버튼 클릭시 해당 데이터 저장해서 로그인 매니저로 전달
+            Manager_login.instance.Set_Selectednumber(Result_num);
         }
     }
 
