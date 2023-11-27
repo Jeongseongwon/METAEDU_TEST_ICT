@@ -45,8 +45,6 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (Message_Contents_Login && Num_contents != -1)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents_Select(Num_contents);
 
-        if (Message_Contents_Login && Num_contents != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents_Select(Num_contents);
 
         //To_Page
         if (Back)

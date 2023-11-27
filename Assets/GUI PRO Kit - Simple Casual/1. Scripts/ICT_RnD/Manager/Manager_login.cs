@@ -24,6 +24,7 @@ public class LoginData
 public class Manager_login : MonoBehaviour
 {
     public static Manager_login instance = null;
+    private GameLauncher_ICT Launcher;
 
     public static List<LoginData> OriginDataList;
     private List<LoginData> NewDataList;
@@ -87,6 +88,8 @@ public class Manager_login : MonoBehaviour
         Num_student = -1;
 
         Init_Text();
+        Launcher = this.gameObject.GetComponent<GameLauncher_ICT>();
+
         filePath = Application.dataPath + "/Resources/Data/Info_ID.xml";
 
         if (filePath != null)
@@ -194,7 +197,7 @@ public class Manager_login : MonoBehaviour
 
         if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
         {
-            Debug.Log("정상저장 확인!");
+            Launcher.Button_Message_Login_StudentDataSaved();
         }
 
         Refresh_data();
@@ -220,11 +223,6 @@ public class Manager_login : MonoBehaviour
         }
     }
 
-    public void Setting_ButtonSD()
-    {
-
-    }
-
     public LoginData Get_Listdata(int num)
     {
         return OriginDataList[num];
@@ -240,12 +238,10 @@ public class Manager_login : MonoBehaviour
     //최종 선택된 학생 데이터 받아와서 설정
     public void Setting_StudentInfo()
     {
-        //처음에 고르지 않고 선택하면 여기서 에러 발생함
-
         if (Is_StudentDataSelected)
         {
             Selected_Student_data = NewDataList[Num_student];
-            //해당 학생 맞는지 다시 한 번 물어보고 아래 기능 옮길 필요
+            //해당 학생이 맞는지 확인 필요, YES 클릭시 아래 함수 이동, NO 클릭시 그냥 없어짐
 
             ID = Selected_Student_data.ID;
             Name = Selected_Student_data.Name;
@@ -259,15 +255,25 @@ public class Manager_login : MonoBehaviour
         }
         else
         {
-            //데이터가 아직 선택되지 않았다 메시지 호출
-            
-            this.gameObject.GetComponent<GameLauncher_ICT>().Button_Message_Login_StudentDataSaved();
+            Launcher.Button_Message_Login_NonSelect();
 
             //초기화
             Picture_Off.SetActive(true);
             Picture_On.SetActive(false);
             Text_Name.text = "미선택";
             Text_ID.text = "ICT_RND_OOOO";
+        }
+    }
+
+    public void Button_Message_StudentInfo_Select()
+    {
+        if (Is_Logindatasaved)
+        {
+            Run_Mode(Num_content);
+        }
+        else
+        {
+            Launcher.Button_Message_Login_check();
         }
     }
 

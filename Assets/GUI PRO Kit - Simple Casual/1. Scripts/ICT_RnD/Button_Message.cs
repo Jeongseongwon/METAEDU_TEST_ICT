@@ -9,6 +9,7 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
 
     private GameObject Launcher;
     public bool Contents = false;
+    public bool Login_Setting = false;
     void Start()
     {
         Launcher = GameObject.Find("Launcher");
@@ -19,6 +20,9 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
     {
         if (Contents)
             Launcher.GetComponent<GameLauncher_ICT>().Button_Contents();
-        
+
+        if (Login_Setting)
+            Launcher.GetComponent<GameLauncher_ICT>().Button_Contents();
+
     }
 }

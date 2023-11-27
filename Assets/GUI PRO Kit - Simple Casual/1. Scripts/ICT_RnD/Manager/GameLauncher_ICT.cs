@@ -26,7 +26,10 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Message_Login;
     private GameObject Message_Intro;
     private GameObject Message_L_StudentCheck;
+    private GameObject Message_L_FieldEmpty;
     private GameObject Message_L_StudentDataSaved;
+    private GameObject Message_L_SelectedStudentCheck;
+    private GameObject Message_L_Nonselect;
     private Message_anim_controller MAC;
 
 
@@ -455,6 +458,15 @@ public class GameLauncher_ICT : MonoBehaviour
     {
         Message_L_StudentDataSaved.SetActive(true);
     }
+    public void Button_Message_Login_FieldEmpty()
+    {
+        Message_L_FieldEmpty.SetActive(true);
+    }
+    public void Button_Message_Login_NonSelect()
+    {
+        Message_L_Nonselect.SetActive(true);
+    }
+
 
     public void Save_Data()
     {       
@@ -497,8 +509,11 @@ public class GameLauncher_ICT : MonoBehaviour
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
         Message_Login = Message_UI.transform.GetChild(1).gameObject;
         Message_Intro = Message_UI.transform.GetChild(2).gameObject;
-        Message_L_StudentCheck = Message_UI.transform.GetChild(3).gameObject;
+
+        Message_L_FieldEmpty = Message_UI.transform.GetChild(3).gameObject;
         Message_L_StudentDataSaved = Message_UI.transform.GetChild(4).gameObject;
+        Message_L_SelectedStudentCheck = Message_UI.transform.GetChild(5).gameObject;
+        Message_L_Nonselect = Message_UI.transform.GetChild(6).gameObject;
 
         //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
