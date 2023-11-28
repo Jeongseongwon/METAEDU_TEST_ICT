@@ -11,6 +11,7 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Loading;
     private GameObject Home;
     private GameObject Setting;
+    private GameObject Login;
     private GameObject Tool;
     private GameObject Result;
     private GameObject Contents;
@@ -23,7 +24,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public GameObject Message_UI;
     private GameObject Message_Tool;
-    private GameObject Message_Login;
+    private GameObject Message_StudentNotSelected;
     private GameObject Message_Intro;
     private GameObject Message_L_StudentCheck;
     private GameObject Message_L_FieldEmpty;
@@ -443,16 +444,17 @@ public class GameLauncher_ICT : MonoBehaviour
         }
         else
         {
-            Message_Login.SetActive(true);
+            Message_StudentNotSelected.SetActive(true);
         }
     }
-    public void Button_Message_Login()
+    public void Button_Login()
     {
-        Message_Login.SetActive(true);
+        Login.SetActive(true);
     }
-    public void Button_Message_Login_check()
+    
+    public void Button_Message_Login_SelectedStudentCheck()
     {
-        Message_L_StudentCheck.SetActive(true);
+        Message_L_SelectedStudentCheck.SetActive(true);
     }
     public void Button_Message_Login_StudentDataSaved()
     {
@@ -505,11 +507,11 @@ public class GameLauncher_ICT : MonoBehaviour
         Monitoring_C3 = ICT_RnD_UI.transform.GetChild(9).gameObject;
         Monitoring_C4 = ICT_RnD_UI.transform.GetChild(10).gameObject;
         Setting = ICT_RnD_UI.transform.GetChild(11).gameObject;
+        Login = ICT_RnD_UI.transform.GetChild(12).gameObject;
 
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
-        Message_Login = Message_UI.transform.GetChild(1).gameObject;
+        Message_StudentNotSelected = Message_UI.transform.GetChild(1).gameObject;
         Message_Intro = Message_UI.transform.GetChild(2).gameObject;
-
         Message_L_FieldEmpty = Message_UI.transform.GetChild(3).gameObject;
         Message_L_StudentDataSaved = Message_UI.transform.GetChild(4).gameObject;
         Message_L_SelectedStudentCheck = Message_UI.transform.GetChild(5).gameObject;

@@ -233,15 +233,12 @@ public class Manager_login : MonoBehaviour
         return Is_Logindatasaved;
     }
 
-    //Centents 페이지 갈 때
-    //처음에 데이터 있는지 체크하고(정말 그렇게 구현될지 확인 필요함) 없으면 초기화
-    //최종 선택된 학생 데이터 받아와서 설정
     public void Setting_StudentInfo()
     {
         if (Is_StudentDataSelected)
         {
+            //데이터가 선택됨
             Selected_Student_data = NewDataList[Num_student];
-            //해당 학생이 맞는지 확인 필요, YES 클릭시 아래 함수 이동, NO 클릭시 그냥 없어짐
 
             ID = Selected_Student_data.ID;
             Name = Selected_Student_data.Name;
@@ -252,12 +249,16 @@ public class Manager_login : MonoBehaviour
             Picture_Off.SetActive(false);
             Text_ID.text = ID;
             Text_Name.text = Name;
+
+            Is_StudentDataSelected = false;
+            Is_Logindatasaved = true;
         }
         else
         {
+            //데이터를 선택하지 않았을 경우
             Launcher.Button_Message_Login_NonSelect();
 
-            //초기화
+            //데이터 초기화 하는 부분, 추후에 적절한 곳으로 수정 필요 1129
             Picture_Off.SetActive(true);
             Picture_On.SetActive(false);
             Text_Name.text = "미선택";
@@ -265,17 +266,6 @@ public class Manager_login : MonoBehaviour
         }
     }
 
-    public void Button_Message_StudentInfo_Select()
-    {
-        if (Is_Logindatasaved)
-        {
-            Run_Mode(Num_content);
-        }
-        else
-        {
-            Launcher.Button_Message_Login_check();
-        }
-    }
 
     public void Set_Selectednumber(int num)
     {

@@ -7,22 +7,21 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
 {
     // Start is called before the first frame update
 
-    private GameObject Launcher;
+    private GameLauncher_ICT Launcher;
+
     public bool Contents = false;
     public bool Login_Setting = false;
     void Start()
     {
-        Launcher = GameObject.Find("Launcher");
+        Launcher = GameObject.Find("Launcher").GetComponent<GameLauncher_ICT>();
     }
 
-    // Update is called once per frame
     public void OnPointerClick(PointerEventData eventData)
     {
         if (Contents)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Contents();
+            Launcher.Button_Contents();
 
         if (Login_Setting)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Contents();
-
+            Manager_login.instance.Setting_StudentInfo();
     }
 }

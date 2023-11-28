@@ -11,7 +11,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
      *
      **/
 
-    private GameObject Launcher;
+    private GameLauncher_ICT Launcher;
     public bool Message_Contents = false;
     public bool Message_Contents_Login = false;
 
@@ -24,7 +24,8 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool Setting = false;
     public bool Close = false;
     public bool Home = false;
-    public bool START = false;
+    public bool Login = false;
+
     public int Num_contents = -1;
     public int Num_contents_Func = -1;
     public int Mode = -1;
@@ -34,53 +35,56 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        Launcher = GameObject.Find("Launcher");
+        Launcher = GameObject.Find("Launcher").GetComponent<GameLauncher_ICT>();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         //To_Message
         if (Message_Contents)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents();
+            Launcher.Button_Message_Contents();
 
         if (Message_Contents_Login && Num_contents != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Message_Contents_Select(Num_contents);
+            Launcher.Button_Message_Contents_Select(Num_contents);
 
 
         //To_Page
         if (Back)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToHome();
+            Launcher.Button_Back_ToHome();
 
         if (Back_ToContent)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToContent();
+            Launcher.Button_Back_ToContent();
 
         if (Back_ToMode)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Back_ToMode();
+            Launcher.Button_Back_ToMode();
 
         if (Setting)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Setting();
+            Launcher.Button_Setting();
 
         if (Close)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Setting_Close();
+            Launcher.Button_Setting_Close();
 
         if (Home)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Home();
+            Launcher.Button_Home();
 
         if (Mode != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Mode(Mode);
+            Launcher.Button_Mode(Mode);
 
         if (Num_contents_Func != -1)
-            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents_Func(Num_contents_Func);
+            Launcher.Run_Contents_Func(Num_contents_Func);
 
         if (Save_Tool)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Save_Tool();
+            Launcher.Button_Save_Tool();
 
         if (Tool)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Tool();
+            Launcher.Button_Tool();
 
         if (Result)
-            Launcher.GetComponent<GameLauncher_ICT>().Button_Result();
+            Launcher.Button_Result();
 
         if (Music_Content_End)
-            Launcher.GetComponent<GameLauncher_ICT>().Run_Contents();
+            Launcher.Run_Contents();
+
+        if (Login)
+            Launcher.Button_Login();
     }
 }

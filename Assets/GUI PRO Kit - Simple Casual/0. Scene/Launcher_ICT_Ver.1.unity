@@ -770,7 +770,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 2
   Num_contents_Func: -1
   Mode: -1
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 11
   Mode: -1
@@ -2735,9 +2735,9 @@ RectTransform:
   - {fileID: 1639371668}
   - {fileID: 369474688}
   - {fileID: 4324455974670924551}
+  - {fileID: 3080273312412579229}
   - {fileID: 359368368}
   - {fileID: 7792779524482551419}
-  - {fileID: 3080273312412579229}
   - {fileID: 2058122093}
   m_Father: {fileID: 8259752523211947066}
   m_RootOrder: 0
@@ -2913,7 +2913,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 10
   Mode: -1
@@ -4113,7 +4113,7 @@ MonoBehaviour:
   Setting: 1
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -5935,7 +5935,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 30
   Mode: -1
@@ -6359,7 +6359,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -6617,7 +6617,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 23
   Mode: -1
@@ -14412,7 +14412,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 13
   Mode: -1
@@ -14524,7 +14524,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -15667,7 +15667,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -17087,7 +17087,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 3
   Num_contents_Func: -1
   Mode: -1
@@ -17836,7 +17836,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 0
   Num_contents_Func: -1
   Mode: -1
@@ -20445,7 +20445,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -20597,7 +20597,7 @@ RectTransform:
   - {fileID: 480372440}
   - {fileID: 1468319024}
   m_Father: {fileID: 55926560}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -21115,7 +21115,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -25942,7 +25942,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 2
   Num_contents_Func: -1
   Mode: -1
@@ -30267,7 +30267,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 3
   Num_contents_Func: -1
   Mode: -1
@@ -30871,7 +30871,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -35622,7 +35622,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 1
+  Login: 1
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -36061,7 +36061,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -38692,7 +38692,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -39336,8 +39336,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96901a300f837bb4bba2f77a80be31db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Contents: 1
-  Login_Setting: 0
+  Contents: 0
+  Login_Setting: 1
 --- !u!114 &906143186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39648,7 +39648,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 1
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -40285,7 +40285,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 20
   Mode: -1
@@ -42714,7 +42714,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -47358,7 +47358,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -50177,7 +50177,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 22
   Mode: -1
@@ -60907,7 +60907,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 12
   Mode: -1
@@ -61019,7 +61019,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -63034,7 +63034,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 32
   Mode: -1
@@ -64242,7 +64242,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 31
   Mode: -1
@@ -64451,7 +64451,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -64630,7 +64630,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 1
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -66604,7 +66604,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -68698,7 +68698,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 21
   Mode: -1
@@ -70436,7 +70436,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -72826,7 +72826,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 0
   Num_contents_Func: -1
   Mode: -1
@@ -75148,7 +75148,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -75327,7 +75327,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -78239,7 +78239,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 1
   Num_contents_Func: -1
   Mode: -1
@@ -78321,7 +78321,7 @@ MonoBehaviour:
   Setting: 0
   Close: 1
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -85422,7 +85422,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: 1
   Num_contents_Func: -1
   Mode: -1
@@ -85896,7 +85896,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 33
   Mode: -1
@@ -86052,7 +86052,7 @@ GameObject:
   - component: {fileID: 2122522893}
   - component: {fileID: 2122522892}
   m_Layer: 0
-  m_Name: 12. Message(Login)
+  m_Name: 12. Message(Login_Caution_Student)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86425,7 +86425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2132867138
 RectTransform:
   m_ObjectHideFlags: 0
@@ -87845,7 +87845,7 @@ RectTransform:
   - {fileID: 3080273311325937115}
   - {fileID: 1312343887}
   m_Father: {fileID: 55926560}
-  m_RootOrder: 14
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -88210,7 +88210,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: 0
@@ -90566,7 +90566,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -91966,7 +91966,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 6
   Mode: -1
@@ -92254,7 +92254,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 5
   Mode: -1
@@ -93525,7 +93525,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: 1
@@ -97003,7 +97003,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 0
   Mode: -1
@@ -98509,7 +98509,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 3
   Mode: -1
@@ -99218,7 +99218,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 2
   Mode: -1
@@ -100007,7 +100007,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 4
   Mode: -1
@@ -100354,7 +100354,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -100646,7 +100646,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -100934,7 +100934,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: 1
   Mode: -1
@@ -101525,7 +101525,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -105803,7 +105803,7 @@ MonoBehaviour:
   Setting: 1
   Close: 0
   Home: 0
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
@@ -106022,7 +106022,7 @@ RectTransform:
   - {fileID: 9094186693679997080}
   - {fileID: 1770673449}
   m_Father: {fileID: 55926560}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -106711,7 +106711,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -107045,7 +107045,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &7792779526178357719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107379,7 +107379,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8259752523617895982}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 642a9e45ff09a3e4b8b001a619cbf14b, type: 3}
   m_Name: 
@@ -107397,7 +107397,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8259752523617895982}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c27eb5d6db6c640469660ff73ccd9499, type: 3}
   m_Name: 
@@ -107495,7 +107495,7 @@ MonoBehaviour:
   Setting: 0
   Close: 0
   Home: 1
-  START: 0
+  Login: 0
   Num_contents: -1
   Num_contents_Func: -1
   Mode: -1
