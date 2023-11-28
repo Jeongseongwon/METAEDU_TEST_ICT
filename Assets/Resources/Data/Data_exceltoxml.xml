@@ -20,4 +20,5 @@
   <Test_data ID="RnD_001" Name="김일이" Birthdate="2023.10.31" Date="2023.09.29" Session="0" Data_1="" Data_2="" />
   <Test_data ID="RnD_003" Name="김오육" Birthdate="2023.10.33" Date="2023.11.29" Session="0" Data_1="" Data_2="" />
   <Test_data ID="RnD_003" Name="김오육" Birthdate="2023.10.33" Date="2023.11.29" Session="0" Data_1="" Data_2="" />
+  <Test_data ID="RnD_004" Name="김칠팔" Birthdate="2023.10.34" Date="2023.16.29" Session="0" Data_1="" Data_2="" />
 </Test_data>

@@ -454,7 +454,17 @@ public class GameLauncher_ICT : MonoBehaviour
     
     public void Button_Message_Login_SelectedStudentCheck()
     {
-        Message_L_SelectedStudentCheck.SetActive(true);
+        bool Is_Studentdatasaved = Manager_login.instance.Get_Is_StudentDataSelected();
+
+        if (Is_Studentdatasaved)
+        {
+            Message_L_SelectedStudentCheck.SetActive(true);
+            Message_L_SelectedStudentCheck.GetComponent<Message_SelectedStudentInfo>().Change_Info();
+        }
+        else
+        {
+            Message_L_Nonselect.SetActive(true);
+        }
     }
     public void Button_Message_Login_StudentDataSaved()
     {
@@ -464,11 +474,7 @@ public class GameLauncher_ICT : MonoBehaviour
     {
         Message_L_FieldEmpty.SetActive(true);
     }
-    public void Button_Message_Login_NonSelect()
-    {
-        Message_L_Nonselect.SetActive(true);
-    }
-
+    
 
     public void Save_Data()
     {       

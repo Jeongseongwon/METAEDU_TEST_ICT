@@ -232,14 +232,15 @@ public class Manager_login : MonoBehaviour
     {
         return Is_Logindatasaved;
     }
+    public bool Get_Is_StudentDataSelected()
+    {
+        return Is_StudentDataSelected;
+    }
 
     public void Setting_StudentInfo()
     {
         if (Is_StudentDataSelected)
         {
-            //데이터가 선택됨
-            Selected_Student_data = NewDataList[Num_student];
-
             ID = Selected_Student_data.ID;
             Name = Selected_Student_data.Name;
             Birthdate = Selected_Student_data.Birth_date;
@@ -255,9 +256,6 @@ public class Manager_login : MonoBehaviour
         }
         else
         {
-            //데이터를 선택하지 않았을 경우
-            Launcher.Button_Message_Login_NonSelect();
-
             //데이터 초기화 하는 부분, 추후에 적절한 곳으로 수정 필요 1129
             Picture_Off.SetActive(true);
             Picture_On.SetActive(false);
@@ -271,6 +269,15 @@ public class Manager_login : MonoBehaviour
     {
         Is_StudentDataSelected = true;
         Num_student = num;
+        Selected_Student_data = NewDataList[Num_student];
+    }
+    public string Get_SelectedStudentName()
+    {
+        return Selected_Student_data.Name;
+    }
+    public string Get_SelectedStudentID()
+    {
+        return Selected_Student_data.ID;
     }
 
     public void Init_Text()
