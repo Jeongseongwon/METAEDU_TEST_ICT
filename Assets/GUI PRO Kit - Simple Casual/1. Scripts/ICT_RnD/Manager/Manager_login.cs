@@ -278,7 +278,7 @@ public class Manager_login : MonoBehaviour
             ID = Selected_Student_data.ID;
             Name = Selected_Student_data.Name;
             Birthdate = Selected_Student_data.Birth_date;
-            Date = DateTime.Now.ToString(("yyyy.mm.dd"));
+            Date = DateTime.Now.ToString(("yyyy.MM.dd"));
 
             Picture_On.SetActive(true);
             Picture_Off.SetActive(false);

@@ -31,6 +31,8 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Message_L_StudentDataSaved;
     private GameObject Message_L_SelectedStudentCheck;
     private GameObject Message_L_Nonselect;
+
+    private GameObject Message_EndMusicContent;
     private Message_anim_controller MAC;
 
 
@@ -223,6 +225,14 @@ public class GameLauncher_ICT : MonoBehaviour
         }
     }
 
+    public void End_Musiccontent()
+    {
+        //음악놀이 데이터 저장
+        Save_Data();
+
+        Message_EndMusicContent();
+    }
+
 
     public void Run_Mode(int contentname)
     {
@@ -258,9 +268,6 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public void Run_Contents()
     {
-        //음악놀이 데이터 저장
-        Save_Data();
-
         //상태 반환
         Is_saved = false;
 
@@ -482,7 +489,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
         Saved_data.ID = Manager_login.instance.ID;
         Saved_data.Name = Manager_login.instance.Name;
-        Saved_data.Birth_date = Manager_login.instance.Birthdate; ;
+        Saved_data.Birth_date = Manager_login.instance.Birthdate;
         Saved_data.Date = Manager_login.instance.Date;
         Saved_data.Session = Manager_login.instance.Session.ToString();
         Saved_data.Data_1 = Manager_login.instance.Data_1;
@@ -522,6 +529,7 @@ public class GameLauncher_ICT : MonoBehaviour
         Message_L_StudentDataSaved = Message_UI.transform.GetChild(4).gameObject;
         Message_L_SelectedStudentCheck = Message_UI.transform.GetChild(5).gameObject;
         Message_L_Nonselect = Message_UI.transform.GetChild(6).gameObject;
+        Message_EndMusicContent = Message_UI.transform.GetChild(7).gameObject;
 
         //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
