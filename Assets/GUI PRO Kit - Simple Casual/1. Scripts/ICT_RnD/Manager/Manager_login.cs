@@ -54,8 +54,6 @@ public class Manager_login : MonoBehaviour
     private GameObject InputField_BirthDate;
 
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
-    private Stack<string> Recent_result_1 = new Stack<string>();
-    private Stack<string> Recent_result_2 = new Stack<string>();
 
 
     [Header("[LOGIN INFORMATION]")]
@@ -103,8 +101,6 @@ public class Manager_login : MonoBehaviour
             for (int i = 0; i < OriginDataList.Count; ++i)
             {
                 LoginData item = OriginDataList[i];
-                //Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-                //    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
 
                 GameObject myInstance = Instantiate(Prefab_StudentInfo, Panel_Left_Content);
                 myInstance.GetComponent<UI_button_StudentInfo>().Result_num = i;
@@ -113,7 +109,8 @@ public class Manager_login : MonoBehaviour
                 myInstance.GetComponent<UI_button_StudentInfo>().Student_BirthDate = item.Birth_date;
             }
             num_list = OriginDataList.Count;
-            //Write();
+            Init_Registermenu();
+
 
             //itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
             //for (int i = 0; i < itemList.Count; ++i)
@@ -198,10 +195,11 @@ public class Manager_login : MonoBehaviour
         if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
         {
             Launcher.Button_Message_Login_StudentDataSaved();
+            Write();
         }
 
         Refresh_data();
-        //그리고 나중에 정상종료가 되지 않을 경우에 미리미리 저장하지 않도록 예외처리 필요
+        Init_Registermenu();
     }
 
     public void Refresh_data()
@@ -221,6 +219,42 @@ public class Manager_login : MonoBehaviour
 
             num_list = NewDataList.Count;
         }
+    }
+    public string Init_RandomID()
+    {
+        string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
+        var ID = new char[6];
+        var random = new System.Random();
+
+        for(int i =0;i< ID.Length; i++)
+        {
+            ID[i] = characters[random.Next(characters.Length)];
+        }
+
+        string Temp_ID = new string(ID);
+
+        //중복일경우 마지막 0으로 변경
+        foreach (LoginData data in NewDataList)
+        {
+            if(data.ID == Temp_ID)
+            {
+                ID[5] = '0';
+                Temp_ID = new string(ID);
+                Debug.Log("생성된 아이디 중복" +"ID : "+ Temp_ID);
+            }
+            else
+            {
+            }
+        }
+        return Temp_ID;
+    }
+
+    public void Init_Registermenu()
+    {
+        string Temp_ID = "HeHo_Plus_" + Init_RandomID();
+        InputField_ID.GetComponent<TMP_InputField>().text=Temp_ID;
+        InputField_Name.GetComponent<TMP_InputField>().text = "";
+        InputField_BirthDate.GetComponent<TMP_InputField>().text = "";
     }
 
     public LoginData Get_Listdata(int num)
@@ -260,7 +294,7 @@ public class Manager_login : MonoBehaviour
             Picture_Off.SetActive(true);
             Picture_On.SetActive(false);
             Text_Name.text = "미선택";
-            Text_ID.text = "ICT_RND_OOOO";
+            Text_ID.text = "HeHo_Plus_OOOOOO";
         }
     }
 
