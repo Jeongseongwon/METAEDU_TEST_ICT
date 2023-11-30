@@ -5,11 +5,10 @@ using UnityEngine;
 public class Manager_audio : MonoBehaviour
 {
     public static Manager_audio instance = null;
-    //private AudioSource Hover;
+
     private AudioSource Click;
     private AudioSource BGM;
-    //private AudioSource Correct_answer;
-    //private AudioSource Wrong_answer;
+    private AudioSource Narration;
 
 
     //private float All_volume = 1f;
@@ -18,15 +17,15 @@ public class Manager_audio : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) //instance�� null. ��, �ý��ۻ� �����ϰ� ���� ������
+        if (instance == null)
         {
-            instance = this; //���ڽ��� instance�� �־��ݴϴ�.
-            DontDestroyOnLoad(gameObject); //OnLoad(���� �ε� �Ǿ�����) �ڽ��� �ı����� �ʰ� ����
+            instance = this; 
+            DontDestroyOnLoad(gameObject); 
         }
         else
         {
-            if (instance != this) //instance�� ���� �ƴ϶�� �̹� instance�� �ϳ� �����ϰ� �ִٴ� �ǹ�
-                Destroy(this.gameObject); //�� �̻� �����ϸ� �ȵǴ� ��ü�̴� ��� AWake�� �ڽ��� ����
+            if (instance != this) 
+                Destroy(this.gameObject); 
         }
     }
 
@@ -48,12 +47,6 @@ public class Manager_audio : MonoBehaviour
         return BGM_volume;
     }
 
-    public void Get_hover()
-    {
-        //Hover.Play();
-        //Debug.Log("hover");
-    }
-
     public void Get_click()
     {
         Click.Play();
@@ -66,8 +59,12 @@ public class Manager_audio : MonoBehaviour
         BGM.Play();
         //Debug.Log("click");
     }
-   
-   
+    public void Get_narration()
+    {
+        Narration.Play();
+        //Debug.Log("click");
+    }
+
     public void Get_Correct_answer()
     {
         //Correct_answer.Play();
@@ -89,7 +86,7 @@ public class Manager_audio : MonoBehaviour
 
         BGM = this.transform.GetChild(0).gameObject.GetComponent<AudioSource>();
         Click = this.transform.GetChild(1).gameObject.GetComponent<AudioSource>();
-        //BGM = this.transform.GetChild(2).gameObject.GetComponent<AudioSource>();
+        Narration = this.transform.GetChild(2).gameObject.GetComponent<AudioSource>();
         
         //Correct_answer = this.transform.GetChild(7).gameObject.GetComponent<AudioSource>();
         //Wrong_answer = this.transform.GetChild(10).gameObject.GetComponent<AudioSource>();

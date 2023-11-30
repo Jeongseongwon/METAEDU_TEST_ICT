@@ -230,7 +230,8 @@ public class GameLauncher_ICT : MonoBehaviour
         //À½¾Ç³îÀÌ µ¥ÀÌÅÍ ÀúÀå
         Save_Data();
 
-        Message_EndMusicContent();
+
+        //Message_EndMusicContent();
     }
 
 
