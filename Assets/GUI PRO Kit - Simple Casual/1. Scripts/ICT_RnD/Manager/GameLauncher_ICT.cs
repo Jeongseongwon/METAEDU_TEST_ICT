@@ -140,7 +140,6 @@ public class GameLauncher_ICT : MonoBehaviour
     //그럼 Back으로 가려면 기존에 가지고 있던 Next 페이지 비활성화, prev 활성화, 거기에서 또 prev하려면 Home으로 감, 근데 그걸 어떻게 구분을할까? 우선은 보류
     //Back 버튼을 선택적으로 구현이 가능한가?
     //Home, Contents, Mode로 크게 구분이 가능함
-
     public void UI_change()
     {
         GameObject page;
@@ -244,7 +243,6 @@ public class GameLauncher_ICT : MonoBehaviour
     }
     public void Run_Music_Contents()
     {
-
         Next_page = Monitoring_Music;
         UI_change();
 
@@ -267,6 +265,115 @@ public class GameLauncher_ICT : MonoBehaviour
         }
     }
 
+    public void Button_Music_Play()
+    {
+
+        Debug.Log("PLAY " + "Session : " + Session);
+        //해당 음악 콘텐츠 재생 기능 구현 필요
+        if (Session == 0)
+        {
+
+        }
+        else if (Session == 1)
+        {
+
+        }
+        else if (Session == 2)
+        {
+
+        }
+        else if (Session == 3)
+        {
+
+        }
+    }
+
+    public void Button_Music_Replay()
+    {
+
+        Debug.Log("REPLAY " + "Session : " + Session);
+        if (Session == 0)
+        {
+
+        }
+        else if (Session == 1)
+        {
+
+        }
+        else if (Session == 2)
+        {
+
+        }
+        else if (Session == 3)
+        {
+
+        }
+    }
+
+    public void Button_Music_Stop()
+    {
+        Debug.Log("STOP " + "Session : " + Session);
+        if (Session == 0)
+        {
+
+        }
+        else if (Session == 1)
+        {
+
+        }
+        else if (Session == 2)
+        {
+
+        }
+        else if (Session == 3)
+        {
+
+        }
+    }
+
+    public void Button_Music_Analysis()
+    {
+
+        Debug.Log("Analysis " + "Session : " + Session);
+        if (Session == 0)
+        {
+
+        }
+        else if (Session == 1)
+        {
+
+        }
+        else if (Session == 2)
+        {
+
+        }
+        else if (Session == 3)
+        {
+
+        }
+    }
+
+    public void Button_Music_Listening()
+    {
+
+        Debug.Log("Listening " + "Session : " + Session);
+        if (Session == 0)
+        {
+
+        }
+        else if (Session == 1)
+        {
+
+        }
+        else if (Session == 2)
+        {
+
+        }
+        else if (Session == 3)
+        {
+
+        }
+    }
     public void Run_Contents()
     {
         //상태 반환
@@ -429,6 +536,7 @@ public class GameLauncher_ICT : MonoBehaviour
         }
         //SceneManager.LoadSceneAsync(1);
     }
+
 
     //저작 도구 데이터 확인
     public void Button_Message_Contents()

@@ -30,17 +30,6 @@ public class MultipleGraphDemo : MonoBehaviour
         Graph.DataSource.StartBatch(); // calling StartBatch allows changing the graph data without redrawing the graph for every change
         Graph.DataSource.ClearCategory("SW data"); // clear the "Player 2" category. this category is defined using the GraphChart inspector
 
-
-        Graph.DataSource.AddPointToCategory("OX data", 0, 0); // each time we call AddPointToCategory 
-        Graph.DataSource.AddPointToCategory("SW data", 0, 0); // each time we call AddPointToCategory 
-
-        Graph.DataSource.AddPointToCategory("OX data", 5, 7); // each time we call AddPointToCategory 
-        Graph.DataSource.AddPointToCategory("SW data", 5, 3); // each time we call AddPointToCategory 
-
-        Graph.DataSource.AddPointToCategory("OX data", 10, 2); // each time we call AddPointToCategory 
-        Graph.DataSource.AddPointToCategory("SW data", 10, 9); // each time we call AddPointToCategory 
-
-
         //for (int i = 0; i < TotalPoints; i++)  //add random points to the graph
         //{
         //    Graph.DataSource.AddPointToCategory("OX data", 0, 0); // each time we call AddPointToCategory 
@@ -70,26 +59,28 @@ public class MultipleGraphDemo : MonoBehaviour
                                      //}
     }
 
-    //여기서 그래프가 과연 주기적으로 변할 수 있는지 체크가 필요함
     public void Add_Data(Stack<string> result_1, Stack<string> result_2)
     {
-        x_1 = 1;
-        x_2 = 1;
+        x_1 = 0;
+        x_2 = 0;
         Graph.DataSource.StartBatch();
         Graph.DataSource.ClearCategory("SW data");
         Graph.DataSource.ClearCategory("OX data");
 
-
         //Debug.Log("Number of Each data" + result_1.Count + result_2.Count);
-        for (int i = 0; i < 3; i++)
+        int num_stack= result_1.Count;
+
+        for (int i = 0; i < num_stack; i++)
         {
+            //Debug.Log("데이터 add for문 갯수 " + i);
             y_1 = Convert.ToInt32(result_1.Pop());
             y_2 = Convert.ToInt32(result_2.Pop());
+
             //Debug.Log("Number of Each data" + y_1 + y_2);
             Graph.DataSource.AddPointToCategory("OX data", x_1, y_1);
             Graph.DataSource.AddPointToCategory("SW data", x_2, y_2);
-            x_1 += 4f;
-            x_2 += 4f;
+            x_1 += 2.5f;
+            x_2 += 2.5f;
         }
         Graph.DataSource.EndBatch();
     }

@@ -58,12 +58,16 @@ public class Manager_data : MonoBehaviour
     private UnityEngine.UI.Text text_Date_0;
     private UnityEngine.UI.Text text_Date_1;
     private UnityEngine.UI.Text text_Date_2;
+    private UnityEngine.UI.Text text_Date_3;
+    private UnityEngine.UI.Text text_Date_4;
 
     //
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
     private Stack<string> Recent_result_1 = new Stack<string>();
     private Stack<string> Recent_result_2 = new Stack<string>();
-    
+
+    //private List<GameObject> Textlist = new Stack<string>();
+    private List<Text> Textlist = new List<Text>();
 
     // Start is called before the first frame update
     private void Awake()
@@ -221,7 +225,7 @@ public class Manager_data : MonoBehaviour
         ProgressBar_OX.value = Int32.Parse(Item.Data_1) * 0.1f;
         ProgressBar_SW.value = Int32.Parse(Item.Data_2) * 0.1f;
 
-        //최근 3회차 데이터 추출
+        //최근 3회차 데이터 추출, 여기서 이상의 데이터가 들어갈 가능성이 있음
         foreach (DialogueData data in NewDataList)
         {
             if (data.ID == Item.ID)
@@ -230,31 +234,59 @@ public class Manager_data : MonoBehaviour
             }
         }
 
-        //1,2 -> 데이터 없음 /3 -> 그래프
-        if (Recent_data.Count > 2)
-        {
-            for (int i = 0; i < 3; i++)
-            {
-                //가장 최근 데이터 순/ 데이터 1,2 저장
-                Item = Recent_data.Pop();
-                Recent_result_1.Push(Item.Data_1);
-                Recent_result_2.Push(Item.Data_2);
+        //Debug.Log("찾아낸 데이터 수" + Recent_data.Count);
+        //1,2 -> 데이터 없음 /3,4,5 -> 그래프
+        int Num_Recent_stack = Recent_data.Count;
 
-                //x축 저장
-                if (i == 0)
+        if (Num_Recent_stack > 2)
+        {
+            //날짜 텍스트 리셋, 데이터 3,4개 예외처리
+            if(Num_Recent_stack == 3 || Num_Recent_stack == 4)
+            {
+                text_Date_4.text = "-";
+                text_Date_3.text = "-";
+            }
+
+            //5개 max 기준 데이터 시각화
+            for (int i = 0; i < 5; i++)
+            {
+                //Debug.Log("for문 돌아간 횟수" + i);
+                //가장 최근 데이터 순서대로 pop/ 데이터 1,2 저장
+                if (i < Num_Recent_stack)
                 {
-                    //3회차
-                    text_Date_2.text = Item.Date;
+                    //Debug.Log("실제 데이터 들어간 횟수" + i);
+                    Item = Recent_data.Pop();
+                    Recent_result_1.Push(Item.Data_1);
+                    Recent_result_2.Push(Item.Data_2);
+
+                    Debug.Log("실제 데이터 들어간 횟수" + 5 + i);
+                    //Textlist[Num_Recent_stack - i+1].GetComponent<Text>().text = Item.Date;
+                    Textlist[5 - (i+1)].text = Item.Date;
+
+                    //if (i == 0)
+                    //{
+                    //    Textlist[Num_Recent_stack-i].text = Item.Date;
+                    //}
+                    //else if (i == 1)
+                    //{
+                    //    text_Date_3.text = Item.Date;
+                    //}
+                    //else if (i == 2)
+                    //{
+                    //    text_Date_2.text = Item.Date;
+                    //}
+                    //else if (i == 3)
+                    //{
+                    //    text_Date_1.text = Item.Date;
+                    //}
+                    //else if (i == 4)
+                    //{
+                    //    text_Date_0.text = Item.Date;
+                    //}
                 }
-                else if (i == 1)
+                else
                 {
-                    //2회차
-                    text_Date_1.text = Item.Date;
-                }
-                else if (i == 2)
-                {
-                    //1회차
-                    text_Date_0.text = Item.Date;
+                    Textlist[i].text = "-";
                 }
             }
 
@@ -290,5 +322,19 @@ public class Manager_data : MonoBehaviour
         text_Date_0 = DataText_group.transform.GetChild(6).gameObject.GetComponent<Text>();
         text_Date_1 = DataText_group.transform.GetChild(7).gameObject.GetComponent<Text>();
         text_Date_2 = DataText_group.transform.GetChild(8).gameObject.GetComponent<Text>();
+        text_Date_3 = DataText_group.transform.GetChild(9).gameObject.GetComponent<Text>();
+        text_Date_4 = DataText_group.transform.GetChild(10).gameObject.GetComponent<Text>();
+
+        Textlist.Add(text_Date_0);
+        Textlist.Add(text_Date_1);
+        Textlist.Add(text_Date_2);
+        Textlist.Add(text_Date_3);
+        Textlist.Add(text_Date_4);
+        Debug.Log(Textlist.Count);
+        //Textlist.Add(DataText_group.transform.GetChild(6).gameObject);
+        //Textlist.Add(DataText_group.transform.GetChild(7).gameObject);
+        //Textlist.Add(DataText_group.transform.GetChild(8).gameObject);
+        //Textlist.Add(DataText_group.transform.GetChild(9).gameObject);
+        //Textlist.Add(DataText_group.transform.GetChild(10).gameObject);
     }
 }
