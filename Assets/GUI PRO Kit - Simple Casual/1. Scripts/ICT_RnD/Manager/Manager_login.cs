@@ -88,7 +88,7 @@ public class Manager_login : MonoBehaviour
         Init_Text();
         Launcher = this.gameObject.GetComponent<GameLauncher_ICT>();
 
-        filePath = Application.dataPath + "/Resources/Data/Info_ID.xml";
+        filePath = Application.dataPath + "/Resources/Data/LOGININFO.xml";
 
         if (filePath != null)
         {
@@ -122,12 +122,6 @@ public class Manager_login : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     //기존 데이터 아랫줄에 최신 데이터 추가한 뒤
     //저장
     public void Write()
@@ -142,12 +136,12 @@ public class Manager_login : MonoBehaviour
         }
 
         XmlDocument Document = new XmlDocument();
-        XmlElement ItemListElement = Document.CreateElement("Test_data");
+        XmlElement ItemListElement = Document.CreateElement("Login_Info_data");
         Document.AppendChild(ItemListElement);
 
         foreach (LoginData data in NewDataList)
         {
-            XmlElement ItemElement = Document.CreateElement("Test_data");
+            XmlElement ItemElement = Document.CreateElement("Login_Info_data");
             ItemElement.SetAttribute("ID", data.ID);
             ItemElement.SetAttribute("Name", data.Name);
             ItemElement.SetAttribute("Birthdate", data.Birth_date);
@@ -161,7 +155,7 @@ public class Manager_login : MonoBehaviour
         //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
         Document.Load(filePath);
-        XmlElement ItemListElement = Document["Test_data"];
+        XmlElement ItemListElement = Document["Login_Info_data"];
         List<LoginData> ItemList = new List<LoginData>();
 
         foreach (XmlElement ItemElement in ItemListElement.ChildNodes)

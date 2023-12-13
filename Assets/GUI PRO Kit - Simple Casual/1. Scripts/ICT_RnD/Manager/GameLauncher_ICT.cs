@@ -38,7 +38,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
     private GameObject Prev_page;
     private GameObject Next_page;
-    private bool Is_saved = false;
+    private bool Is_Toolsaved = false;
 
 
     // Start is called before the first frame update
@@ -136,30 +136,26 @@ public class GameLauncher_ICT : MonoBehaviour
         }
     }
 
-    //해당 UI로 변경은 Next 변경하고 Prev 찾아서 비활성화 해줌
-    //그럼 Back으로 가려면 기존에 가지고 있던 Next 페이지 비활성화, prev 활성화, 거기에서 또 prev하려면 Home으로 감, 근데 그걸 어떻게 구분을할까? 우선은 보류
-    //Back 버튼을 선택적으로 구현이 가능한가?
-    //Home, Contents, Mode로 크게 구분이 가능함
     public void UI_change()
     {
         GameObject page;
-        for(int i =0;i< ICT_RnD_UI.transform.childCount; i++)
+        for (int i = 0; i < ICT_RnD_UI.transform.childCount; i++)
         {
             page = ICT_RnD_UI.transform.GetChild(i).gameObject;
             if (page.gameObject.activeSelf)
             {
                 Prev_page = page.gameObject;
-                Debug.Log(Prev_page);
+                //Debug.Log(Prev_page);
             }
         }
         Prev_page.SetActive(false);
         Next_page.SetActive(true);
     }
-    
+
     public void Button_Save_Tool()
     {
         //저작도구 저장여부
-        Is_saved = true;
+        Is_Toolsaved = true;
 
         Next_page = Home;
         UI_change();
@@ -191,7 +187,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public void Button_Home()
     {
-        //콘텐츠 실행 중일 경우 비활성화 기능 구현 필요
+        //콘텐츠 실행 중일 경우 해당 콘텐츠 비활성화 기능 구현 필요
         Next_page = Home;
         UI_change();
     }
@@ -208,8 +204,17 @@ public class GameLauncher_ICT : MonoBehaviour
     }
     public void Button_Contents()
     {
-        Next_page = Contents;
-        UI_change();
+        bool Is_Logindatasaved = Manager_login.instance.Get_Islogindatasaved();
+
+        if (Is_Logindatasaved)
+        {
+            Next_page = Contents;
+            UI_change();
+        }
+        else
+        {
+            Message_StudentNotSelected.SetActive(true);
+        }
     }
     public void Button_Mode(int num_mode)
     {
@@ -218,7 +223,7 @@ public class GameLauncher_ICT : MonoBehaviour
         {
             Run_Music_Contents();
         }
-        else if(num_mode == 1)
+        else if (num_mode == 1)
         {
             Run_Contents();
         }
@@ -253,15 +258,15 @@ public class GameLauncher_ICT : MonoBehaviour
         }
         else if (Session == 1)
         {
-            
+
         }
         else if (Session == 2)
         {
-            
+
         }
         else if (Session == 3)
         {
-           
+
         }
     }
 
@@ -377,7 +382,7 @@ public class GameLauncher_ICT : MonoBehaviour
     public void Run_Contents()
     {
         //상태 반환
-        Is_saved = false;
+        Is_Toolsaved = false;
 
         //해당 콘텐츠 설정 관련 기능 더미
         Dummy_setting_content();
@@ -538,10 +543,10 @@ public class GameLauncher_ICT : MonoBehaviour
     }
 
 
-    //저작 도구 데이터 확인
+    //저작 도구, 학생 저장 데이터 확인
     public void Button_Message_Contents()
     {
-        if (Is_saved)
+        if (Is_Toolsaved)
         {
             Button_Contents();
         }
@@ -552,22 +557,17 @@ public class GameLauncher_ICT : MonoBehaviour
     }
     public void Button_Message_Contents_Select(int Num_content)
     {
-        bool Is_Logindatasaved = Manager_login.instance.Get_Islogindatasaved();
-
-        if (Is_Logindatasaved)
-        {
-            Run_Mode(Num_content);
-        }
-        else
-        {
-            Message_StudentNotSelected.SetActive(true);
-        }
+        Run_Mode(Num_content);
     }
     public void Button_Login()
     {
         Login.SetActive(true);
     }
-    
+    public void Button_Survey()
+    {
+        //Login.SetActive(true);
+    }
+
     public void Button_Message_Login_SelectedStudentCheck()
     {
         bool Is_Studentdatasaved = Manager_login.instance.Get_Is_StudentDataSelected();
@@ -590,10 +590,10 @@ public class GameLauncher_ICT : MonoBehaviour
     {
         Message_L_FieldEmpty.SetActive(true);
     }
-    
+
 
     public void Save_Data()
-    {       
+    {
         DialogueData Saved_data = new DialogueData();
 
         Saved_data.ID = Manager_login.instance.ID;
@@ -646,8 +646,7 @@ public class GameLauncher_ICT : MonoBehaviour
 
     }
 
-    //1122 나중에 저장된 데이터 초기화 하는 기능 필요함
-    //학생 정보 저장 여부, 저작도구 저장 여부
+    //1122 콘텐츠 정상종료 후 다시 콘텐츠 실행할 때 저장된 데이터 초기화 하는 기능 필요
     public void UI_Back()
     {
         Prev_page.SetActive(true);

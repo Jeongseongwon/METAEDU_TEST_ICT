@@ -25,6 +25,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool Close = false;
     public bool Home = false;
     public bool Login = false;
+    public bool Survey = false;
 
     public int Num_contents = -1;
     public int Num_contents_Func = -1;
@@ -86,5 +87,8 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
 
         if (Login)
             Launcher.Button_Login();
+
+        if (Survey)
+            Launcher.Button_Survey();
     }
 }

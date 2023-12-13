@@ -87,7 +87,7 @@ public class Manager_data : MonoBehaviour
     void Start()
     {
         Init_Text();
-        filePath = Application.dataPath + "/Resources/Data/Data_exceltoxml.xml";
+        filePath = Application.dataPath + "/Resources/Data/RESULT.xml";
 
         if (filePath != null)
         {
@@ -139,12 +139,12 @@ public class Manager_data : MonoBehaviour
         }
 
         XmlDocument Document = new XmlDocument();
-        XmlElement ItemListElement = Document.CreateElement("Test_data");
+        XmlElement ItemListElement = Document.CreateElement("Result_data");
         Document.AppendChild(ItemListElement);
 
         foreach (DialogueData data in NewDataList)
         {
-            XmlElement ItemElement = Document.CreateElement("Test_data");
+            XmlElement ItemElement = Document.CreateElement("Result_data");
             ItemElement.SetAttribute("ID", data.ID);
             ItemElement.SetAttribute("Name", data.Name);
             ItemElement.SetAttribute("Birthdate", data.Birth_date);
@@ -163,7 +163,7 @@ public class Manager_data : MonoBehaviour
         //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
         Document.Load(filePath);
-        XmlElement ItemListElement = Document["Test_data"];
+        XmlElement ItemListElement = Document["Result_data"];
         List<DialogueData> ItemList = new List<DialogueData>();
 
         foreach (XmlElement ItemElement in ItemListElement.ChildNodes)
