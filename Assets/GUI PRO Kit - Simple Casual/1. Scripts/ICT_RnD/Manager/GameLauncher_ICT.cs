@@ -16,6 +16,7 @@ public class GameLauncher_ICT : MonoBehaviour
     private GameObject Result;
     private GameObject Contents;
     private GameObject Mode;
+    private GameObject Survey;
     private GameObject Monitoring_Music;
     private GameObject Monitoring_C1;
     private GameObject Monitoring_C2;
@@ -24,17 +25,18 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public GameObject Message_UI;
     private GameObject Message_Tool;
-    private GameObject Message_StudentNotSelected;
+    private GameObject Message_Content_StudentCheck;
     private GameObject Message_Intro;
     private GameObject Message_L_StudentCheck;
     private GameObject Message_L_FieldEmpty;
     private GameObject Message_L_StudentDataSaved;
     private GameObject Message_L_SelectedStudentCheck;
     private GameObject Message_L_Nonselect;
+    private GameObject Message_Survey_StudentCheck;
+    private GameObject Message_Answer_NonSelected;
 
     private GameObject Message_EndMusicContent;
     private Message_anim_controller MAC;
-
 
     private GameObject Prev_page;
     private GameObject Next_page;
@@ -213,7 +215,7 @@ public class GameLauncher_ICT : MonoBehaviour
         }
         else
         {
-            Message_StudentNotSelected.SetActive(true);
+            Message_Content_StudentCheck.SetActive(true);
         }
     }
     public void Button_Mode(int num_mode)
@@ -565,7 +567,16 @@ public class GameLauncher_ICT : MonoBehaviour
     }
     public void Button_Survey()
     {
-        //Login.SetActive(true);
+        bool Is_Logindatasaved = Manager_login.instance.Get_Islogindatasaved();
+
+        if (Is_Logindatasaved)
+        {
+            Survey.SetActive(true);
+        }
+        else
+        {
+            Message_Survey_StudentCheck.SetActive(true);
+        }
     }
 
     public void Button_Message_Login_SelectedStudentCheck()
@@ -628,17 +639,21 @@ public class GameLauncher_ICT : MonoBehaviour
         Monitoring_C2 = ICT_RnD_UI.transform.GetChild(8).gameObject;
         Monitoring_C3 = ICT_RnD_UI.transform.GetChild(9).gameObject;
         Monitoring_C4 = ICT_RnD_UI.transform.GetChild(10).gameObject;
+
         Setting = ICT_RnD_UI.transform.GetChild(11).gameObject;
         Login = ICT_RnD_UI.transform.GetChild(12).gameObject;
+        Survey = ICT_RnD_UI.transform.GetChild(13).gameObject;
 
         Message_Tool = Message_UI.transform.GetChild(0).gameObject;
-        Message_StudentNotSelected = Message_UI.transform.GetChild(1).gameObject;
+        Message_Content_StudentCheck = Message_UI.transform.GetChild(1).gameObject;
         Message_Intro = Message_UI.transform.GetChild(2).gameObject;
         Message_L_FieldEmpty = Message_UI.transform.GetChild(3).gameObject;
         Message_L_StudentDataSaved = Message_UI.transform.GetChild(4).gameObject;
         Message_L_SelectedStudentCheck = Message_UI.transform.GetChild(5).gameObject;
         Message_L_Nonselect = Message_UI.transform.GetChild(6).gameObject;
-        Message_EndMusicContent = Message_UI.transform.GetChild(7).gameObject;
+        Message_Survey_StudentCheck = Message_UI.transform.GetChild(7).gameObject;
+        Message_Answer_NonSelected = Message_UI.transform.GetChild(8).gameObject;
+        //Message_EndMusicContent = Message_UI.transform.GetChild(7).gameObject;
 
         //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
