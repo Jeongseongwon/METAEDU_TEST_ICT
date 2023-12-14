@@ -172,28 +172,34 @@ public class Manager_login : MonoBehaviour
 
     public void Add_Studentdata()
     {
+
         //Debug.Log(InputField_ID.GetComponent<TMP_InputField>().text);
         //Debug.Log(InputField_Name.GetComponent<TMP_InputField>().text);
         //Debug.Log(InputField_BirthDate.GetComponent<TMP_InputField>().text);
 
-
-        //필드가 비었을 경우 예외처리, 다른 문자가 들어갔을 경우 예외처리
-
         LoginData Item = new LoginData();
+
         Item.ID = InputField_ID.GetComponent<TMP_InputField>().text;
         Item.Name = InputField_Name.GetComponent<TMP_InputField>().text;
         Item.Birth_date = InputField_BirthDate.GetComponent<TMP_InputField>().text;
 
-        NewDataList.Add(Item);
-
-        if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
+        if (string.IsNullOrEmpty(Item.Name) || string.IsNullOrEmpty(Item.Name))
         {
-            Launcher.Button_Message_Login_StudentDataSaved();
-            Write();
+            Debug.Log("Name, Date Empty");
         }
+        else
+        {
+            NewDataList.Add(Item);
 
-        Refresh_data();
-        Init_Registermenu();
+            if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
+            {
+                Launcher.Button_Message_Login_StudentDataSaved();
+                Write();
+            }
+
+            Refresh_data();
+            Init_Registermenu();
+        }
     }
 
     public void Refresh_data()
@@ -220,7 +226,7 @@ public class Manager_login : MonoBehaviour
         var ID = new char[6];
         var random = new System.Random();
 
-        for(int i =0;i< ID.Length; i++)
+        for (int i = 0; i < ID.Length; i++)
         {
             ID[i] = characters[random.Next(characters.Length)];
         }
@@ -230,11 +236,11 @@ public class Manager_login : MonoBehaviour
         //중복일경우 마지막 0으로 변경
         foreach (LoginData data in NewDataList)
         {
-            if(data.ID == Temp_ID)
+            if (data.ID == Temp_ID)
             {
                 ID[5] = '0';
                 Temp_ID = new string(ID);
-                Debug.Log("생성된 아이디 중복" +"ID : "+ Temp_ID);
+                Debug.Log("생성된 아이디 중복" + "ID : " + Temp_ID);
             }
             else
             {
@@ -246,7 +252,7 @@ public class Manager_login : MonoBehaviour
     public void Init_Registermenu()
     {
         string Temp_ID = "HeHo_Plus_" + Init_RandomID();
-        InputField_ID.GetComponent<TMP_InputField>().text=Temp_ID;
+        InputField_ID.GetComponent<TMP_InputField>().text = Temp_ID;
         InputField_Name.GetComponent<TMP_InputField>().text = "";
         InputField_BirthDate.GetComponent<TMP_InputField>().text = "";
     }

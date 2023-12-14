@@ -125,8 +125,6 @@ public class Manager_data : MonoBehaviour
 
     }
 
-    //기존 데이터 아랫줄에 최신 데이터 추가한 뒤
-    //저장
     public void Write()
     {
         //저장된 DataList를 저장된 Filepath에 저장
@@ -250,39 +248,16 @@ public class Manager_data : MonoBehaviour
             //5개 max 기준 데이터 시각화
             for (int i = 0; i < 5; i++)
             {
-                //Debug.Log("for문 돌아간 횟수" + i);
                 //가장 최근 데이터 순서대로 pop/ 데이터 1,2 저장
                 if (i < Num_Recent_stack)
                 {
-                    //Debug.Log("실제 데이터 들어간 횟수" + i);
                     Item = Recent_data.Pop();
                     Recent_result_1.Push(Item.Data_1);
                     Recent_result_2.Push(Item.Data_2);
 
-                    Debug.Log("실제 데이터 들어간 횟수" + 5 + i);
                     //Textlist[Num_Recent_stack - i+1].GetComponent<Text>().text = Item.Date;
                     Textlist[5 - (i+1)].text = Item.Date;
 
-                    //if (i == 0)
-                    //{
-                    //    Textlist[Num_Recent_stack-i].text = Item.Date;
-                    //}
-                    //else if (i == 1)
-                    //{
-                    //    text_Date_3.text = Item.Date;
-                    //}
-                    //else if (i == 2)
-                    //{
-                    //    text_Date_2.text = Item.Date;
-                    //}
-                    //else if (i == 3)
-                    //{
-                    //    text_Date_1.text = Item.Date;
-                    //}
-                    //else if (i == 4)
-                    //{
-                    //    text_Date_0.text = Item.Date;
-                    //}
                 }
                 else
                 {
@@ -331,10 +306,5 @@ public class Manager_data : MonoBehaviour
         Textlist.Add(text_Date_3);
         Textlist.Add(text_Date_4);
         Debug.Log(Textlist.Count);
-        //Textlist.Add(DataText_group.transform.GetChild(6).gameObject);
-        //Textlist.Add(DataText_group.transform.GetChild(7).gameObject);
-        //Textlist.Add(DataText_group.transform.GetChild(8).gameObject);
-        //Textlist.Add(DataText_group.transform.GetChild(9).gameObject);
-        //Textlist.Add(DataText_group.transform.GetChild(10).gameObject);
     }
 }

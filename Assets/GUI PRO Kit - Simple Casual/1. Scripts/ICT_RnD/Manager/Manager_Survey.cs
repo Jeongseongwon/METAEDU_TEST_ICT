@@ -59,13 +59,10 @@ public class Manager_Survey : MonoBehaviour
     private GameObject Question;
     private GameObject Submit;
 
-    private string text_QuestionNumber;
-    private string text_Question;
-
     private bool Is_AnswerSelected;
     private int Num_Answer;
 
-    [Header("SURVEY INFORMATION]")]
+    [Header("[SURVEY INFORMATION]")]
     [SerializeField]
     public string ID;
     public string Name;
@@ -154,20 +151,6 @@ public class Manager_Survey : MonoBehaviour
     {
         SurveyData Item = new SurveyData();
 
-        //Item.ID = Manager_login.instance.ID;
-        //Item.Name = Manager_login.instance.Name;
-        //Item.Date = Manager_login.instance.Date;
-
-        //Item.Data_S1 = Answer_Number[0].ToString();
-        //Item.Data_S2 = Answer_Number[1].ToString();
-        //Item.Data_S3 = Answer_Number[2].ToString();
-        //Item.Data_S4 = Answer_Number[3].ToString();
-        //Item.Data_S5 = Answer_Number[4].ToString();
-        //Item.Data_S6 = Answer_Number[5].ToString();
-        //Item.Data_S7 = Answer_Number[6].ToString();
-        //Item.Data_S8 = Answer_Number[7].ToString();
-
-
         ID = Manager_login.instance.ID;
         Name = Manager_login.instance.Name;
         Date = Manager_login.instance.Date;
@@ -200,14 +183,10 @@ public class Manager_Survey : MonoBehaviour
         if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
         {
             Write();
-            Debug.Log("Survey data saved!");
+            //Debug.Log("Survey data saved!");
+            Message_SubmitCompleted.SetActive(true);
         }
     }
-    //전체 문제 데이터 저장
-    //최종 xml 파일 형태로 따로 데이터 저장
-    //그럼 설문조사 데이터도 가시화 해야하나?
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -240,7 +219,7 @@ public class Manager_Survey : MonoBehaviour
             {
                 Answer_Number.Add(Num_Answer);
                 Question_Number += 1;
-                Debug.Log("현재" + Question_Number);
+                //Debug.Log("현재" + Question_Number);
                 ChangeText();
                 Is_AnswerSelected = false;
             }
@@ -290,9 +269,8 @@ public class Manager_Survey : MonoBehaviour
     
     public void Init_Survey()
     {
-        Debug.Log("서베이 초기화 확인");
-        //닫기 누르고 나서 다시 누르면 이전에 있던 Question 초기화 필요
-
+        //Debug.Log("초기화 확인");
+        
         Intro = Survey_UI.transform.GetChild(0).gameObject;
         Question = Survey_UI.transform.GetChild(1).gameObject;
         Submit = Survey_UI.transform.GetChild(2).gameObject;
@@ -317,8 +295,5 @@ public class Manager_Survey : MonoBehaviour
         Answer_Number.Clear();
         ChangeText();
 
-        //닫기 누르면 어떻게 할지 예외처리
-        //그렇게 되면 중간에 나가는 거니 어떻게할지 처리를 해야함
-        //그리고 빈칸 마저 구현하는거
     }
 }
