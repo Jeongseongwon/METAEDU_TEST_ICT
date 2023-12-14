@@ -572,6 +572,7 @@ public class GameLauncher_ICT : MonoBehaviour
         if (Is_Logindatasaved)
         {
             Survey.SetActive(true);
+            Manager_Survey.instance.Init_Survey();
         }
         else
         {
