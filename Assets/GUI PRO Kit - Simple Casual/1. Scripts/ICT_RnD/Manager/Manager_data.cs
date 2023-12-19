@@ -68,6 +68,7 @@ public class Manager_data : MonoBehaviour
 
     //private List<GameObject> Textlist = new Stack<string>();
     private List<Text> Textlist = new List<Text>();
+    private TextAsset XmlFilepath;
 
     // Start is called before the first frame update
     private void Awake()
@@ -87,11 +88,12 @@ public class Manager_data : MonoBehaviour
     void Start()
     {
         Init_Text();
-        filePath = Application.dataPath + "/Resources/Data/RESULT.xml";
+        filePath = "Data/RESULT";
+        XmlFilepath = Resources.Load<TextAsset>(filePath);
+
 
         if (filePath != null)
         {
-            //Read_txt();
             Recent_data.Clear();
             Debug.Log(Application.dataPath);
             OriginDataList = Read();
@@ -100,31 +102,15 @@ public class Manager_data : MonoBehaviour
             for (int i = 0; i < OriginDataList.Count; ++i)
             {
                 DialogueData item = OriginDataList[i];
-                //Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-                //    i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
-
+                
                 GameObject myInstance = Instantiate(Prefab_SD, Panel_Left_Content);
                 myInstance.GetComponent<UI_button_SD>().Result_num = i;
                 myInstance.GetComponent<UI_button_SD>().Student = item.Name;
             }
             Write();
-
-            //itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
-            //for (int i = 0; i < itemList.Count; ++i)
-            //{
-            //    DialogueData item = itemList[i];
-            //    Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-            //        i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
-            //}
         }
     }
     
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public void Write()
     {
         //저장된 DataList를 저장된 Filepath에 저장
@@ -152,7 +138,7 @@ public class Manager_data : MonoBehaviour
             ItemElement.SetAttribute("Data_2", data.Data_2);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(filePath);
+        Document.LoadXml(XmlFilepath.ToString());
 
     }
 
@@ -160,7 +146,7 @@ public class Manager_data : MonoBehaviour
     {
         //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
-        Document.Load(filePath);
+        Document.LoadXml(XmlFilepath.ToString());
         XmlElement ItemListElement = Document["Result_data"];
         List<DialogueData> ItemList = new List<DialogueData>();
 
@@ -305,6 +291,5 @@ public class Manager_data : MonoBehaviour
         Textlist.Add(text_Date_2);
         Textlist.Add(text_Date_3);
         Textlist.Add(text_Date_4);
-        Debug.Log(Textlist.Count);
     }
 }

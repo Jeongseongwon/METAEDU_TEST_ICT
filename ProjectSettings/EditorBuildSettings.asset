@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/GUI PRO Kit - Simple Casual/0. Scene/Launcher_ICT_Ver.1.unity
+    guid: 81506a91d0760aa489e54e2dca3db8bb
   m_configObjects: {}

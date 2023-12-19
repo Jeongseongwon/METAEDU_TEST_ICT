@@ -4,7 +4,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
-using UnityEngine.WSA;
 using UnityEngine.UI;
 
 public class SurveyData
@@ -42,6 +41,7 @@ public class Manager_Survey : MonoBehaviour
     private List<SurveyData> NewDataList;
 
     private string filePath;
+    private TextAsset XmlFilepath;
 
     private int Question_Number;
     private List<int> Answer_Number = new List<int>();
@@ -91,9 +91,6 @@ public class Manager_Survey : MonoBehaviour
     }
     public void Write()
     {
-            //NewDataList.Add(Student_data);
-            //Debug.Log("SAVED DATA WRITE");
-
         XmlDocument Document = new XmlDocument();
         XmlElement ItemListElement = Document.CreateElement("Survey_data");
         Document.AppendChild(ItemListElement);
@@ -115,15 +112,14 @@ public class Manager_Survey : MonoBehaviour
             ItemElement.SetAttribute("Data_8", data.Data_S8);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(filePath);
+        Document.LoadXml(XmlFilepath.ToString());
 
     }
 
     public List<SurveyData> Read()
     {
-        //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
-        Document.Load(filePath);
+        Document.LoadXml(XmlFilepath.ToString());
         XmlElement ItemListElement = Document["Survey_data"];
         List<SurveyData> ItemList = new List<SurveyData>();
 
@@ -192,7 +188,8 @@ public class Manager_Survey : MonoBehaviour
     {
         Init_Survey();
 
-        filePath = UnityEngine.Application.dataPath + "/Resources/Data/SURVEYRESULT.xml";
+        filePath = "Data/SURVEYRESULT";
+        XmlFilepath = Resources.Load<TextAsset>(filePath);
 
         if (filePath != null)
         {

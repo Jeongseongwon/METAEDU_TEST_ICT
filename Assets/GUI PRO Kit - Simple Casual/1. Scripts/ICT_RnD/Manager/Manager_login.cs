@@ -30,6 +30,8 @@ public class Manager_login : MonoBehaviour
     private List<LoginData> NewDataList;
 
     private string filePath;
+    private TextAsset XmlFilepath;
+
     private LoginData Student_data;
     private LoginData Selected_Student_data;
     private int Num_student;
@@ -88,11 +90,11 @@ public class Manager_login : MonoBehaviour
         Init_Text();
         Launcher = this.gameObject.GetComponent<GameLauncher_ICT>();
 
-        filePath = Application.dataPath + "/Resources/Data/LOGININFO.xml";
+        filePath = "Data/LOGININFO";
+        XmlFilepath = Resources.Load<TextAsset>(filePath);
 
         if (filePath != null)
         {
-            //Read_txt();
             Recent_data.Clear();
             Debug.Log(Application.dataPath);
             OriginDataList = Read();
@@ -111,23 +113,11 @@ public class Manager_login : MonoBehaviour
             num_list = OriginDataList.Count;
             Init_Registermenu();
 
-
-            //itemList = Read(Application.dataPath + "/Resources/Data/Data_wirte_test.xml");
-            //for (int i = 0; i < itemList.Count; ++i)
-            //{
-            //    DialogueData item = itemList[i];
-            //    Debug.Log(string.Format("DATA [{0}] : ({1}, {2}, {3}, {4}, {5}, {6}, {7})",
-            //        i, item.ID, item.Name, item.Birth_date, item.Date, item.Session, item.Data_1, item.Data_2));
-            //}
         }
     }
 
-    //기존 데이터 아랫줄에 최신 데이터 추가한 뒤
-    //저장
     public void Write()
     {
-        //저장된 DataList를 저장된 Filepath에 저장
-        //최종적으로 write 함수가 호출이 되지 않으면 저장이 되지 않음
         if (Is_Logindatasaved)
         {
             NewDataList.Add(Student_data);
@@ -147,14 +137,14 @@ public class Manager_login : MonoBehaviour
             ItemElement.SetAttribute("Birthdate", data.Birth_date);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(filePath);
+        Document.LoadXml(XmlFilepath.ToString());
     }
 
     public List<LoginData> Read()
     {
         //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
-        Document.Load(filePath);
+        Document.LoadXml(XmlFilepath.ToString());
         XmlElement ItemListElement = Document["Login_Info_data"];
         List<LoginData> ItemList = new List<LoginData>();
 
@@ -172,11 +162,6 @@ public class Manager_login : MonoBehaviour
 
     public void Add_Studentdata()
     {
-
-        //Debug.Log(InputField_ID.GetComponent<TMP_InputField>().text);
-        //Debug.Log(InputField_Name.GetComponent<TMP_InputField>().text);
-        //Debug.Log(InputField_BirthDate.GetComponent<TMP_InputField>().text);
-
         LoginData Item = new LoginData();
 
         Item.ID = InputField_ID.GetComponent<TMP_InputField>().text;
