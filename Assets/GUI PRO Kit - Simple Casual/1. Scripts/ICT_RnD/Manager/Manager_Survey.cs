@@ -1,38 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class SurveyData
-{
-    [XmlAttribute]
-    public string ID;
-    [XmlAttribute]
-    public string Name;
-    [XmlAttribute]
-    public string Date;
-    [XmlAttribute]
-    public string Session;
-    [XmlAttribute]
-    public string Data_S1;
-    [XmlAttribute]
-    public string Data_S2;
-    [XmlAttribute]
-    public string Data_S3;
-    [XmlAttribute]
-    public string Data_S4;
-    [XmlAttribute]
-    public string Data_S5;
-    [XmlAttribute]
-    public string Data_S6;
-    [XmlAttribute]
-    public string Data_S7;
-    [XmlAttribute]
-    public string Data_S8;
-}
 
 public class Manager_Survey : MonoBehaviour
 {
@@ -76,6 +50,7 @@ public class Manager_Survey : MonoBehaviour
     public string Data_6;
     public string Data_7;
     public string Data_8;
+
     private void Awake()
     {
         if (instance == null)
@@ -112,7 +87,7 @@ public class Manager_Survey : MonoBehaviour
             ItemElement.SetAttribute("Data_8", data.Data_S8);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.LoadXml(XmlFilepath.ToString());
+        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
 
     }
 
@@ -143,13 +118,15 @@ public class Manager_Survey : MonoBehaviour
         }
         return ItemList;
     }
+    //만족도 조사를 계속해서 진행하게 될 경우 리스트에 추가적으로 업데이트가 되는가?
+
     public void Add_Surveydata()
     {
         SurveyData Item = new SurveyData();
 
         ID = Manager_login.instance.ID;
         Name = Manager_login.instance.Name;
-        Date = Manager_login.instance.Date;
+        Date = DateTime.Now.ToString(("yyyy.MM.dd.HH.mm"));
 
         Session = Item.Session;
         Data_1 = Answer_Number[0].ToString();
@@ -179,7 +156,7 @@ public class Manager_Survey : MonoBehaviour
         if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
         {
             Write();
-            //Debug.Log("Survey data saved!");
+            Debug.Log("Survey data saved!");
             Message_SubmitCompleted.SetActive(true);
         }
     }

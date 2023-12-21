@@ -6,20 +6,10 @@ using System.Xml;
 using System.Xml.Serialization;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Application = UnityEngine.Application;
-
-// 각 column에 해당하는 데이터 작성
-public class LoginData
-{
-    [XmlAttribute]
-    public string ID;
-    [XmlAttribute]
-    public string Name;
-    [XmlAttribute]
-    public string Birth_date;
-}
 
 public class Manager_login : MonoBehaviour
 {
@@ -137,7 +127,7 @@ public class Manager_login : MonoBehaviour
             ItemElement.SetAttribute("Birthdate", data.Birth_date);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.LoadXml(XmlFilepath.ToString());
+        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
     }
 
     public List<LoginData> Read()

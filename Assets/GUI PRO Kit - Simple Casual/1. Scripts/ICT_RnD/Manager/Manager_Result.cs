@@ -5,32 +5,14 @@ using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using Application = UnityEngine.Application;
 
-// 각 column에 해당하는 데이터 작성
-public class DialogueData
+public class Manager_Result : MonoBehaviour
 {
-    [XmlAttribute]
-    public string ID;
-    [XmlAttribute]
-    public string Name;
-    [XmlAttribute]
-    public string Birth_date;
-    [XmlAttribute]
-    public string Date;
-    [XmlAttribute]
-    public string Session;
-    [XmlAttribute]
-    public string Data_1;
-    [XmlAttribute]
-    public string Data_2;
-}
-
-public class Manager_data : MonoBehaviour
-{
-    public static Manager_data instance = null;
+    public static Manager_Result instance = null;
 
     public static List<DialogueData> OriginDataList;
     private List<DialogueData> NewDataList;
@@ -40,7 +22,7 @@ public class Manager_data : MonoBehaviour
     public bool Is_datasaved = false;
 
 
-    [Header ("[DATA RESULT PAGE COMPONENT]")]
+    [Header("[DATA RESULT PAGE COMPONENT]")]
     public GameObject Graph_chart;
     public GameObject Prefab_SD;
     public Transform Panel_Left_Content;
@@ -70,18 +52,18 @@ public class Manager_data : MonoBehaviour
     private List<Text> Textlist = new List<Text>();
     private TextAsset XmlFilepath;
 
-    // Start is called before the first frame update
+    // Result 페이지 데이터, 세부 결과 데이터 필요
     private void Awake()
     {
-        if (instance == null) 
+        if (instance == null)
         {
-            instance = this; 
-            DontDestroyOnLoad(gameObject); 
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            if (instance != this) 
-                Destroy(this.gameObject); 
+            if (instance != this)
+                Destroy(this.gameObject);
         }
     }
 
@@ -102,7 +84,7 @@ public class Manager_data : MonoBehaviour
             for (int i = 0; i < OriginDataList.Count; ++i)
             {
                 DialogueData item = OriginDataList[i];
-                
+
                 GameObject myInstance = Instantiate(Prefab_SD, Panel_Left_Content);
                 myInstance.GetComponent<UI_button_SD>().Result_num = i;
                 myInstance.GetComponent<UI_button_SD>().Student = item.Name;
@@ -110,11 +92,9 @@ public class Manager_data : MonoBehaviour
             Write();
         }
     }
-    
+
     public void Write()
     {
-        //저장된 DataList를 저장된 Filepath에 저장
-        //최종적으로 write 함수가 호출이 되지 않으면 저장이 되지 않음
         if (Is_datasaved)
         {
             NewDataList.Add(Student_data);
@@ -138,13 +118,11 @@ public class Manager_data : MonoBehaviour
             ItemElement.SetAttribute("Data_2", data.Data_2);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.LoadXml(XmlFilepath.ToString());
-
+        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
     }
 
     public List<DialogueData> Read()
     {
-        //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
         Document.LoadXml(XmlFilepath.ToString());
         XmlElement ItemListElement = Document["Result_data"];
@@ -174,7 +152,7 @@ public class Manager_data : MonoBehaviour
 
     public void Refresh_data()
     {
-        if(NewDataList.Count != OriginDataList.Count)
+        if (NewDataList.Count != OriginDataList.Count)
         {
             //초기 start에서 생성해낸 프리팹과 수가 맞지 않으면
             //생성되지 않은 번호만큼 추가 생성 필요
@@ -190,7 +168,7 @@ public class Manager_data : MonoBehaviour
             }
         }
     }
-    
+
     public void Change_result(int num)
     {
         Recent_data.Clear();
@@ -225,7 +203,7 @@ public class Manager_data : MonoBehaviour
         if (Num_Recent_stack > 2)
         {
             //날짜 텍스트 리셋, 데이터 3,4개 예외처리
-            if(Num_Recent_stack == 3 || Num_Recent_stack == 4)
+            if (Num_Recent_stack == 3 || Num_Recent_stack == 4)
             {
                 text_Date_4.text = "-";
                 text_Date_3.text = "-";
@@ -242,7 +220,7 @@ public class Manager_data : MonoBehaviour
                     Recent_result_2.Push(Item.Data_2);
 
                     //Textlist[Num_Recent_stack - i+1].GetComponent<Text>().text = Item.Date;
-                    Textlist[5 - (i+1)].text = Item.Date;
+                    Textlist[5 - (i + 1)].text = Item.Date;
 
                 }
                 else
@@ -258,6 +236,12 @@ public class Manager_data : MonoBehaviour
         }
         else
         {
+            //날짜 텍스트 초기화 필요
+            for (int i = 0; i < 5; i++)
+            {
+                Textlist[i].text = "";
+            }
+
             Graph_chart.SetActive(false);
             text_None.SetActive(true);
         }

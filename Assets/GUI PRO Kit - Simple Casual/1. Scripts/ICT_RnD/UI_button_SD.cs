@@ -15,7 +15,7 @@ public class UI_button_SD : MonoBehaviour, IPointerClickHandler
         {
             if (Result_num != -1)
             {
-                Manager_data.instance.Change_result(Result_num);
+                Manager_Result.instance.Change_result(Result_num);
             }
         }
     }

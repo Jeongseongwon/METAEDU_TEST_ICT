@@ -202,7 +202,7 @@ public class GameLauncher_ICT : MonoBehaviour
     {
         Next_page = Result;
         UI_change();
-        Manager_data.instance.Refresh_data();
+        Manager_Result.instance.Refresh_data();
     }
     public void Button_Contents()
     {
@@ -615,8 +615,8 @@ public class GameLauncher_ICT : MonoBehaviour
         Saved_data.Session = Manager_login.instance.Session.ToString();
         Saved_data.Data_1 = Manager_login.instance.Data_1;
         Saved_data.Data_2 = Manager_login.instance.Data_2;
-        Manager_data.instance.Add_data(Saved_data);
-        Manager_data.instance.Write();
+        Manager_Result.instance.Add_data(Saved_data);
+        Manager_Result.instance.Write();
     }
     void Dummy_setting_content()
     {
