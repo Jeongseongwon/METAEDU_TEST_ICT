@@ -83,7 +83,7 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
             Launcher.Button_Result();
 
         if (Music_Content_End)
-            Launcher.End_Musiccontent();
+            Launcher.Button_End_Musiccontent();
 
         if (Login)
             Launcher.Button_Login();

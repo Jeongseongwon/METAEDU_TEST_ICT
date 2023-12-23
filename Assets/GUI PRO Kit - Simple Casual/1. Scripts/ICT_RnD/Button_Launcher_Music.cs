@@ -12,6 +12,7 @@ public class Button_Launcher_Music : MonoBehaviour, IPointerClickHandler
     public bool Stop = false;
     public bool Analysis = false;
     public bool Listening = false;
+    public bool TEST = false;
 
     void Start()
     {
@@ -35,5 +36,8 @@ public class Button_Launcher_Music : MonoBehaviour, IPointerClickHandler
 
         if (Listening)
             Launcher.Button_Music_Listening();
+
+        if (TEST)
+            Manager_ResultInDetail.instance.Add_RIDdata(-1);
     }
 }

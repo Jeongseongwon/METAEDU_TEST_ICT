@@ -1,9 +1,13 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml;
+using System.Xml.Serialization;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.Progress;
+using UnityEngine.UI;
 
 public class Manager_ResultInDetail : MonoBehaviour
 {
@@ -14,8 +18,16 @@ public class Manager_ResultInDetail : MonoBehaviour
     private string filePath;
     private TextAsset XmlFilepath;
 
-
     private List<string> String_Data_attribute = new List<string>();
+
+
+    [Header("[RESULT IN DETAIL INFORMATION]")]
+    [SerializeField]
+    public string ID;
+    public string Name;
+    public string Session;
+    public string Date;
+    public List<string> Data_Indetail = new List<string>();
     // Start is called before the first frame update
 
 
@@ -41,18 +53,9 @@ public class Manager_ResultInDetail : MonoBehaviour
         if (filePath != null)
         {
             OriginDataList = Read();
-
-            for (int i = 0; i < OriginDataList.Count; ++i)
-            {
-                Result_IndetailData item = OriginDataList[i];
-            }
+            NewDataList = Read();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Write();
     }
 
 
@@ -70,15 +73,15 @@ public class Manager_ResultInDetail : MonoBehaviour
             ItemElement.SetAttribute("Date", data.Date);
             ItemElement.SetAttribute("Session", data.Session);
 
-            //검증 필요함
-            for (int i = 1; i < data.Data.Count; i++)
+            for (int i = 0; i < data.Data.Count; i++)
             {
                 ItemElement.SetAttribute(String_Data_attribute[i], data.Data[i]);
             }
-            
+            ItemListElement.AppendChild(ItemElement);
         }
         Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
 
+        Debug.Log("Result In detail data saved!");
     }
 
     public List<Result_IndetailData> Read()
@@ -100,12 +103,12 @@ public class Manager_ResultInDetail : MonoBehaviour
             {
                 if (string.IsNullOrEmpty(ItemElement.GetAttribute(String_Data_attribute[i])))
                 {
-                    Debug.Log("Data Empty"+ i);
+                    //Debug.Log("Data Empty" + i);
                 }
                 else
                 {
                     Item.Data.Add(ItemElement.GetAttribute(String_Data_attribute[i]));
-             //       Debug.Log("Data_attribute : " + String_Data_attribute[i] + "item : " + Item.Data[i]);
+                    //Debug.Log("Data_attribute : " + String_Data_attribute[i] + "item : " + Item.Data[i]);
                 }
             }
             //Debug.Log("Data count : " + Item.Data.Count);
@@ -113,15 +116,58 @@ public class Manager_ResultInDetail : MonoBehaviour
         }
         return ItemList;
     }
+    public void Add_RIDdata(float data)
+    {
+        //데이터 리스트에 추가
+        Data_Indetail.Add(data.ToString());
+    }
+    public void Clear_RIDdata()
+    {
+        Data_Indetail.Clear();
+    }
+    public void Save_RIDdata(int content_session)
+    {
+        Result_IndetailData Item = new Result_IndetailData();
+
+        ID = Manager_login.instance.ID;
+        Name = Manager_login.instance.Name;
+        Date = DateTime.Now.ToString(("yyyy.MM.dd.HH.mm"));
+        Session = content_session.ToString();
+
+        Item.ID = ID;
+        Item.Name = Name;
+        Item.Date = Date;
+        Item.Session = Session;
+
+        for (int i = 0; i < Data_Indetail.Count; i++)
+        {
+            if (string.IsNullOrEmpty(Data_Indetail[i]))
+            {
+                //Debug.Log("Data Empty" + i);
+            }
+            else
+            {
+                Item.Data.Add(Data_Indetail[i]);
+            }
+        }
+
+        OriginDataList.Add(Item);
+        NewDataList = OriginDataList;
+
+        if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
+        {
+            Write();
+            Debug.Log("Result In detail data saved!");
+        }
+    }
 
     public void Init_RID()
     {
-        
-        for(int i = 0; i < 50; i++)
+
+        for (int i = 0; i < 50; i++)
         {
-            //1~50까지 입력, 편의상 i=1로 설정
-            String_Data_attribute.Add("Data_" + (i+1).ToString());
-            Debug.Log("Data_attribute : " + String_Data_attribute[i]);
+            String_Data_attribute.Add("Data_" + (i + 1).ToString());
+            //Debug.Log("Data_attribute : " + String_Data_attribute[i]);
         }
     }
 }

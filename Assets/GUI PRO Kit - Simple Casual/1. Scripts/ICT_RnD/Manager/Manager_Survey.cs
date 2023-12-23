@@ -64,6 +64,20 @@ public class Manager_Survey : MonoBehaviour
                 Destroy(this.gameObject);
         }
     }
+    void Start()
+    {
+        Init_Survey();
+
+        filePath = "Data/SURVEYRESULT";
+        XmlFilepath = Resources.Load<TextAsset>(filePath);
+
+        Debug.Log(XmlFilepath.ToString());
+        if (filePath != null)
+        {
+            OriginDataList = Read();
+        }
+
+    }
     public void Write()
     {
         XmlDocument Document = new XmlDocument();
@@ -88,7 +102,7 @@ public class Manager_Survey : MonoBehaviour
             ItemListElement.AppendChild(ItemElement);
         }
         Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
-
+        //Debug.Log(XmlFilepath.ToString());
     }
 
     public List<SurveyData> Read()
@@ -161,24 +175,7 @@ public class Manager_Survey : MonoBehaviour
         }
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        Init_Survey();
-
-        filePath = "Data/SURVEYRESULT";
-        XmlFilepath = Resources.Load<TextAsset>(filePath);
-
-        if (filePath != null)
-        {
-            OriginDataList = Read();
-            
-            for (int i = 0; i < OriginDataList.Count; ++i)
-            {
-                SurveyData item = OriginDataList[i];
-            }
-        }
-
-    }
+   
     public void ChangeText()
     {
         Text_Number.text = (Question_Number+1) + "/8";

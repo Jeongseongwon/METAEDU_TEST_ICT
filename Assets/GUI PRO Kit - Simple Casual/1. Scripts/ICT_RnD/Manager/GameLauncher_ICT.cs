@@ -231,16 +231,13 @@ public class GameLauncher_ICT : MonoBehaviour
         }
     }
 
-    public void End_Musiccontent()
+    public void Button_End_Musiccontent()
     {
         //음악놀이 데이터 저장
-        Save_Data();
-
-
-        //Message_EndMusicContent();
+        Manager_ResultInDetail.instance.Save_RIDdata(Session);
+        Message_EndMusicContent.SetActive(true);
     }
-
-
+    
     public void Run_Mode(int contentname)
     {
         Session = contentname;
@@ -252,8 +249,8 @@ public class GameLauncher_ICT : MonoBehaviour
     {
         Next_page = Monitoring_Music;
         UI_change();
+        Manager_ResultInDetail.instance.Clear_RIDdata();
 
-        //해당 음악 콘텐츠 설정 기능 구현 필요
         if (Session == 0)
         {
 
@@ -606,6 +603,13 @@ public class GameLauncher_ICT : MonoBehaviour
 
     public void Save_Data()
     {
+        //그럼 여기 데이터는 무엇을 입력해야하나?
+        //기존 결과 데이터 창에서는 임의로 평균값을 입력해서 변화하는 추이를 확인할 수 있게끔 해줌
+        //현행은 우리가 데이터의 정답률이나 어떤 데이터를 주지 않기 때문에 판단 불가
+        //그럼 앞으로 이거는 어떻게 할지 숙대랑 한 번 얘기를 해봐야할 듯
+
+
+        //여기서 부터 result에 저장 하는 부분
         DialogueData Saved_data = new DialogueData();
 
         Saved_data.ID = Manager_login.instance.ID;
@@ -617,6 +621,7 @@ public class GameLauncher_ICT : MonoBehaviour
         Saved_data.Data_2 = Manager_login.instance.Data_2;
         Manager_Result.instance.Add_data(Saved_data);
         Manager_Result.instance.Write();
+
     }
     void Dummy_setting_content()
     {
@@ -653,8 +658,7 @@ public class GameLauncher_ICT : MonoBehaviour
         Message_L_SelectedStudentCheck = Message_UI.transform.GetChild(5).gameObject;
         Message_L_Nonselect = Message_UI.transform.GetChild(6).gameObject;
         Message_Survey_StudentCheck = Message_UI.transform.GetChild(7).gameObject;
-        Message_Answer_NonSelected = Message_UI.transform.GetChild(8).gameObject;
-        //Message_EndMusicContent = Message_UI.transform.GetChild(7).gameObject;
+        Message_EndMusicContent = Message_UI.transform.GetChild(8).gameObject;
 
         //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
         Message_Intro.SetActive(true);
