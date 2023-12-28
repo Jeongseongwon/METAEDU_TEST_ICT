@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using TMPro;
@@ -15,7 +16,6 @@ public class Manager_Survey : MonoBehaviour
     private List<SurveyData> NewDataList;
 
     private string filePath;
-    private TextAsset XmlFilepath;
 
     private int Question_Number;
     private List<int> Answer_Number = new List<int>();
@@ -68,10 +68,8 @@ public class Manager_Survey : MonoBehaviour
     {
         Init_Survey();
 
-        filePath = "Data/SURVEYRESULT";
-        XmlFilepath = Resources.Load<TextAsset>(filePath);
+        filePath = Path.Combine(Application.persistentDataPath, "SURVEYRESULT.xml");
 
-        Debug.Log(XmlFilepath.ToString());
         if (filePath != null)
         {
             OriginDataList = Read();
@@ -101,14 +99,13 @@ public class Manager_Survey : MonoBehaviour
             ItemElement.SetAttribute("Data_8", data.Data_S8);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
-        //Debug.Log(XmlFilepath.ToString());
+        Document.Save(filePath);
     }
 
     public List<SurveyData> Read()
     {
         XmlDocument Document = new XmlDocument();
-        Document.LoadXml(XmlFilepath.ToString());
+        Document.Load(filePath);
         XmlElement ItemListElement = Document["Survey_data"];
         List<SurveyData> ItemList = new List<SurveyData>();
 

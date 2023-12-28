@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
@@ -16,7 +17,6 @@ public class Manager_ResultInDetail : MonoBehaviour
     private List<Result_IndetailData> NewDataList;
 
     private string filePath;
-    private TextAsset XmlFilepath;
 
     private List<string> String_Data_attribute = new List<string>();
 
@@ -47,8 +47,8 @@ public class Manager_ResultInDetail : MonoBehaviour
     void Start()
     {
         Init_RID();
-        filePath = "Data/RESULT_INDETAIL";
-        XmlFilepath = Resources.Load<TextAsset>(filePath);
+
+        filePath = Path.Combine(Application.persistentDataPath, "RESULT_INDETAIL.xml");
 
         if (filePath != null)
         {
@@ -79,7 +79,7 @@ public class Manager_ResultInDetail : MonoBehaviour
             }
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
+        Document.Save(filePath);
 
         Debug.Log("Result In detail data saved!");
     }
@@ -87,7 +87,7 @@ public class Manager_ResultInDetail : MonoBehaviour
     public List<Result_IndetailData> Read()
     {
         XmlDocument Document = new XmlDocument();
-        Document.LoadXml(XmlFilepath.ToString());
+        Document.Load(filePath);
         XmlElement ItemListElement = Document["Result_Indetail_data"];
         List<Result_IndetailData> ItemList = new List<Result_IndetailData>();
 
@@ -116,10 +116,20 @@ public class Manager_ResultInDetail : MonoBehaviour
         }
         return ItemList;
     }
-    public void Add_RIDdata(float data)
+    public void Add_RIDdata(float data_1,float data_2=-1)
     {
+        string Data_merged;
+
+        if (data_2 == -1)
+        {
+            Data_merged = data_1.ToString();
+        }
+        else
+        {
+            Data_merged = data_1.ToString() + "," + data_2.ToString();
+        }
         //데이터 리스트에 추가
-        Data_Indetail.Add(data.ToString());
+        Data_Indetail.Add(Data_merged);
     }
     public void Clear_RIDdata()
     {

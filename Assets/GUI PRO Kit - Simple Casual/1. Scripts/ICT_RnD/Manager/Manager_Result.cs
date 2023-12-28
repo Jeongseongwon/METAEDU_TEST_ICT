@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
@@ -50,7 +51,6 @@ public class Manager_Result : MonoBehaviour
 
     //private List<GameObject> Textlist = new Stack<string>();
     private List<Text> Textlist = new List<Text>();
-    private TextAsset XmlFilepath;
 
     // Result 페이지 데이터, 세부 결과 데이터 필요
     private void Awake()
@@ -70,9 +70,7 @@ public class Manager_Result : MonoBehaviour
     void Start()
     {
         Init_Text();
-        filePath = "Data/RESULT";
-        XmlFilepath = Resources.Load<TextAsset>(filePath);
-
+        filePath = Path.Combine(Application.persistentDataPath, "RESULT.xml");
 
         if (filePath != null)
         {
@@ -118,13 +116,13 @@ public class Manager_Result : MonoBehaviour
             ItemElement.SetAttribute("Data_2", data.Data_2);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
+        Document.Save(filePath);
     }
 
     public List<DialogueData> Read()
     {
         XmlDocument Document = new XmlDocument();
-        Document.LoadXml(XmlFilepath.ToString());
+        Document.Load(filePath);
         XmlElement ItemListElement = Document["Result_data"];
         List<DialogueData> ItemList = new List<DialogueData>();
 

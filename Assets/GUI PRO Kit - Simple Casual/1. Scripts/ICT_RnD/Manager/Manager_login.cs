@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
@@ -20,7 +21,6 @@ public class Manager_login : MonoBehaviour
     private List<LoginData> NewDataList;
 
     private string filePath;
-    private TextAsset XmlFilepath;
 
     private LoginData Student_data;
     private LoginData Selected_Student_data;
@@ -80,8 +80,9 @@ public class Manager_login : MonoBehaviour
         Init_Text();
         Launcher = this.gameObject.GetComponent<GameLauncher_ICT>();
 
-        filePath = "Data/LOGININFO";
-        XmlFilepath = Resources.Load<TextAsset>(filePath);
+        filePath = Path.Combine(Application.persistentDataPath, "LOGININFO.xml");
+
+        Debug.Log(filePath);
 
         if (filePath != null)
         {
@@ -127,14 +128,14 @@ public class Manager_login : MonoBehaviour
             ItemElement.SetAttribute("Birthdate", data.Birth_date);
             ItemListElement.AppendChild(ItemElement);
         }
-        Document.Save(AssetDatabase.GetAssetPath(XmlFilepath));
+        Document.Save(filePath);
     }
 
     public List<LoginData> Read()
     {
         //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
-        Document.LoadXml(XmlFilepath.ToString());
+        Document.Load(filePath);
         XmlElement ItemListElement = Document["Login_Info_data"];
         List<LoginData> ItemList = new List<LoginData>();
 
