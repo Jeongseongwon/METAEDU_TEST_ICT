@@ -20,6 +20,7 @@ public class Manager_ResultInDetail : MonoBehaviour
 
     private List<string> String_Data_attribute = new List<string>();
 
+    public GameObject text;
 
     [Header("[RESULT IN DETAIL INFORMATION]")]
     [SerializeField]
@@ -49,13 +50,13 @@ public class Manager_ResultInDetail : MonoBehaviour
         Init_RID();
 
         filePath = Path.Combine(Application.persistentDataPath, "RESULT_INDETAIL.xml");
-
+        text.GetComponent<Text>().text = filePath;
         if (filePath != null)
         {
             OriginDataList = Read();
             NewDataList = Read();
         }
-        Write();
+        //Write();
     }
 
 
