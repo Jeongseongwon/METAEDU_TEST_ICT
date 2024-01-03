@@ -10,6 +10,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 using Application = UnityEngine.Application;
 
 public class Manager_login : MonoBehaviour
@@ -44,6 +45,9 @@ public class Manager_login : MonoBehaviour
     private GameObject InputField_Name;
     private GameObject InputField_ID;
     private GameObject InputField_BirthDate;
+    private GameObject Button_Student_Delete;
+    private GameObject Button_Student_Save;
+
 
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
 
@@ -150,34 +154,7 @@ public class Manager_login : MonoBehaviour
         }
         return ItemList;
     }
-
-    public void Add_Studentdata()
-    {
-        LoginData Item = new LoginData();
-
-        Item.ID = InputField_ID.GetComponent<TMP_InputField>().text;
-        Item.Name = InputField_Name.GetComponent<TMP_InputField>().text;
-        Item.Birth_date = InputField_BirthDate.GetComponent<TMP_InputField>().text;
-
-        if (string.IsNullOrEmpty(Item.Name) || string.IsNullOrEmpty(Item.Name))
-        {
-            Debug.Log("Name, Date Empty");
-        }
-        else
-        {
-            NewDataList.Add(Item);
-
-            if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
-            {
-                Launcher.Button_Message_Login_StudentDataSaved();
-                Write();
-            }
-
-            Refresh_data();
-            Init_Registermenu();
-        }
-    }
-
+    
     public void Refresh_data()
     {
         if (NewDataList.Count != OriginDataList.Count)
@@ -196,6 +173,8 @@ public class Manager_login : MonoBehaviour
             num_list = NewDataList.Count;
         }
     }
+
+    
     public string Init_RandomID()
     {
         string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
@@ -290,6 +269,101 @@ public class Manager_login : MonoBehaviour
         return Selected_Student_data.ID;
     }
 
+    public void Button_Register_StudentData()
+    {
+        LoginData Item = new LoginData();
+
+        Item.ID = InputField_ID.GetComponent<TMP_InputField>().text;
+        Item.Name = InputField_Name.GetComponent<TMP_InputField>().text;
+        Item.Birth_date = InputField_BirthDate.GetComponent<TMP_InputField>().text;
+
+        if (string.IsNullOrEmpty(Item.Name) || string.IsNullOrEmpty(Item.Name))
+        {
+            //Debug.Log("Name, Date Empty");
+            Launcher.Button_Message_Login_FieldEmpty();
+        }
+        else
+        {
+            Add_StudentData(Item);
+        }
+    }
+    public void Add_StudentData(LoginData SelectedData)
+    {
+        //only for Button_Register_StudentData
+        NewDataList.Add(SelectedData);
+
+        if (NewDataList[NewDataList.Count - 1].ID == SelectedData.ID)
+        {
+            Launcher.Button_Message_Login_StudentDataSaved();
+            Write();
+        }
+
+        Refresh_data();
+        Init_Registermenu();
+    }
+
+    public void Button_EditStudentData()
+    {
+        if (Selected_Student_data != null)
+        {
+            //학생 정보 세팅
+            InputField_ID.GetComponent<TMP_InputField>().text = Selected_Student_data.ID;
+            InputField_Name.GetComponent<TMP_InputField>().text = Selected_Student_data.Name;
+            InputField_BirthDate.GetComponent<TMP_InputField>().text = Selected_Student_data.Birth_date;
+
+            //버튼 활성화
+            Button_Student_Delete.SetActive(true);
+            Button_Student_Save.SetActive(true);
+        }
+        else
+        {
+            //0103 메시지, 정보를 수정할 학생을 선택해주세요!
+        }
+    }
+    public void Edit_StudentData()
+    {
+        LoginData Item = new LoginData();
+
+        Item.ID = InputField_ID.GetComponent<TMP_InputField>().text;
+        Item.Name = InputField_Name.GetComponent<TMP_InputField>().text;
+        Item.Birth_date = InputField_BirthDate.GetComponent<TMP_InputField>().text;
+
+        NewDataList[Num_student] = Item;
+
+        if (NewDataList[Num_student].ID == Selected_Student_data.ID)
+        {
+            Launcher.Button_Message_Login_StudentDataSaved();
+            Write();
+        }
+        GameObject SelectedStudent = Panel_Left_Content.transform.GetChild(Num_student).gameObject;
+        SelectedStudent.transform.GetChild(0).gameObject.GetComponent<Text>().text = Selected_Student_data.Name;
+        SelectedStudent.transform.GetChild(1).gameObject.GetComponent<Text>().text = Selected_Student_data.Birth_date;
+
+        Init_Registermenu();
+    }
+
+    public void Delete_StudentData()
+    {
+        NewDataList.RemoveAt(Num_student);
+        GameObject SelectedStudent = Panel_Left_Content.transform.GetChild(Num_student).gameObject;
+        //해당하는 버튼 삭제 필요
+        //해당 순서 list에서 삭제
+        //NewDataList[Num_student] = Item;
+
+        //모든 과정 종료 후 저장, 삭제 버튼 비활성화
+    }
+    //저장 누르면 해당 데이터로 수정
+    //삭제 누르면 해당 데이터 삭제
+    public void Button_SaveSelectedData()
+    {
+        Edit_StudentData();
+    }
+    public void Button_DeleteSelectedData()
+    {
+        //메시지 보여주기
+        //메시지에서 확인 누를 경우 최종 삭제
+
+    }
     public void Init_Text()
     {
         Picture_Off = Text_Icon_group.transform.GetChild(0).gameObject;
@@ -300,6 +374,8 @@ public class Manager_login : MonoBehaviour
         InputField_Name = InputField_group.transform.GetChild(0).gameObject;
         InputField_ID = InputField_group.transform.GetChild(1).gameObject;
         InputField_BirthDate = InputField_group.transform.GetChild(2).gameObject;
+        Button_Student_Delete = InputField_group.transform.GetChild(3).gameObject;
+        Button_Student_Save = InputField_group.transform.GetChild(4).gameObject;
 
     }
 }
