@@ -591,6 +591,10 @@ public class GameLauncher_ICT : MonoBehaviour
             Message_L_Nonselect.SetActive(true);
         }
     }
+    public void Button_Message_Login_StudentNotSelect()
+    {
+        Message_L_Nonselect.SetActive(true);
+    }
     public void Button_Message_Login_StudentDataSaved()
     {
         Message_L_StudentDataSaved.SetActive(true);

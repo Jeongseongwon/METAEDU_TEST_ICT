@@ -23,12 +23,11 @@ public class Manager_login : MonoBehaviour
 
     private string filePath;
 
-    private LoginData Student_data;
+    //private LoginData Student_data;
     private LoginData Selected_Student_data;
     private int Num_student;
     public bool Is_Logindatasaved = false;
     public bool Is_StudentDataSelected = false;
-    private int num_list = 0;
 
     [Header("[CONTENTS PAGE COMPONENT]")]
     public GameObject Text_Icon_group;
@@ -85,13 +84,26 @@ public class Manager_login : MonoBehaviour
         Launcher = this.gameObject.GetComponent<GameLauncher_ICT>();
 
         filePath = Path.Combine(Application.persistentDataPath, "LOGININFO.xml");
+        if (File.Exists(filePath))
+        {
+            Debug.Log("XML FILE EXIST");
+        }
+        else
+        {
+            TextAsset XmlFilepath = Resources.Load<TextAsset>("Data/LOGININFO");
 
-        Debug.Log(filePath);
+            XmlDocument Document = new XmlDocument();
+
+            Document.LoadXml(XmlFilepath.ToString());
+            //없다면 리소스에서 읽어와서 데이터 저장함
+        }
+
+        //Debug.Log(filePath);
 
         if (filePath != null)
         {
             Recent_data.Clear();
-            Debug.Log(Application.dataPath);
+            //Debug.Log(Application.dataPath);
             OriginDataList = Read();
             NewDataList = Read();
 
@@ -105,21 +117,33 @@ public class Manager_login : MonoBehaviour
                 myInstance.GetComponent<UI_button_StudentInfo>().Student_ID = item.ID;
                 myInstance.GetComponent<UI_button_StudentInfo>().Student_BirthDate = item.Birth_date;
             }
-            num_list = OriginDataList.Count;
             Init_Registermenu();
+        }
+    }
+    public void Set_ButtonPrefab()
+    {
+        for (int i = 0; i < NewDataList.Count; ++i)
+        {
+            LoginData item = NewDataList[i];
 
+            GameObject myInstance = Instantiate(Prefab_StudentInfo, Panel_Left_Content);
+            myInstance.GetComponent<UI_button_StudentInfo>().Result_num = i;
+            myInstance.GetComponent<UI_button_StudentInfo>().Student_Name = item.Name;
+            myInstance.GetComponent<UI_button_StudentInfo>().Student_ID = item.ID;
+            myInstance.GetComponent<UI_button_StudentInfo>().Student_BirthDate = item.Birth_date;
+        }
+    }
+    public void Destroy_ButtonPrefab()
+    {
+        for (int i = 0; i < Panel_Left_Content.transform.childCount; i++)
+        {
+            GameObject Button = Panel_Left_Content.transform.GetChild(i).gameObject;
+            Destroy(Button);
         }
     }
 
     public void Write()
     {
-        if (Is_Logindatasaved)
-        {
-            NewDataList.Add(Student_data);
-            Debug.Log("SAVED DATA WRITE");
-            Is_Logindatasaved = false;
-        }
-
         XmlDocument Document = new XmlDocument();
         XmlElement ItemListElement = Document.CreateElement("Login_Info_data");
         Document.AppendChild(ItemListElement);
@@ -133,11 +157,11 @@ public class Manager_login : MonoBehaviour
             ItemListElement.AppendChild(ItemElement);
         }
         Document.Save(filePath);
+        //Debug.Log("SAVED DATA WRITE");
     }
 
     public List<LoginData> Read()
     {
-        //저장된 filepath에서 xml파일 로드
         XmlDocument Document = new XmlDocument();
         Document.Load(filePath);
         XmlElement ItemListElement = Document["Login_Info_data"];
@@ -154,27 +178,6 @@ public class Manager_login : MonoBehaviour
         }
         return ItemList;
     }
-    
-    public void Refresh_data()
-    {
-        if (NewDataList.Count != OriginDataList.Count)
-        {
-            for (int i = num_list; i < NewDataList.Count; ++i)
-            {
-                LoginData item = NewDataList[i];
-
-                GameObject myInstance = Instantiate(Prefab_StudentInfo, Panel_Left_Content);
-                myInstance.GetComponent<UI_button_StudentInfo>().Result_num = i;
-                myInstance.GetComponent<UI_button_StudentInfo>().Student_Name = item.Name;
-                myInstance.GetComponent<UI_button_StudentInfo>().Student_BirthDate = item.Birth_date;
-                myInstance.GetComponent<UI_button_StudentInfo>().Student_ID = item.ID;
-            }
-
-            num_list = NewDataList.Count;
-        }
-    }
-
-    
     public string Init_RandomID()
     {
         string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
@@ -211,21 +214,6 @@ public class Manager_login : MonoBehaviour
         InputField_Name.GetComponent<TMP_InputField>().text = "";
         InputField_BirthDate.GetComponent<TMP_InputField>().text = "";
     }
-
-    public LoginData Get_Listdata(int num)
-    {
-        return OriginDataList[num];
-    }
-
-    public bool Get_Islogindatasaved()
-    {
-        return Is_Logindatasaved;
-    }
-    public bool Get_Is_StudentDataSelected()
-    {
-        return Is_StudentDataSelected;
-    }
-
     public void Setting_StudentInfo()
     {
         if (Is_StudentDataSelected)
@@ -253,9 +241,18 @@ public class Manager_login : MonoBehaviour
         }
     }
 
+    public bool Get_Islogindatasaved()
+    {
+        return Is_Logindatasaved;
+    }
+    public bool Get_Is_StudentDataSelected()
+    {
+        return Is_StudentDataSelected;
+    }
 
     public void Set_Selectednumber(int num)
     {
+        //학생 버튼이 클릭 되었을 때 호출
         Is_StudentDataSelected = true;
         Num_student = num;
         Selected_Student_data = NewDataList[Num_student];
@@ -297,8 +294,8 @@ public class Manager_login : MonoBehaviour
             Launcher.Button_Message_Login_StudentDataSaved();
             Write();
         }
-
-        Refresh_data();
+        Destroy_ButtonPrefab();
+        Set_ButtonPrefab();
         Init_Registermenu();
     }
 
@@ -335,34 +332,45 @@ public class Manager_login : MonoBehaviour
             Launcher.Button_Message_Login_StudentDataSaved();
             Write();
         }
-        GameObject SelectedStudent = Panel_Left_Content.transform.GetChild(Num_student).gameObject;
-        SelectedStudent.transform.GetChild(0).gameObject.GetComponent<Text>().text = Selected_Student_data.Name;
-        SelectedStudent.transform.GetChild(1).gameObject.GetComponent<Text>().text = Selected_Student_data.Birth_date;
+        Debug.Log("Student data edited!");
 
+        //0103 데이터 저장되었음 성공 메시지 필요
+        Destroy_ButtonPrefab();
+        Set_ButtonPrefab();
         Init_Registermenu();
+
+        //버튼 비활성화
+        Button_Student_Delete.SetActive(false);
+        Button_Student_Save.SetActive(false);
     }
 
     public void Delete_StudentData()
     {
-        NewDataList.RemoveAt(Num_student);
-        GameObject SelectedStudent = Panel_Left_Content.transform.GetChild(Num_student).gameObject;
-        //해당하는 버튼 삭제 필요
-        //해당 순서 list에서 삭제
-        //NewDataList[Num_student] = Item;
+        if (NewDataList[Num_student].ID == Selected_Student_data.ID)
+        {
+            NewDataList.RemoveAt(Num_student);
+            Launcher.Button_Message_Login_StudentDataSaved();
+            Write();
 
-        //모든 과정 종료 후 저장, 삭제 버튼 비활성화
+            Destroy_ButtonPrefab();
+            Set_ButtonPrefab();
+        }
+        //버튼 비활성화
+        Button_Student_Delete.SetActive(false);
+        Button_Student_Save.SetActive(false);
+        Debug.Log("Student data deleted!");
+        //0103 데이터 저장되었음 성공 메시지 필요
     }
-    //저장 누르면 해당 데이터로 수정
-    //삭제 누르면 해당 데이터 삭제
     public void Button_SaveSelectedData()
     {
+        //0103 해당 정보로 수정할 것인지 확인하는 메시지 필요
         Edit_StudentData();
+        
     }
     public void Button_DeleteSelectedData()
     {
-        //메시지 보여주기
-        //메시지에서 확인 누를 경우 최종 삭제
-
+        //0103 삭제 할 것인지 확인하는 메시지 필요
+        Delete_StudentData();
     }
     public void Init_Text()
     {

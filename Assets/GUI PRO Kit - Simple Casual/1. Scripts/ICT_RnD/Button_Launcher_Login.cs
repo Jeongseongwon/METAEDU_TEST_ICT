@@ -35,10 +35,10 @@ public class Button_Launcher_Login : MonoBehaviour, IPointerClickHandler
             Manager_login.instance.Button_EditStudentData();
 
         if (Login_Save)
-            Manager_login.instance.Button_EditStudentData();
+            Manager_login.instance.Button_SaveSelectedData();
 
         if (Login_Delete)
-            Manager_login.instance.Button_EditStudentData();
+            Manager_login.instance.Button_DeleteSelectedData();
         //수정
         //** 학생 활성화 될 경우, 학생 삭제 버튼 구현 필요
 
