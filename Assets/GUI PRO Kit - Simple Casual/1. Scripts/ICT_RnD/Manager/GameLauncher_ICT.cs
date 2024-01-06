@@ -584,7 +584,7 @@ public class GameLauncher_ICT : MonoBehaviour
         if (Is_Studentdatasaved)
         {
             Message_L_SelectedStudentCheck.SetActive(true);
-            Message_L_SelectedStudentCheck.GetComponent<Message_SelectedStudentInfo>().Change_Info();
+            Message_L_SelectedStudentCheck.GetComponent<Message_SelectedStudentInfo>().Change_Info("학생으로 로그인할까요?");
         }
         else
         {

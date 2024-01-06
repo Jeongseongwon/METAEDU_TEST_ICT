@@ -1,15 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Xml;
-using System.Xml.Serialization;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Application = UnityEngine.Application;
 
 //Manager_data

@@ -2,15 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Xml;
-using System.Xml.Serialization;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 using Application = UnityEngine.Application;
 
 public class Manager_login : CLASS_XmlData
@@ -40,7 +35,10 @@ public class Manager_login : CLASS_XmlData
     public Transform Panel_Left_Content;
 
     public GameObject InputField_group;
-    public GameObject Message_EditCompleted;
+    public GameObject Message_DeleteCheck;
+    public GameObject Message_EditGuide;
+    public GameObject Message_EditNonSelect;
+
     private GameObject InputField_Name;
     private GameObject InputField_ID;
     private GameObject InputField_BirthDate;
@@ -198,6 +196,11 @@ public class Manager_login : CLASS_XmlData
         InputField_ID.GetComponent<TMP_InputField>().text = Temp_ID;
         InputField_Name.GetComponent<TMP_InputField>().text = "";
         InputField_BirthDate.GetComponent<TMP_InputField>().text = "";
+
+        //현재 선택된 학생 삭제 필요
+        Is_StudentDataSelected = false;
+        Num_student = -1;
+        Selected_Student_data = null;
     }
     public void Setting_StudentInfo()
     {
@@ -215,6 +218,8 @@ public class Manager_login : CLASS_XmlData
 
             Is_StudentDataSelected = false;
             Is_Logindatasaved = true;
+
+            Init_Registermenu();
         }
         else
         {
@@ -237,7 +242,6 @@ public class Manager_login : CLASS_XmlData
 
     public void Set_Selectednumber(int num)
     {
-        //학생 버튼이 클릭 되었을 때 호출
         Is_StudentDataSelected = true;
         Num_student = num;
         Selected_Student_data = NewDataList[Num_student];
@@ -288,18 +292,20 @@ public class Manager_login : CLASS_XmlData
     {
         if (Selected_Student_data != null)
         {
-            //학생 정보 세팅
             InputField_ID.GetComponent<TMP_InputField>().text = Selected_Student_data.ID;
             InputField_Name.GetComponent<TMP_InputField>().text = Selected_Student_data.Name;
             InputField_BirthDate.GetComponent<TMP_InputField>().text = Selected_Student_data.Birth_date;
 
-            //버튼 활성화
             Button_Student_Delete.SetActive(true);
             Button_Student_Save.SetActive(true);
+
+
+            Message_EditGuide.SetActive(true);
+            //학생 버튼 색 변경
         }
         else
         {
-            //0103 메시지, 정보를 수정할 학생을 선택해주세요!
+            Message_EditNonSelect.SetActive(true) ;
         }
     }
     public void Edit_StudentData()
@@ -317,14 +323,13 @@ public class Manager_login : CLASS_XmlData
             Launcher.Button_Message_Login_StudentDataSaved();
             Write();
         }
-        Debug.Log("Student data edited!");
+       // Debug.Log("Student data edited!");
 
-        Message_EditCompleted.SetActive(true);
+        //Message_EditCompleted.SetActive(true);
         Destroy_ButtonPrefab();
         Set_ButtonPrefab();
         Init_Registermenu();
 
-        //버튼 비활성화
         Button_Student_Delete.SetActive(false);
         Button_Student_Save.SetActive(false);
     }
@@ -340,21 +345,19 @@ public class Manager_login : CLASS_XmlData
             Destroy_ButtonPrefab();
             Set_ButtonPrefab();
         }
-        //버튼 비활성화
         Button_Student_Delete.SetActive(false);
         Button_Student_Save.SetActive(false);
-        Debug.Log("Student data deleted!");
+        //Debug.Log("Student data deleted!");
         
     }
     public void Button_SaveSelectedData()
     {
-        //0103 해당 정보로 수정할 것인지 확인하는 메시지 필요
         Edit_StudentData();
     }
     public void Button_DeleteSelectedData()
     {
-        //0103 삭제 할 것인지 확인하는 메시지 필요
-        Delete_StudentData();
+        Message_DeleteCheck.SetActive(true);
+        Message_DeleteCheck.GetComponent<Message_SelectedStudentInfo>().Change_Info("학생 정보를 삭제할까요?");
     }
     public void Init_Text()
     {

@@ -26,10 +26,7 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
         if (Login_Setting)
             Manager_login.instance.Setting_StudentInfo();
 
-        if(Login_SaveCheck)
-            Manager_login.instance.Setting_StudentInfo();
-
         if (Login_DeleteCheck)
-            Manager_login.instance.Setting_StudentInfo();
+            Manager_login.instance.Delete_StudentData();
     }
 }
