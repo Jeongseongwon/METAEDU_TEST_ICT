@@ -13,15 +13,14 @@ using UnityEngine.UI;
 using static UnityEditor.Progress;
 using Application = UnityEngine.Application;
 
-public class Manager_login : MonoBehaviour
+public class Manager_login : CLASS_XmlData
 {
     public static Manager_login instance = null;
     private GameLauncher_ICT Launcher;
 
-    public static List<LoginData> OriginDataList;
-    private List<LoginData> NewDataList;
-
-    private string filePath;
+    public List<LoginData> OriginDataList;
+    public List<LoginData> NewDataList;
+    public string filePath;
 
     //private LoginData Student_data;
     private LoginData Selected_Student_data;
@@ -41,15 +40,14 @@ public class Manager_login : MonoBehaviour
     public Transform Panel_Left_Content;
 
     public GameObject InputField_group;
+    public GameObject Message_EditCompleted;
     private GameObject InputField_Name;
     private GameObject InputField_ID;
     private GameObject InputField_BirthDate;
     private GameObject Button_Student_Delete;
     private GameObject Button_Student_Save;
 
-
     private Stack<DialogueData> Recent_data = new Stack<DialogueData>();
-
 
     [Header("[LOGIN INFORMATION]")]
     [SerializeField]
@@ -83,22 +81,9 @@ public class Manager_login : MonoBehaviour
         Init_Text();
         Launcher = this.gameObject.GetComponent<GameLauncher_ICT>();
 
+
         filePath = Path.Combine(Application.persistentDataPath, "LOGININFO.xml");
-        if (File.Exists(filePath))
-        {
-            Debug.Log("XML FILE EXIST");
-        }
-        else
-        {
-            TextAsset XmlFilepath = Resources.Load<TextAsset>("Data/LOGININFO");
-
-            XmlDocument Document = new XmlDocument();
-
-            Document.LoadXml(XmlFilepath.ToString());
-            //없다면 리소스에서 읽어와서 데이터 저장함
-        }
-
-        //Debug.Log(filePath);
+        Check_XmlFile("LOGININFO");
 
         if (filePath != null)
         {
@@ -142,7 +127,7 @@ public class Manager_login : MonoBehaviour
         }
     }
 
-    public void Write()
+    public override void Write()
     {
         XmlDocument Document = new XmlDocument();
         XmlElement ItemListElement = Document.CreateElement("Login_Info_data");
@@ -334,7 +319,7 @@ public class Manager_login : MonoBehaviour
         }
         Debug.Log("Student data edited!");
 
-        //0103 데이터 저장되었음 성공 메시지 필요
+        Message_EditCompleted.SetActive(true);
         Destroy_ButtonPrefab();
         Set_ButtonPrefab();
         Init_Registermenu();
@@ -359,13 +344,12 @@ public class Manager_login : MonoBehaviour
         Button_Student_Delete.SetActive(false);
         Button_Student_Save.SetActive(false);
         Debug.Log("Student data deleted!");
-        //0103 데이터 저장되었음 성공 메시지 필요
+        
     }
     public void Button_SaveSelectedData()
     {
         //0103 해당 정보로 수정할 것인지 확인하는 메시지 필요
         Edit_StudentData();
-        
     }
     public void Button_DeleteSelectedData()
     {

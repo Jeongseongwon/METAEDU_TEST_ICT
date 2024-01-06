@@ -10,13 +10,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Manager_ResultInDetail : MonoBehaviour
+public class Manager_ResultInDetail : CLASS_XmlData
 {
     public static Manager_ResultInDetail instance = null;
-    public static List<Result_IndetailData> OriginDataList;
-    private List<Result_IndetailData> NewDataList;
 
-    private string filePath;
+    public List<Result_IndetailData> OriginDataList;
+    public List<Result_IndetailData> NewDataList;
+    public string filePath;
 
     private List<string> String_Data_attribute = new List<string>();
 
@@ -48,6 +48,8 @@ public class Manager_ResultInDetail : MonoBehaviour
         Init_RID();
 
         filePath = Path.Combine(Application.persistentDataPath, "RESULT_INDETAIL.xml");
+        Check_XmlFile("RESULT_INDETAIL");
+
         if (filePath != null)
         {
             OriginDataList = Read();
@@ -57,7 +59,7 @@ public class Manager_ResultInDetail : MonoBehaviour
     }
 
 
-    public void Write()
+    public override void Write()
     {
         XmlDocument Document = new XmlDocument();
         XmlElement ItemListElement = Document.CreateElement("Result_Indetail_data");

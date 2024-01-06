@@ -1,8 +1,16 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using System.IO;
+using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.UI;
+using static UnityEditor.Progress;
+using Application = UnityEngine.Application;
 
 //Manager_data
 public class DialogueData
@@ -52,4 +60,31 @@ public class Result_IndetailData
     public List<string> Data = new List<string>();
 }
 
+public abstract class CLASS_XmlData : MonoBehaviour
+{
+
+    public abstract void Write();
+    //public abstract void Read();
+
+    public void Check_XmlFile(string fileName)
+    {
+        //string filePath = Path.Combine(Application.persistentDataPath, "LOGININFO.xml");
+        string filePath = Path.Combine(Application.persistentDataPath, fileName+".xml");
+
+        if (File.Exists(filePath))
+        {
+            Debug.Log(fileName+"XML FILE EXIST");
+        }
+        else
+        {
+            //TextAsset XmlFilepath = Resources.Load<TextAsset>("LOGININFO");
+            TextAsset XmlFilepath = Resources.Load<TextAsset>(fileName);
+            XmlDocument Document = new XmlDocument();
+            Document.LoadXml(XmlFilepath.ToString());
+            Document.Save(filePath);
+
+            Debug.Log(fileName+".xml FILE NOT EXIST");
+        }
+}
+}
 

@@ -11,6 +11,8 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
 
     public bool Contents = false;
     public bool Login_Setting = false;
+    public bool Login_SaveCheck = false;
+    public bool Login_DeleteCheck = false;
     void Start()
     {
         Launcher = GameObject.Find("Launcher").GetComponent<GameLauncher_ICT>();
@@ -22,6 +24,12 @@ public class Button_Message : MonoBehaviour, IPointerClickHandler
             Launcher.Button_Contents();
 
         if (Login_Setting)
+            Manager_login.instance.Setting_StudentInfo();
+
+        if(Login_SaveCheck)
+            Manager_login.instance.Setting_StudentInfo();
+
+        if (Login_DeleteCheck)
             Manager_login.instance.Setting_StudentInfo();
     }
 }

@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Application = UnityEngine.Application;
 
-public class Manager_Result : MonoBehaviour
+public class Manager_Result : CLASS_XmlData
 {
     public static Manager_Result instance = null;
 
@@ -71,6 +71,7 @@ public class Manager_Result : MonoBehaviour
     {
         Init_Text();
         filePath = Path.Combine(Application.persistentDataPath, "RESULT.xml");
+        Check_XmlFile("RESULT");
 
         if (filePath != null)
         {
@@ -91,7 +92,7 @@ public class Manager_Result : MonoBehaviour
         }
     }
 
-    public void Write()
+    public override void Write()
     {
         if (Is_datasaved)
         {

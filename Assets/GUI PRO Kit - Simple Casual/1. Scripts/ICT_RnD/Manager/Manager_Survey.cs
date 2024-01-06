@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Manager_Survey : MonoBehaviour
+public class Manager_Survey : CLASS_XmlData
 {
     public static Manager_Survey instance = null;
     public static List<SurveyData> OriginDataList;
@@ -69,14 +69,14 @@ public class Manager_Survey : MonoBehaviour
         Init_Survey();
 
         filePath = Path.Combine(Application.persistentDataPath, "SURVEYRESULT.xml");
+        Check_XmlFile("SURVEYRESULT");
 
         if (filePath != null)
         {
-            OriginDataList = Read();
+            NewDataList = Read();
         }
-
     }
-    public void Write()
+    public override void Write()
     {
         XmlDocument Document = new XmlDocument();
         XmlElement ItemListElement = Document.CreateElement("Survey_data");
@@ -161,8 +161,7 @@ public class Manager_Survey : MonoBehaviour
         Item.Data_S7 = Data_7;
         Item.Data_S8 = Data_8;
 
-        OriginDataList.Add(Item);
-        NewDataList = OriginDataList;
+        NewDataList.Add(Item);
 
         if (NewDataList[NewDataList.Count - 1].ID == Item.ID)
         {
