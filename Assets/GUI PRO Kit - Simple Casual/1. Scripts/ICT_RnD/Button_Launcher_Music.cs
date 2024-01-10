@@ -14,6 +14,7 @@ public class Button_Launcher_Music : MonoBehaviour, IPointerClickHandler
     public bool Listening = false;
     public bool TEST_1 = false;
     public bool TEST_2 = false;
+    public bool TEST_3 = false;
 
     void Start()
     {
@@ -43,5 +44,8 @@ public class Button_Launcher_Music : MonoBehaviour, IPointerClickHandler
 
         if (TEST_2)
             Manager_ResultInDetail.instance.Add_RIDdata(Random.Range(-10, 10), 0.3f);
+
+        if (TEST_3)
+            Manager_ResultInDetail.instance.Add_RIDdata(Random.Range(-10, 10), Random.Range(-10, 10), 0.3f);
     }
 }

@@ -116,19 +116,22 @@ public class Manager_ResultInDetail : CLASS_XmlData
         }
         return ItemList;
     }
-    public void Add_RIDdata(float data_1,float data_2=-1)
+    public void Add_RIDdata(float data_1,float data_2=-1, float data_3 = -1)
     {
+        
         string Data_merged;
 
-        if (data_2 == -1)
+        Data_merged = data_1.ToString();
+
+        if (data_2 != -1)
         {
-            Data_merged = data_1.ToString();
+            Data_merged += "," + data_2.ToString();
         }
-        else
+        if (data_3 != -1)
         {
-            Data_merged = data_1.ToString() + "," + data_2.ToString();
+            Data_merged += "," + data_3.ToString();
         }
-        //데이터 리스트에 추가
+
         Data_Indetail.Add(Data_merged);
     }
     public void Clear_RIDdata()
