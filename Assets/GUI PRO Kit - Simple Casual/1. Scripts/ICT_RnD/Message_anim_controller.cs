@@ -8,11 +8,9 @@ public class Message_anim_controller : MonoBehaviour
     private List<string> Animation_clip = new List<string>();
     private Animation Message_anim;
     public Text Message_text;
+    public Text Message_text_sub;
+
     //0 : On, 1 : Off
-
-    public bool Intro = false;
-    public bool Content_Func = false;
-
     /*
      * 
      *  1. Message Tool , 클릭에 따라 애니메이션 재생
@@ -46,6 +44,11 @@ public class Message_anim_controller : MonoBehaviour
     {
         Message_text.text = Field;
     }
+    public void Change_text_sub(string Field)
+    {
+        Message_text_sub.text = Field;
+    }
+
     void Init_Animation()
     {
         foreach(AnimationState state in Message_anim)
@@ -57,12 +60,6 @@ public class Message_anim_controller : MonoBehaviour
     IEnumerator Active_false()
     {
         yield return new WaitForSeconds(1f);
-        this.gameObject.SetActive(false);
-    }
-
-    IEnumerator Active_false_time(float timer_1)
-    {
-        yield return new WaitForSeconds(timer_1);
         this.gameObject.SetActive(false);
     }
 
