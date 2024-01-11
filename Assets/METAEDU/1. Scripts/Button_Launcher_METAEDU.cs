@@ -23,6 +23,7 @@ public class Button_Launcher_METAEDU : MonoBehaviour, IPointerClickHandler
     public bool Save_Tool = false;
     public bool Setting = false;
     public bool Close = false;
+    public bool Content = false;
     public bool Home = false;
     public bool Login = false;
     public bool Survey = false;
@@ -31,7 +32,9 @@ public class Button_Launcher_METAEDU : MonoBehaviour, IPointerClickHandler
     public int Num_contents_Func = -1;
     public char Mode = 'N';
     public bool Music_Content_End = false;
-    //Teacher_UI 번호순서대로 콘텐츠 실행 
+
+
+    public int Back_ToLauncher = -1;
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +44,14 @@ public class Button_Launcher_METAEDU : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         //To_Message
-        if (Message_Contents)
-            Launcher.Button_Message_Contents();
+        //if (Message_Contents)
+        //    Launcher.Button_Message_Contents();
 
         if (Message_Contents_Login && Num_contents != -1)
             Launcher.Button_Message_Contents_Select(Num_contents);
 
 
-        //To_Page
+        //To_Page in LauncherScene
         if (Back)
             Launcher.Button_Back_ToHome();
 
@@ -73,22 +76,16 @@ public class Button_Launcher_METAEDU : MonoBehaviour, IPointerClickHandler
         if (Num_contents_Func != -1)
             Launcher.Run_Contents_Func(Num_contents_Func);
 
-        if (Save_Tool)
-            Launcher.Button_Save_Tool();
+        if (Content)
+            Launcher.Button_Contents();
 
-        if (Tool)
-            Launcher.Button_Tool();
 
-        if (Result)
-            Launcher.Button_Result();
+        //To_LauncherScene
+        if (Back_ToLauncher==0)
+            Launcher.Button_BackToMainscene(Back_ToLauncher);
 
-        if (Music_Content_End)
-            Launcher.Button_End_Musiccontent();
+        else if (Back_ToLauncher == 1)
+            Launcher.Button_BackToMainscene(Back_ToLauncher);
 
-        if (Login)
-            Launcher.Button_Login();
-
-        if (Survey)
-            Launcher.Button_Survey();
     }
 }

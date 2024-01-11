@@ -25,9 +25,6 @@ public class ContentLauncher : MonoBehaviour
     private GameObject Message_OK;
     private Message_anim_controller MAC;
 
-    //YES,NO 버튼
-    //YES 버튼 -> 메시지 띄우고 삭제하는거 뿐임
-
     private GameObject Prev_page;
     private GameObject Next_page;
     private bool Is_Toolsaved = false;
@@ -142,6 +139,8 @@ public class ContentLauncher : MonoBehaviour
         }
         Prev_page.SetActive(false);
         Next_page.SetActive(true);
+
+        //씬이 전환될 경우 Nextpage는 실행하지 않음
     }
 
     public void Button_Save_Tool()
@@ -196,41 +195,48 @@ public class ContentLauncher : MonoBehaviour
     }
     public void Button_Contents()
     {
-        bool Is_Logindatasaved = Manager_login.instance.Get_Islogindatasaved();
-
-        if (Is_Logindatasaved)
-        {
-            Next_page = Contents;
-            UI_change();
-        }
-        else
-        {
-            //Message_Content_StudentCheck.SetActive(true);
-        }
+        Next_page = Mode;
+        UI_change();
     }
     public void Button_Mode(char char_mode)
     {
         //0 : Music, 1 : Contents
         if (char_mode == 'A')
         {
-            Run_Contents();
+            Next_page = Contents;
+            UI_change();
         }
         else if (char_mode == 'B')
         {
-            Run_Contents();
+            //Run_Contents();
+            Message_OK.SetActive(true);
+            MAC.Change_text("준비 중 입니다");
+            MAC.Change_text_sub(" 확인 버튼을 눌러주세요");
         }
         else if (char_mode == 'C')
         {
-            Run_Contents();
+            //Run_Contents();
+            Message_OK.SetActive(true);
+            MAC.Change_text("준비 중 입니다");
+            MAC.Change_text_sub(" 확인 버튼을 눌러주세요");
         }
     }
-
-    public void Button_End_Musiccontent()
+    public void Button_BackToMainscene(int page)
     {
-        //음악놀이 데이터 저장
-        Manager_ResultInDetail.instance.Save_RIDdata(Session);
-        Message_OK.SetActive(true);
-        //텍스트 변경 함수 추가
+        //0 : Home, 1 : Content
+        SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
+        //Debug.Log(SceneManager.sceneCountInBuildSettings - 1);
+
+        if (page == 0)
+        {
+            Next_page = Home;
+            UI_change();
+        }
+        else if (page == 1)
+        {
+            Next_page = Contents;
+            UI_change();
+        }
     }
 
     public void Run_Mode(int contentname)
@@ -246,67 +252,35 @@ public class ContentLauncher : MonoBehaviour
         //상태 반환
         Is_Toolsaved = false;
 
-        //해당 콘텐츠 설정 관련 기능 더미
-        Dummy_setting_content();
+        //Next_page = Monitoring_C4;
+        //MAC.Change_text("(테스트)친구들 옥수수에 대해 알아볼까요?");
+        //MAC.Animation_On_Off();
 
-        //Message_Intro setting
-        Message_Intro.SetActive(true);
-
-        if (Session == 0)
-        {
-
-            //Next_page = Monitoring_C1;
-            MAC.Change_text("(테스트)친구들 꽃벵이에 대해 알아볼까요?");
-            MAC.Animation_On_Off();
-        }
-        else if (Session == 1)
-        {
-            //Next_page = Monitoring_C2;
-            MAC.Change_text("(테스트)친구들 당근에 대해 알아볼까요?");
-            MAC.Animation_On_Off();
-        }
-        else if (Session == 2)
-        {
-            //Next_page = Monitoring_C3;
-            MAC.Change_text("(테스트)친구들 알로에에 대해 알아볼까요?");
-            MAC.Animation_On_Off();
-        }
-        else if (Session == 3)
-        {
-            //Next_page = Monitoring_C4;
-            MAC.Change_text("(테스트)친구들 옥수수에 대해 알아볼까요?");
-            MAC.Animation_On_Off();
-        }
+        Next_page = Contents;
         UI_change();
         //SceneManager.LoadSceneAsync(1);
     }
     public void Run_Contents_Func(int content_func)
     {
-        //이 부분이 각 콘텐츠 마다 존재하는 부분이 될 것이고
-        //특히 씬을 로딩하고 나서 여기에 연결을 해주는 부분이 꼭 필요할 것 같음
-        //Message_Intro.SetActive(true);
-        
-        if (content_func == 0)
+        //Test
+        if (content_func == 2)
         {
-            //해당 씬 실행
-        }
-        else if (content_func == 1)
-        {
-
-        }
-        else if (content_func == 2)
-        {
+            //Debug.Log("CONTENT 2");
             Message_OK.SetActive(true);
-            MAC.Change_text("준비 중 입니다!");
+            MAC.Change_text("준비 중 입니다");
             MAC.Change_text_sub(" 확인 버튼을 눌러주세요");
         }
         else if (content_func == 3)
         {
             Message_OK.SetActive(true);
-            MAC.Change_text("준비 중 입니다!");
+            MAC.Change_text("준비 중 입니다");
             MAC.Change_text_sub(" 확인 버튼을 눌러주세요");
         }
-        //SceneManager.LoadSceneAsync(1);
+        else
+        {
+            SceneManager.LoadScene(content_func);
+            Next_page.SetActive(false);
+        }
     }
 
 
@@ -419,7 +393,7 @@ public class ContentLauncher : MonoBehaviour
         Message_Intro = Message_UI.transform.GetChild(2).gameObject;
 
         //Message_Intro setting, Inspector에서 scale 0,0,0으로 변경
-        Message_Intro.SetActive(true);
+        //Message_Intro.SetActive(true);
         MAC = Message_OK.GetComponent<Message_anim_controller>();
 
     }
