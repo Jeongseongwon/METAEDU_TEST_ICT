@@ -27,6 +27,9 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
     public bool Login = false;
     public bool Survey = false;
 
+    public bool Tool_Change_Inst = false;
+    public bool Tool_Change_BGM = false;
+
     public int Num_contents = -1;
     public int Num_contents_Func = -1;
     public int Mode = -1;
@@ -88,7 +91,10 @@ public class Button_Launcher_ICT : MonoBehaviour, IPointerClickHandler
         if (Login)
             Launcher.Button_Login();
 
-        if (Survey)
-            Launcher.Button_Survey();
+        if (Tool_Change_Inst)
+            Launcher.Button_Tool_Inst();
+
+        if (Tool_Change_BGM)
+            Launcher.Button_Tool_BGM();
     }
 }

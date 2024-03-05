@@ -198,6 +198,15 @@ public class GameLauncher_ICT : MonoBehaviour
         Next_page = Tool;
         UI_change();
     }
+    public void Button_Tool_Inst()
+    {
+        //악기 변경 기능 활성화
+    }
+    public void Button_Tool_BGM()
+    {
+       //BGM 화면 활성화
+    }
+
     public void Button_Result()
     {
         Next_page = Result;
@@ -224,10 +233,12 @@ public class GameLauncher_ICT : MonoBehaviour
         if (num_mode == 0)
         {
             Run_Music_Contents();
+            Setting.GetComponent<Fix_Setting>().Active_GL();
         }
         else if (num_mode == 1)
         {
             Run_Contents();
+            Setting.GetComponent<Fix_Setting>().InActive_GL();
         }
     }
 

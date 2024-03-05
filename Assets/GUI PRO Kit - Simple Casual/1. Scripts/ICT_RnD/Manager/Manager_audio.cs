@@ -75,19 +75,6 @@ public class Manager_audio : MonoBehaviour
         Narration.Play();
         //Debug.Log("click");
     }
-
-    public void Get_Correct_answer()
-    {
-        //Correct_answer.Play();
-        //Debug.Log("click");
-    }
-
-    public void Get_Wrong_answer()
-    {
-        //Wrong_answer.Play();
-        //Debug.Log("click");
-    }
-   
     private void OnLevelWasLoaded(int level)
     {
         Init_sound();
