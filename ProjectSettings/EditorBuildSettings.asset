@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/GUI PRO Kit - Simple Casual/METAEDU/0. Scene/TEST_1.unity
     guid: a472c8990d7f95b48b65bab67750b983
-  - enabled: 1
+  - enabled: 0
     path: Assets/GUI PRO Kit - Simple Casual/METAEDU/0. Scene/TEST_2.unity
     guid: 6ae4671f7044447469229b39176589b1
   - enabled: 0

@@ -1493,6 +1493,7 @@ MonoBehaviour:
   All_sound: 0
   Effect: 1
   BGM: 0
+  Narration: 0
 --- !u!114 &256218499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14825,6 +14826,7 @@ MonoBehaviour:
   All_sound: 0
   Effect: 0
   BGM: 1
+  Narration: 0
 --- !u!114 &1604538032
 MonoBehaviour:
   m_ObjectHideFlags: 0
