@@ -21,6 +21,8 @@ public class Manager_audio : MonoBehaviour
     private float BGM_volume = 0.3f;
 
 
+    public AudioClip[] BGMAudioclip;
+
     public GameObject Launcher;
     private void Awake()
     {
@@ -125,6 +127,11 @@ public class Manager_audio : MonoBehaviour
         Carrot.volume = volume;
         Corn.volume = volume;
         Aloe.volume = volume;
+    }
+    public void Set_BGM_Audiosource(int num)
+    {
+        BGM.clip = BGMAudioclip[num];
+        BGM.Play();
     }
     public void Set_Narration_volume(float volume)
     {
